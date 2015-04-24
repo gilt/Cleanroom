@@ -46,12 +46,12 @@ This would include:
 - Submitting performance and other code improvements
 - Adding new features
 
-To contribute in this way, **please submit a pull request** by:
+To contribute in this way, **please [submit a pull request](https://help.github.com/articles/using-pull-requests/)** by:
 
-1. Forking the repo to which you'd like to submit a contribution
-2. Making changes to your fork
+1. [Forking the repo](https://help.github.com/articles/fork-a-repo/) to which you'd like to submit a contribution
+2. Committing changes to your fork
 3. Pushing your changes to GitHub
-4. Submitting a pull request to us from your changes
+4. Submitting a pull request from your changes
 
 If your pull request is related to something already tracked in a GitHub Issue, please be sure to note the issue number (and include a link to the issue page) in your pull request.
 
