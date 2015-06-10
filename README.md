@@ -48,10 +48,6 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 - [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based logging API for iOS applications
 - [CleanroomText](http://github.com/emaloney/CleanroomText) — Swift-based tools for working with strings and text
 
-##### Deprecated
-
-- [CleanroomBase](http://github.com/emaloney/CleanroomBase) — Low-level utilities useful for developing Swift-based iOS applications. *Note: CleanroomBase is in the process of being replaced by smaller, subject-specific projects.*
-
 #### Avro Serialization
 
 - [BlueSteel](https://github.com/gilt/BlueSteel) — A Swift API for working with Avro schemas and binary data
