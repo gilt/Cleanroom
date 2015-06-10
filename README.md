@@ -38,11 +38,17 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 
 #### Cleanroom Core
 
-- [CleanroomBase](http://github.com/emaloney/CleanroomBase) — Low-level utilities useful for developing Swift-based iOS applications. *Note: CleanroomBase is deprecated, and will eventually be replaced by smaller, subject-specific projects.*
+##### Under Active Development
+
+- [CleanroomAppSettings](http://github.com/emaloney/CleanroomAppSettings) — A set of interfaces and implementations to abstract away the app's NSUserDefaults singleton
 - [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility
 - [CleanroomConcurrency](http://github.com/emaloney/CleanroomConcurrency) — Utilities for simplifying asynchronous code execution & coordinating concurrent access to shared resources
 - [CleanroomDateTime](http://github.com/emaloney/CleanroomDateTime) — Utilities for handling dates and times
 - [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based logging API for iOS applications
+
+##### Deprecated
+
+- [CleanroomBase](http://github.com/emaloney/CleanroomBase) — Low-level utilities useful for developing Swift-based iOS applications. *Note: CleanroomBase is in the process of being replaced by smaller, subject-specific projects.*
 
 #### Avro Serialization
 
