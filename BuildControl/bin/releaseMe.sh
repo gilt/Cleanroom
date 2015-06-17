@@ -161,13 +161,24 @@ showHelp()
 	echo
 }
 
-exitWithErrorShowingHelp()
+printError()
 {
 	echo "error: $1"
 	echo
 	if [[ ! -z $2 ]]; then
 		printf "  $2\n\n"
 	fi
+}
+
+exitWithError()
+{
+	printError "$1" "$2"
+	exit 1
+}
+
+exitWithErrorSuggestHelp()
+{
+	printError "$1" "$2"
 	printf "  To display help, run:\n\n\t$0 --help\n"
 	exit 1
 }
@@ -175,7 +186,7 @@ exitWithErrorShowingHelp()
 validateVersion()
 {
 	if [[ ! ($1 =~ ^[0-9]+\.[0-9]+\.[0-9]+$) ]]; then
-		exitWithErrorShowingHelp "Expected $2 to contain three period-separated numeric components (eg., 3.6.1, 4.0.0, etc.); got $1 instead"
+		exitWithErrorSuggestHelp "Expected $2 to contain three period-separated numeric components (eg., 3.6.1, 4.0.0, etc.); got $1 instead"
 	fi
 }
 
@@ -211,6 +222,9 @@ executeCommand()
 		echo "> $1"
 	else
 		eval "$1"
+		if [[ $? != 0 ]]; then
+			exitWithError "Command failed"
+		fi
 	fi
 }
 
@@ -226,7 +240,7 @@ cleanupDirtyStash()
 cd "$SCRIPT_DIR/../../."
 git status 2&> /dev/null
 if [[ $? != 0 ]]; then
-	exitWithErrorShowingHelp "You must invoke this script from within a git repo"
+	exitWithErrorSuggestHelp "You must invoke this script from within a git repo"
 fi
 
 #
@@ -237,7 +251,7 @@ while [[ $1 ]]; do
 	--untag)
 		shift
 		if [[ -z $1 ]]; then
-			exitWithErrorShowingHelp "The $1 argument expects a value"
+			exitWithErrorSuggestHelp "The $1 argument expects a value"
 		else
 			validateVersion $1 "the version passed with the --untag argument"
 			UNTAG_VERSION=$1
@@ -247,7 +261,7 @@ while [[ $1 ]]; do
 	--set-version)
 		shift
 		if [[ -z $1 ]]; then
-			exitWithErrorShowingHelp "The $1 argument expects a value"
+			exitWithErrorSuggestHelp "The $1 argument expects a value"
 		else
 			validateVersion $1 "the version passed with the --set-version argument"
 			SET_VERSION=$1
@@ -279,7 +293,7 @@ while [[ $1 ]]; do
 		;;
 		
 	-*)
-		exitWithErrorShowingHelp "Unrecognized argument: $1"
+		exitWithErrorSuggestHelp "Unrecognized argument: $1"
 		;;
 		
 	*)
@@ -305,7 +319,7 @@ for ARG in $ARGS; do
 	if [[ -z $RELEASE_TYPE ]]; then
 		RELEASE_TYPE="$ARG"
 	else 
-		exitWithErrorShowingHelp "Unrecognized argument: $ARG"
+		exitWithErrorSuggestHelp "Unrecognized argument: $ARG"
 	fi
 done
 
@@ -313,22 +327,22 @@ done
 # validate the input
 #
 if [[ $IGNORE_DIRTY_FILES && $COMMIT_DIRTY_FILES ]]; then
-	exitWithErrorShowingHelp "The --ignore-dirty-files and --commit-dirty-files arguments are mutually exclusive and can't be used with each other"
+	exitWithErrorSuggestHelp "The --ignore-dirty-files and --commit-dirty-files arguments are mutually exclusive and can't be used with each other"
 fi
 if [[ ! -z $UNTAG_VERSION && ! -z $SET_VERSION ]]; then
-	exitWithErrorShowingHelp "The --untag and --set-version arguments are mutually exclusive and can't be used with each other"
+	exitWithErrorSuggestHelp "The --untag and --set-version arguments are mutually exclusive and can't be used with each other"
 fi
 if [[ ! -z $RELEASE_TYPE ]]; then
 	if [[ ! -z $UNTAG_VERSION ]]; then
-		exitWithErrorShowingHelp "The release type can't be specified when --untag is used"
+		exitWithErrorSuggestHelp "The release type can't be specified when --untag is used"
 	elif [[ ! -z $SET_VERSION ]]; then
-		exitWithErrorShowingHelp "The release type can't be specified when --set-version is used"
+		exitWithErrorSuggestHelp "The release type can't be specified when --set-version is used"
 	elif [[ $RELEASE_TYPE != "major" && $RELEASE_TYPE != "minor" && $RELEASE_TYPE != "patch" ]]; then
-		exitWithErrorShowingHelp "The release type argument must be one of: 'major', 'minor' or 'patch'"
+		exitWithErrorSuggestHelp "The release type argument must be one of: 'major', 'minor' or 'patch'"
 	fi
 elif [[ -z $UNTAG_VERSION && -z $SET_VERSION ]]; then
 	if [[ -z $RELEASE_TYPE ]]; then
-		exitWithErrorShowingHelp "The release type ('major', 'minor' or 'patch') must be specified as an argument."
+		exitWithErrorSuggestHelp "The release type ('major', 'minor' or 'patch') must be specified as an argument."
 	fi
 fi
 
@@ -337,7 +351,7 @@ fi
 #
 PLIST_BUDDY=/usr/libexec/PlistBuddy
 if [[ ! -x "$PLIST_BUDDY" ]]; then
-	exitWithErrorShowingHelp "Expected to find PlistBuddy at path $PLIST_BUDDY"
+	exitWithErrorSuggestHelp "Expected to find PlistBuddy at path $PLIST_BUDDY"
 fi
 FRAMEWORK_PLIST_FILE="Info-Framework.plist"
 FRAMEWORK_PLIST_PATH="$SCRIPT_DIR/../$FRAMEWORK_PLIST_FILE"
@@ -392,7 +406,7 @@ fi
 #
 git diff-index --quiet HEAD -- ; REPO_IS_DIRTY=$?
 if [[ $REPO_IS_DIRTY != 0 && -z $IGNORE_DIRTY_FILES && -z $COMMIT_DIRTY_FILES ]]; then
-	exitWithErrorShowingHelp "You have uncommitted changes in this repo; won't do anything" "(use --ignore-dirty-files or --commit-dirty-files to bypass this error)"
+	exitWithErrorSuggestHelp "You have uncommitted changes in this repo; won't do anything" "(use --ignore-dirty-files or --commit-dirty-files to bypass this error)"
 fi
 
 confirmationPrompt "Releasing version $VERSION (current is $CURRENT_VERSION)"
