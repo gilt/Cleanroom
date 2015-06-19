@@ -128,7 +128,11 @@ while [[ $1 ]]; do
 	--help|-h|-\?)
 		SHOW_HELP=1
 		;;
-		
+	
+	--force|-f)
+		FORCE_MODE=1
+		;;
+	
 	-*)
 		exitWithErrorSuggestHelp "Unrecognized argument: $1"
 		;;
@@ -168,8 +172,14 @@ for f in ${ARGS[@]}; do
 	else
 		DIR="$DIR/"
 	fi
+	if [[ $FORCE_MODE ]]; then
+		CP_ARGS="f"
+	else
+		CP_ARGS="i"
+	fi
 	for r in ${REPO_LIST[@]}; do
-		executeCommand "cp -iR \"${REPO_NAME}/${DIR}${ITEM}\" \"$r/$DIR.\""
+		echo "Copying $ITEM to $r/$DIR."
+		executeCommand "cp -${CP_ARGS}R \"${REPO_NAME}/${DIR}${ITEM}\" \"$r/$DIR.\""
 	done
 done
 

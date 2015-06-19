@@ -37,8 +37,8 @@ showHelp()
 	printf "\t\t--push\n"
 	printf "\t\t\tPush all changes when finished\n"
 	echo
-	printf "\t\t--ignore-dirty-files\n"
-	printf "\t\t\tReleases a dirty repo by ignoring dirty files\n"
+	printf "\t\t--stash-dirty-files\n"
+	printf "\t\t\tStashes dirty files before attempting to release a repo\n"
 	echo
 	printf "\t\t--commit-dirty-files\n"
 	printf "\t\t\tReleases a dirty repo by committing dirty files\n"
@@ -130,10 +130,10 @@ showHelp()
 	printf "\tyet been committed.\n"
 	echo
 	printf "\tHowever, you can force a release to be issued from a dirty repo\n"
-	printf "\tusing either the --ignore-dirty-files or the --commit-dirty-files\n"
+	printf "\tusing either the --stash-dirty-files or the --commit-dirty-files\n"
 	printf "\targument.\n"
 	echo
-	printf "\tThe --ignore-dirty-files option causes a git stash operation to\n"
+	printf "\tThe --stash-dirty-files option causes a git stash operation to\n"
 	printf "\toccur at the start of the release process, and a stash pop at the\n"
 	printf "\tend. This safely moves the dirty files out of the way when the\n"
 	printf "\tscript it doing its thing, and restores them when it is done.\n"
@@ -272,8 +272,8 @@ while [[ $1 ]]; do
 		AUTOMATED_MODE=1
 		;;
 		
-	--ignore-dirty-files)
-		IGNORE_DIRTY_FILES=1
+	--stash-dirty-files)
+		STASH_DIRTY_FILES=1
 		;;
 		
 	--commit-dirty-files)
@@ -326,8 +326,8 @@ done
 #
 # validate the input
 #
-if [[ $IGNORE_DIRTY_FILES && $COMMIT_DIRTY_FILES ]]; then
-	exitWithErrorSuggestHelp "The --ignore-dirty-files and --commit-dirty-files arguments are mutually exclusive and can't be used with each other"
+if [[ $STASH_DIRTY_FILES && $COMMIT_DIRTY_FILES ]]; then
+	exitWithErrorSuggestHelp "The --stash-dirty-files and --commit-dirty-files arguments are mutually exclusive and can't be used with each other"
 fi
 if [[ ! -z $UNTAG_VERSION && ! -z $SET_VERSION ]]; then
 	exitWithErrorSuggestHelp "The --untag and --set-version arguments are mutually exclusive and can't be used with each other"
@@ -355,7 +355,7 @@ if [[ ! -x "$PLIST_BUDDY" ]]; then
 fi
 FRAMEWORK_PLIST_FILE="Info-Framework.plist"
 FRAMEWORK_PLIST_PATH="$SCRIPT_DIR/../$FRAMEWORK_PLIST_FILE"
-CURRENT_VERSION=`"$PLIST_BUDDY" "$FRAMEWORK_PLIST_PATH" -c "Print :CFBundleShortVersionString"`
+CURRENT_VERSION=`$PLIST_BUDDY "$FRAMEWORK_PLIST_PATH" -c "Print :CFBundleShortVersionString"`
 validateVersion "$CURRENT_VERSION" "the CFBundleShortVersionString value in the $FRAMEWORK_PLIST_FILE file"
 
 #
@@ -402,23 +402,41 @@ elif [[ ! -z $RELEASE_TYPE ]]; then
 fi
 
 #
+# try to figure out the origin repo name
+#
+REPO_NAME=$(git remote -v | awk '{print $2}' | xargs basename | sed 'sq.git$qq')
+if [[ -z "$REPO_NAME" ]]; then
+	exitWithErrorSuggestHelp "Couldn't determine repo name"
+fi
+
+#
 # see if we've got uncommitted changes
 #
 git diff-index --quiet HEAD -- ; REPO_IS_DIRTY=$?
-if [[ $REPO_IS_DIRTY != 0 && -z $IGNORE_DIRTY_FILES && -z $COMMIT_DIRTY_FILES ]]; then
-	exitWithErrorSuggestHelp "You have uncommitted changes in this repo; won't do anything" "(use --ignore-dirty-files or --commit-dirty-files to bypass this error)"
+if [[ $REPO_IS_DIRTY != 0 && -z $STASH_DIRTY_FILES && -z $COMMIT_DIRTY_FILES ]]; then
+	exitWithErrorSuggestHelp "You have uncommitted changes in this repo; won't do anything" "(use --stash-dirty-files or --commit-dirty-files to bypass this error)"
 fi
 
-confirmationPrompt "Releasing version $VERSION (current is $CURRENT_VERSION)"
+confirmationPrompt "Releasing $REPO_NAME $VERSION (current is $CURRENT_VERSION)"
 
-if [[ $REPO_IS_DIRTY && $IGNORE_DIRTY_FILES ]]; then
+if [[ $REPO_IS_DIRTY && $STASH_DIRTY_FILES ]]; then
 	updateStatus "Stashing modified files"
 	executeCommand "git stash"
     trap cleanupDirtyStash EXIT
 fi
 
+#
+# make sure it builds
+#
+updateStatus "Verifying that $REPO_NAME builds"
+XCODEBUILD=/usr/bin/xcodebuild
+if [[ ! -x "$XCODEBUILD" ]]; then
+	exitWithErrorSuggestHelp "Expected to find xcodebuild at path $XCODEBUILD"
+fi
+executeCommand "$XCODEBUILD -project ${REPO_NAME}.xcodeproj -scheme ${REPO_NAME} -configuration Release clean build"
+
 updateStatus "Adjusting version numbers"
-executeCommand "\"$PLIST_BUDDY\" \"$FRAMEWORK_PLIST_PATH\" -c \"Set :CFBundleShortVersionString $VERSION\""
+executeCommand "$PLIST_BUDDY \"$FRAMEWORK_PLIST_PATH\" -c \"Set :CFBundleShortVersionString $VERSION\""
 executeCommand "agvtool bump"
 
 updateStatus "Rebuilding documentation"
