@@ -182,13 +182,3 @@ for f in ${ARGS[@]}; do
 		executeCommand "cp -${CP_ARGS}R \"${REPO_NAME}/${DIR}${ITEM}\" \"$r/$DIR.\""
 	done
 done
-
-
-# echo "${#REPO_LIST[@]}"
-# echo "${#ARGS[@]}"
-# 
-# printf "%s\n" ${ARGS[@]}
-# 
-# printf "\t\t%s\n" ${REPO_LIST[@]}
-# 
-# 
