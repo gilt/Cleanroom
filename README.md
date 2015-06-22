@@ -54,12 +54,13 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 
 ### Closed Source
 
-- [CleanroomDeepLinking](https://github.com/gilt/CleanroomDeepLinking) — The core of the deep linking mechanism within the Cleanroom app
-- [CleanroomScaffolding](https://github.com/gilt/CleanroomScaffolding) — Temporary scaffolding intended to support work on the Cleanroom app; this will go away at some point as we approach 1.0
 - [CleanroomDataModel](https://github.com/gilt/CleanroomDataModel) — Gilt data model interfaces and implementations
-- [CleanroomViewModel](https://github.com/gilt/CleanroomViewModel) — The MVVM *view models* for the Cleanroom app
-- [CleanroomSaleView](https://github.com/gilt/CleanroomSaleView) — The Sale View (PLP) and the deep link plumbing needed to navigate to it
+- [CleanroomDeepLinking](https://github.com/gilt/CleanroomDeepLinking) — The core of the deep linking mechanism within the Cleanroom app
+- [CleanroomGiltAPI](https://github.com/gilt/CleanroomGiltAPI) — The client-side Gilt API
 - [CleanroomProductView](https://github.com/gilt/CleanroomProductView) — The Product View (PDP) and the deep link plumbing needed to navigate to it
+- [CleanroomSaleView](https://github.com/gilt/CleanroomSaleView) — The Sale View (PLP) and the deep link plumbing needed to navigate to it
+- [CleanroomScaffolding](https://github.com/gilt/CleanroomScaffolding) — Temporary scaffolding intended to support work on the Cleanroom app; this will go away at some point as we approach 1.0
+- [CleanroomViewModel](https://github.com/gilt/CleanroomViewModel) — The MVVM *view models* for the Cleanroom app
 
 ## Contributing to the Cleanroom Project
 
