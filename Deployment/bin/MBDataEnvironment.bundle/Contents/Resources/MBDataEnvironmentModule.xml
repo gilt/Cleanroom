@@ -1,0 +1,234 @@
+<MBML>
+
+    <!-- ===================== -->
+    <!-- Variable declarations -->
+    <!-- ===================== -->
+
+    <!-- Mockingbird standard variables -->
+    <Var name="Platform" type="singleton" class="MBPlatform"/>
+    <Var name="Environment" type="singleton" class="MBEnvironment"/>
+    <Var name="Network" type="singleton" class="MBNetworkMonitor"/>
+
+	<!-- iOS-specific Mockingbird variables -->
+    <Var if="$Platform.isIOS" name="Device" type="singleton" class="MBDevice"/>
+
+    <!-- iOS-specific System variables -->
+    <Var if="$Platform.isIOS" name="UIApplication" type="singleton" class="UIApplication" method="sharedApplication"/>
+    <Var if="$Platform.isIOS" name="UIDevice" type="singleton" class="UIDevice" method="currentDevice"/>
+    <Var if="$Platform.isIOS" name="UIScreen" type="singleton" class="UIScreen" method="mainScreen"/>
+
+
+    <!-- ===================== -->
+    <!-- Function declarations -->
+    <!-- ===================== -->
+    
+    <Function class="MBMLCollectionFunctions" name="isCollection" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="isSet" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="isDictionary" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="isArray" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="count" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="keys" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="values" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="appendObject" input="pipedObjects"/>
+    <Function class="MBMLCollectionFunctions" name="insertObjectAtIndex" input="pipedObjects"/>
+    <Function class="MBMLCollectionFunctions" name="array" input="pipedObjects"/>
+    <Function class="MBMLCollectionFunctions" name="subarray" input="pipedObjects"/>
+    <Function class="MBMLCollectionFunctions" name="dictionary" input="pipedExpressions"/>
+    <Function class="MBMLCollectionFunctions" name="set" input="pipedObjects"/>
+    <Function class="MBMLCollectionFunctions" name="setWithArray" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="removeObject" input="pipedObjects"/>
+    <Function class="MBMLCollectionFunctions" name="removeObjectAtIndex" input="pipedObjects"/>
+    <Function class="MBMLCollectionFunctions" name="removeLastObject" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="lastObject" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="indexOf" input="pipedExpressions"/>
+    <Function class="MBMLCollectionFunctions" name="copy" method="copyOf" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="mutableCopy" method="mutableCopyOf" input="object"/>
+    <Function class="MBMLCollectionFunctions" name="valueForKey" method="getValueForKey" input="pipedObjects"/>
+
+    <Function class="MBMLDataProcessingFunctions" name="collectionPassesTest" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="containsValue" input="pipedObjects"/>
+    <Function class="MBMLDataProcessingFunctions" name="setContains" input="pipedObjects"/>
+    <Function class="MBMLDataProcessingFunctions" name="selectFirstValue" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="valuesPassingTest" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="valuesIntersect" input="pipedObjects"/>
+    <Function class="MBMLDataProcessingFunctions" name="join" input="pipedObjects"/>
+    <Function class="MBMLDataProcessingFunctions" name="split" input="pipedStrings"/>
+    <Function class="MBMLDataProcessingFunctions" name="splitLines" input="string"/>
+    <Function class="MBMLDataProcessingFunctions" name="appendArrays" input="pipedObjects"/>
+    <Function class="MBMLDataProcessingFunctions" name="flattenArrays" input="pipedObjects"/>
+    <Function class="MBMLDataProcessingFunctions" name="filter" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="list" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="pruneMatchingLeaves" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="pruneNonmatchingLeaves" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="associate" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="associateWithSingleValue" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="associateWithArray" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="sort" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="mergeDictionaries" input="pipedExpressions"/>
+    <Function class="MBMLDataProcessingFunctions" name="reverse" input="object"/>
+    <Function class="MBMLDataProcessingFunctions" name="unique" input="object"/>
+    <Function class="MBMLDataProcessingFunctions" name="distributeArrayElements" input="pipedObjects"/>
+    <Function class="MBMLDataProcessingFunctions" name="groupArrayElements" input="pipedObjects"/>
+    <Function class="MBMLDataProcessingFunctions" name="reduce" input="pipedExpressions"/>
+
+    <Function class="MBMLDateFunctions" name="currentTime" input="none"/>
+    <Function class="MBMLDateFunctions" name="timeZoneOffset" input="none"/>
+    <Function class="MBMLDateFunctions" name="secondsSince"/>
+    <Function class="MBMLDateFunctions" name="secondsUntil"/>
+    <Function class="MBMLDateFunctions" name="unixTimestampToDate"/>
+    <Function class="MBMLDateFunctions" name="dateToUnixTimestamp"/>
+    <Function class="MBMLDateFunctions" name="addSecondsToDate" input="pipedObjects"/>
+    <Function class="MBMLDateFunctions" name="formatTimeUntil"/>
+    <Function class="MBMLDateFunctions" name="formatDate" input="pipedObjects"/>
+    <Function class="MBMLDateFunctions" name="formatSortableDate" input="object"/>
+    <Function class="MBMLDateFunctions" name="formatShortDate" input="pipedObjects"/>
+    <Function class="MBMLDateFunctions" name="formatMediumDate" input="pipedObjects"/>
+    <Function class="MBMLDateFunctions" name="formatLongDate" input="pipedObjects"/>
+    <Function class="MBMLDateFunctions" name="formatFullDate" input="pipedObjects"/>
+    <Function class="MBMLDateFunctions" name="formatShortTime" input="object"/>
+    <Function class="MBMLDateFunctions" name="formatMediumTime" input="object"/>
+    <Function class="MBMLDateFunctions" name="formatLongTime" input="object"/>
+    <Function class="MBMLDateFunctions" name="formatFullTime" input="object"/>
+    <Function class="MBMLDateFunctions" name="formatShortDateTime" input="object"/>
+    <Function class="MBMLDateFunctions" name="formatMediumDateTime" input="object"/>
+    <Function class="MBMLDateFunctions" name="formatLongDateTime" input="object"/>
+    <Function class="MBMLDateFunctions" name="formatFullDateTime" input="object"/>
+    <Function class="MBMLDateFunctions" name="reformatDate" input="pipedStrings"/>
+    <Function class="MBMLDateFunctions" name="reformatDateWithLocale" input="pipedStrings"/>
+    <Function class="MBMLDateFunctions" name="parseDate" method="mbmlParseDate" input="pipedStrings"/>
+    
+    <Function class="MBMLDebugFunctions" name="log" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="test" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="dump" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="debugBreak" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="tokenize" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="tokenizeBoolean" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="tokenizeMath" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="bench" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="benchBool" input="raw"/>
+    <Function class="MBMLDebugFunctions" name="repeat" input="pipedExpressions"/>
+    <Function class="MBMLDebugFunctions" name="repeatBool" input="pipedExpressions"/>
+    <Function class="MBMLDebugFunctions" name="deprecateVariableInFavorOf" input="pipedExpressions"/>
+
+    <Function class="MBMLEncodingFunctions" name="MD5" method="MD5FromString" input="string"/>
+    <Function class="MBMLEncodingFunctions" name="MD5FromString" input="string"/>
+    <Function class="MBMLEncodingFunctions" name="MD5FromData" input="object"/>
+    <Function class="MBMLEncodingFunctions" name="SHA1" method="SHA1FromString" input="string"/>
+    <Function class="MBMLEncodingFunctions" name="SHA1FromString" input="string"/>
+    <Function class="MBMLEncodingFunctions" name="SHA1FromData" input="object"/>
+    <Function class="MBMLEncodingFunctions" name="base64FromData" input="object"/>
+    <Function class="MBMLEncodingFunctions" name="dataFromBase64" input="string"/>
+    <Function class="MBMLEncodingFunctions" name="hexStringFromData" input="object"/>
+    <Function class="MBMLEncodingFunctions" name="dataFromHexString" input="string"/>
+
+    <Function class="MBMLEnvironmentFunctions" name="mbmlLoadedPaths" input="none"/>
+    <Function class="MBMLEnvironmentFunctions" name="mbmlLoadedFiles" input="none"/>
+    <Function class="MBMLEnvironmentFunctions" name="mbmlPathIsLoaded" input="string"/>
+    <Function class="MBMLEnvironmentFunctions" name="mbmlFileIsLoaded" input="string"/>
+
+    <Function class="MBMLFileFunctions" name="lastPathComponent" input="string"/>
+    <Function class="MBMLFileFunctions" name="stripLastPathComponent" input="string"/>
+    <Function class="MBMLFileFunctions" name="pathExtension" input="string"/>
+    <Function class="MBMLFileFunctions" name="stripPathExtension" input="string"/>
+    <Function class="MBMLFileFunctions" name="pathComponents" input="string"/>
+    <Function class="MBMLFileFunctions" name="directoryForCaches" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForDocuments" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForDownloads" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForApplicationSupport" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForHome" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForTempFiles" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForMovies" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForMusic" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForPictures" input="none"/>
+    <Function class="MBMLFileFunctions" name="directoryForPublicFiles" input="none"/>
+    <Function class="MBMLFileFunctions" name="listDirectory" input="string"/>
+    <Function class="MBMLFileFunctions" name="fileExists" input="string"/>
+    <Function class="MBMLFileFunctions" name="fileIsReadable" input="string"/>
+    <Function class="MBMLFileFunctions" name="fileIsWritable" input="string"/>
+    <Function class="MBMLFileFunctions" name="fileIsDeletable" input="string"/>
+    <Function class="MBMLFileFunctions" name="isDirectoryAtPath" input="string"/>
+    <Function class="MBMLFileFunctions" name="sizeOfFile" input="string"/>
+    <Function class="MBMLFileFunctions" name="fileData" input="string"/>
+    <Function class="MBMLFileFunctions" name="fileContents" input="string"/>
+    <Function class="MBMLFileFunctions" name="deleteFile" input="string"/>
+
+    <Function if="$Platform.isIOS" class="MBMLFontFunctions" name="fontFamilyNames" input="none"/>
+    <Function if="$Platform.isIOS" class="MBMLFontFunctions" name="fontNamesForFamilyName" input="string"/>
+    <Function if="$Platform.isIOS" class="MBMLFontFunctions" name="fontWithNameAndSize" input="pipedObjects"/>
+    <Function if="$Platform.isIOS" class="MBMLFontFunctions" name="sizeOfTextWithFont" input="pipedObjects"/>
+    <Function if="$Platform.isIOS" class="MBMLFontFunctions" name="linesNeededToDrawText" input="pipedObjects"/>
+    <Function if="$Platform.isIOS" class="MBMLFontFunctions" name="stringWidth" input="pipedObjects"/>
+
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="rectOrigin" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="rectSize" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="rectX" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="rectY" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="rectWidth" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="rectHeight" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="insetRect" input="pipedObjects"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="insetRectTop" input="pipedObjects"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="insetRectLeft" input="pipedObjects"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="insetRectBottom" input="pipedObjects"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="insetRectRight" input="pipedObjects"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="sizeWidth" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="sizeHeight" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="pointX" input="object"/>
+    <Function if="$Platform.isIOS" class="MBMLGeometryFunctions" name="pointY" input="object"/>
+
+    <Function class="MBMLLogicFunctions" name="if" method="ifOperator" input="pipedExpressions"/>
+
+    <Function class="MBMLMathFunctions" name="mod" input="pipedMath"/>
+    <Function class="MBMLMathFunctions" name="modFloat" input="pipedMath"/>
+    <Function class="MBMLMathFunctions" name="percent" input="pipedExpressions"/>
+    <Function class="MBMLMathFunctions" name="ceil" input="math"/>
+    <Function class="MBMLMathFunctions" name="floor" input="math"/>
+    <Function class="MBMLMathFunctions" name="round" input="math"/>
+    <Function class="MBMLMathFunctions" name="min" input="pipedMath"/>
+    <Function class="MBMLMathFunctions" name="max" input="pipedMath"/>
+    <Function class="MBMLMathFunctions" name="randomPercent" input="none"/>
+    <Function class="MBMLMathFunctions" name="random" input="pipedMath"/>
+    <Function class="MBMLMathFunctions" name="arrayFilledWithIntegers" input="pipedMath"/>
+
+    <Function class="MBMLRegexFunctions" name="replaceRegex" input="pipedStrings"/>
+    <Function class="MBMLRegexFunctions" name="stripRegex" input="pipedStrings"/>
+    <Function class="MBMLRegexFunctions" name="matchesRegex" input="pipedStrings"/>
+    
+    <Function class="MBMLResourceFunctions" name="directoryForMainBundle" input="none"/>
+    <Function class="MBMLResourceFunctions" name="directoryForBundleWithIdentifier" input="string"/>
+    <Function class="MBMLResourceFunctions" name="directoryForClassBundle" input="string"/>
+
+    <Function class="MBMLRuntimeFunctions" name="classExists" input="string"/>
+    <Function class="MBMLRuntimeFunctions" name="class" method="getClass" input="string"/>
+    <Function class="MBMLRuntimeFunctions" name="singleton" input="object"/>
+    <Function class="MBMLRuntimeFunctions" name="inheritanceHierarchyForClass" input="object"/>
+    <Function class="MBMLRuntimeFunctions" name="respondsToSelector" method="objectRespondsToSelector" input="pipedObjects"/>
+    <Function class="MBMLRuntimeFunctions" name="instancesRespondToSelector" method="classRespondsToSelector" input="pipedObjects"/>
+
+    <Function class="MBMLStringFunctions" name="q" input="raw"/>
+    <Function class="MBMLStringFunctions" name="eval" input="string"/>
+    <Function class="MBMLStringFunctions" name="evalBool" input="string"/>
+    <Function class="MBMLStringFunctions" name="stripQueryString" input="string"/>
+    <Function class="MBMLStringFunctions" name="lowercase" input="string"/>
+    <Function class="MBMLStringFunctions" name="uppercase" input="string"/>
+    <Function class="MBMLStringFunctions" name="titleCase" input="string"/>
+    <Function class="MBMLStringFunctions" name="titleCaseIfAllCaps" input="string"/>
+    <Function class="MBMLStringFunctions" name="pluralize" input="pipedStrings"/>
+    <Function class="MBMLStringFunctions" name="concatenateFields" input="pipedStrings"/>
+    <Function class="MBMLStringFunctions" name="firstNonemptyString" input="pipedExpressions"/>
+    <Function class="MBMLStringFunctions" name="firstNonemptyTrimmedString" input="pipedExpressions"/>
+    <Function class="MBMLStringFunctions" name="truncate" input="pipedStrings"/>
+    <Function class="MBMLStringFunctions" name="stripSpaces" input="string"/>
+    <Function class="MBMLStringFunctions" name="trimSpaces" input="string"/>
+    <Function class="MBMLStringFunctions" name="indentLines" input="string"/>
+    <Function class="MBMLStringFunctions" name="indentLinesToDepth" input="pipedObjects"/>
+    <Function class="MBMLStringFunctions" name="prefixLinesWith" input="pipedObjects"/>
+    <Function class="MBMLStringFunctions" name="parseInteger" input="string"/>
+    <Function class="MBMLStringFunctions" name="parseDouble" input="string"/>
+    <Function class="MBMLStringFunctions" name="parseNumber" input="string"/>
+    <Function class="MBMLStringFunctions" name="rangeOfString" input="pipedObjects"/>
+    <Function class="MBMLStringFunctions" name="formatInteger" input="math"/>
+    <Function class="MBMLStringFunctions" name="hasPrefix" input="pipedStrings"/>
+    <Function class="MBMLStringFunctions" name="hasSuffix" input="pipedStrings"/>
+    <Function class="MBMLStringFunctions" name="containsString" input="pipedStrings"/>
+
+</MBML>

@@ -1,0 +1,24 @@
+<MBML>
+	<Var name="project:name" literal="CleanroomASL"/>
+	<Var name="project:file" value="${project:name}.xcodeproj"/>
+	<Var name="project:framework" value="${project:name}.framework"/>
+	<Var name="project:import" value="import ${project:name}"/>
+
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="OSX"/>
+	</Var>
+
+	<Var name="repo:name" value="$project:name"/>
+	<Var name="repo:host" literal="github"/>
+	<Var name="repo:owner" literal="emaloney"/>
+
+	<Var name="repo:url:home" value="https://github.com/${repo:owner}/${repo:name}"/>
+	<Var name="repo:url:http" value="${repo:url:home}.git"/>
+	<Var name="repo:url:ssh" value="git@github.com:${repo:owner}/${repo:name}.git"/>
+
+	<Var name="repo:hasSubmodule" boolean="F"/>
+	<Var name="repo:cloneCommand" value="git clone ^if($repo:hasSubmodule|--recursive )${repo:url:http}"/>
+	<Var name="repo:carthageSpec" value='$repo:host "${repo:owner}/${repo:name}"'/>
+
+</MBML>
