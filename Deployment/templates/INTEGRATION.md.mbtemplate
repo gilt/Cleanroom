@@ -1,6 +1,6 @@
 ![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/master/Assets/gilt-tech-logo.png)
 
-# $project:name Integration Notes
+^q(#) $project:name Integration Notes
 
 This document describes how to integrate $project:name into your application.
 
@@ -8,13 +8,13 @@ This document describes how to integrate $project:name into your application.
 
 Note that $project:name is built as a *Swift framework*. This has several implications, not the least of which is that it will only work on iOS 8 or above. It is also only supported for use by other Swift code. Some, all or none of it may work from Objective-C; we haven't tried it, we wouldn't recommend it, and we don't support it.
 
-### Contents
+^q(###) Contents
 
 - **[Options for integration](#options-for-integration)**
 - **[Instructions for manual integration](#manual-integration)**
 - **[Instructions for integration using Carthage](#carthage-integration)**
 
-### Requirements
+^q(###) Requirements
 
 $project:name requires **Xcode 7 or higher** to be built, and the resulting binary can be used on **iOS 8.0 and higher**.
 
@@ -22,7 +22,7 @@ We'll also be using the `git` command in the Terminal for installing the $projec
 
 Lastly, some familiarity with the Terminal application and the bash command line is assumed.
 
-### About Frameworks
+^q(###) About Frameworks
 
 Official support for third-party iOS frameworks was introduced with Xcode 6 and iOS 8. Prior to that, developers had been using frameworks in an unsupported fashion by placing shared libraries and resources inside a filesystem structure that mimicked that of the frameworks published by Apple.
 
@@ -36,7 +36,7 @@ Given that *real* third-party iOS framework support is still in its infancy, it 
 
 For these reasons, we do not release Cleanroom projects as framework binaries. Instead, we provide the source, the Xcode project file, and options for integrating so that you can use it from within your code and submit an app that Apple will accept. (Or, at the very least, if Apple *doesn't* accept your app, we don't want it to be the fault of *this* project!)
 
-### Options for integration
+^q(###) Options for integration
 
 There are two supported options for integration:
 
@@ -46,7 +46,7 @@ There are two supported options for integration:
 
 Whether you choose one over the other largely depends on your preferences and—in the case of Carthage—whether you're already using that solution for other dependencies.
 
-## Manual Integration
+^q(##) Manual Integration
 
 Manual integration involves embedding `${project:file}` directly in your Xcode project.
 
@@ -54,7 +54,7 @@ This will ensure that $project:name is built with the exact same settings you’
 
 You’ll also be able to step into $project:name code directly in the debugger without worrying about `.dSYM` resolution, which is very helpful.
 
-### An Overview of the Process
+^q(###) An Overview of the Process
 
 Manual integration is a bit involved; there are five high-level tasks that you'll need to perform:
 
@@ -64,7 +64,7 @@ Manual integration is a bit involved; there are five high-level tasks that you'l
 4. Add `${project:framework}` to your application target
 5. Fix the way Xcode references the frameworks you added in Step 4
 
-#### Getting Started
+^q(####) Getting Started
 
 Launch Terminal on your Mac, and `cd` to the directory that contains your application.
 
@@ -80,13 +80,13 @@ mkdir Libraries
 
 Next, `cd` into `Libraries` and follow the instructions below.
 
-### 1. Download the $project:name source
+^q(###) 1. Download the $project:name source
 
 If you're already using git for version control, we recommend adding $repo:name to your project as a submodule. This will allow you to "lock" your codebase to specific versions of $project:name, making it easier to incorporate new versions on whatever schedule works best for you.
 
 If you're using some other form of version control of if you're not using version control at all—*shame on you!*—then you'll want to *clone* the $repo:name repository. We suggest putting the $repo:name clone somewhere within your application's directory structure, so that it is included in whatever version control regimen you're using.
 
-#### Downloading $project:name as a submodule
+^q(####) Downloading $project:name as a submodule
 
 > **Important:** Skip this section if you plan to download $repo:name using `git clone`.
 
@@ -99,7 +99,7 @@ git submodule update --init --recursive
 
 Next, you're ready to [embed the `${project:file}` project file in your Xcode project](#2-embed-^lowercase($project:name)-in-your-project).
 
-#### Downloading $project:name as a cloned repo
+^q(####) Downloading $project:name as a cloned repo
 
 > **Important:** Skip this section if you already performed the tasks outlined in "Downloading $repo:name as a submodule" above.
 
@@ -109,13 +109,13 @@ From within the `Libraries` directory, issue the following command to clone the 
 $repo:cloneCommand
 ```
 
-### 2. Embed $project:name in your project
+^q(###) 2. Embed $project:name in your project
 
 In the Terminal, the command `open ${repo:name}` to open the folder containing the $project:name source in the Finder. This will reveal the `${project:file}` Xcode project and all files needed to build `${project:framework}`.
 
 Then, open your application in Xcode, and drag `${project:file}` into the Xcode project browser. This will embed $project:name in your project and allow you to add the targets built by $project:name to your project.
 
-### 3. Build $project:name
+^q(###) 3. Build $project:name
 
 Before we can add `${project:framework}` to your app, we have to build it, so Xcode has more information about the framework.
 
@@ -133,7 +133,7 @@ If all went well, you should see several files in this folder; the one we're con
 
 If that file isn't present, something went wrong with the build.
 
-### 4. Add the necessary frameworks to your app target
+^q(###) 4. Add the necessary frameworks to your app target
 
 In Xcode, select the *General* tab in the build settings for your application target. Scroll to the bottom of the screen to reveal the section entitled *Embedded Binaries* (the second-to-last section).
 
@@ -141,7 +141,7 @@ Go back to Finder, select `${project:framework}` and then drag it into the list 
 
 If successful, you should see `${project:framework}` listed under both the *Embedded Binaries* and *Linked Frameworks and Libraries* sections.
 
-### 5. Fix how Xcode references the frameworks
+^q(###) 5. Fix how Xcode references the frameworks
 
 Unfortunately, Xcode will reference the frameworks you just added in a way that will eventually cause you pain, particularly if multiple developers are sharing the same project file (in which case the pain will be felt almost immediately).
 
@@ -160,11 +160,11 @@ Once you've done this for each framework, **_you're all done integrating ${proje
 
 Skip to the [Adding the Swift import](#adding-the-swift-import) section to see how you can import $project:name for use in your Swift code.
 
-## Carthage Integration
+^q(##) Carthage Integration
 
 Carthage is a third-party package dependency manager for iOS and Mac OS X. Carthage works by building frameworks for each of a project's dependencies.
 
-### Verifying Carthage availability
+^q(###) Verifying Carthage availability
 
 Before attempting any of the steps below, you should verify that Carthage is available on your system. To do that, open Terminal and execute the command:
 
@@ -184,11 +184,11 @@ If Carthage is not present, you will see an error that looks like:
 
 Installing Carthage is beyond the scope of this document. If you do not have Carthage installed but would like to use it, [you can find installation instructions on the project page](https://github.com/Carthage/Carthage#installing-carthage).
 
-### How Carthage builds work
+^q(###) How Carthage builds work
 
 For iOS, Carthage builds *universal binary* frameworks, meaning that they will work in the iOS Simulator as well as on actual devices. However, because Apple will not accept App Store submissions containing universal binary code, Carthage requires the addition of a build step that strips all unused architectures out of the universal binaries. That way, when building for the simulator, device code is removed; conversely, when creating a device build, simulator code is removed. This keeps Apple happy, while also making it easy to switch back and forth between running on the device and in the simulator.
 
-### An Overview of the Process
+^q(###) An Overview of the Process
 
 Carthage integration is a little simpler than manual integration:
 
@@ -197,11 +197,11 @@ Carthage integration is a little simpler than manual integration:
 3. Add `${project:framework}` to your application target
 4. Create a build phase to strip the extra processor architectures from the Carthage frameworks
 
-### Getting Started
+^q(###) Getting Started
 
 We'll start in the Terminal, by `cd`ing into to your project's root directory. The commands you'll need to issue below can all be done from this location.
 
-### 1. Update the Cartfile
+^q(###) 1. Update the Cartfile
 
 In your project's root directory, edit the file named `Cartfile`—creating it if necessary—to add the following line:
 
@@ -209,7 +209,7 @@ In your project's root directory, edit the file named `Cartfile`—creating it i
 $repo:carthageSpec
 ```
 
-### 2. Download & Build using Carthage
+^q(###) 2. Download & Build using Carthage
 
 In Terminal, issue the command:
 
@@ -219,7 +219,7 @@ carthage update
 
 This will cause Carthage to download and build ${project:name}.
 
-#### Where Carthage puts its files
+^q(####) Where Carthage puts its files
 
 Carthage puts its files within a top-level directory called `Carthage` at the root of your project's directory structure (i.e., the `Carthage` directory is a sibling of the `Cartfile`). Within this directory are two more directories: `Build`, which contains the frameworks built by Carthage; and `Checkouts`, which contains fully populated directory structures for each repository specified in the `Cartfile`.
 
@@ -235,7 +235,7 @@ This will cause the directory containing `${project:framework}` to open in Finde
 
 If that file isn't present, something went wrong with the build.
 
-### 3. Add the necessary frameworks to your app target
+^q(###) 3. Add the necessary frameworks to your app target
 
 In Xcode, select the *General* tab in the build settings for your application target. Scroll to the bottom of the screen to reveal the section entitled *Embedded Binaries* (the second-to-last section).
 
@@ -243,7 +243,7 @@ Go back to Finder, select `${project:framework}` and then drag it into the list 
 
 If successful, you should see `${project:framework}` listed under both the *Embedded Binaries* and *Linked Frameworks and Libraries* sections.
 
-### 4. Create a build phase to strip the Carthage frameworks
+^q(###) 4. Create a build phase to strip the Carthage frameworks
 
 In Xcode, select the *Build Phases* tab in the build settings for your application target.
 
@@ -259,7 +259,7 @@ This script will ensure that the frameworks built by Carthage are stripped of un
 
 Once you've done this, try building your application. If you don't see any errors, **_you're all done integrating ${project:name}!_**
 
-## Adding the Swift import
+^q(##) Adding the Swift import
 
 Once $project:name has been successfully integrated, all you will need to do is add the following `import` statement to any Swift source file where you want to use ${project:name}:
 
