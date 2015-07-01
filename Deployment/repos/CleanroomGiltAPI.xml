@@ -1,0 +1,14 @@
+<MBML>
+	<Var name="project:name" literal="CleanroomGiltAPI"/>
+	
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+	</Var>
+
+    <Var name="project:dependencies" type="list">
+        <Var literal="Alamofire"/>
+        <Var literal="Chaingang"/>
+    </Var>
+
+	<Var name="repo:owner" literal="gilt"/>
+</MBML>

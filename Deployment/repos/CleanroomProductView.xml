@@ -1,0 +1,14 @@
+<MBML>
+	<Var name="project:name" literal="CleanroomProductView"/>
+	
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+	</Var>
+
+    <Var name="project:dependencies" type="list">
+        <Var literal="CleanroomDeepLinking"/>
+        <Var literal="CleanroomScaffolding"/>
+    </Var>
+
+	<Var name="repo:owner" literal="gilt"/>
+</MBML>
