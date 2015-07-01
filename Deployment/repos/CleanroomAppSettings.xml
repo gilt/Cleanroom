@@ -1,0 +1,9 @@
+<MBML>
+	<Var name="project:name" literal="CleanroomAppSettings"/>
+	
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+	</Var>
+
+	<Var name="repo:owner" literal="emaloney"/>
+</MBML>
