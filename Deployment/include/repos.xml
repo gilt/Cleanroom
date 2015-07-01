@@ -23,5 +23,10 @@
 	<Var name="docs:cloneCommand" type="dynamic" expression="git clone ^if($project:dependencies|--recursive )${repo:url:http}"/>
 	<Var name="docs:carthageSpec" type="dynamic" expression='$repo:host "${repo:owner}/${repo:name}"'/>
 
+	<Var name="repo:ownersToNames" type="map">
+		<Var name="gilt" literal="Gilt Groupe"/>
+		<Var name="emaloney" literal="Evan Maloney"/>
+	</Var>
+
 </MBML>
 
