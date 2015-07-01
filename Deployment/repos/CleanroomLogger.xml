@@ -1,0 +1,14 @@
+<MBML>
+	<Var name="project:name" literal="CleanroomLogger"/>
+	
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="OSX"/>
+	</Var>
+
+	<Var name="project:dependencies" type="list">
+		<Var literal="CleanroomASL"/>
+	</Var>
+
+	<Var name="repo:owner" literal="emaloney"/>
+</MBML>

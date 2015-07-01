@@ -3,7 +3,7 @@
 SCRIPT_NAME=`basename $0`
 SCRIPT_DIR=`dirname "$PWD/$0"`
 
-cd "$SCRIPT_DIR/.."
+cd "$SCRIPT_DIR/../.."
 REPO_DIR="$PWD"
 REPO_NAME=`basename "$PWD"`
 cd ..
