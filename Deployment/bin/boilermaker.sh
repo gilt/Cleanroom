@@ -47,8 +47,11 @@ while [[ $1 ]]; do
  		done
  		;;
  		
- 	--no-commit)
- 		NO_COMMIT=1
+ 	--commit|-c)
+ 		if [[ $2 ]]; then
+ 			COMMIT_MESSAGE=$2
+ 			shift
+ 		fi
  		;;
 	
 	*)
@@ -62,22 +65,38 @@ showHelp()
 {
 	echo "$SCRIPT_NAME"
 	echo
-	printf "\tRegenerates one or more boilerplate files for one or more\n"
-	printf "\tof the Cleanroom Project code repos.\n"
+	printf "\tUses Boilerplate to generate one or more documents from boilerplate\n" 
+	printf "\tfiles for one or more of the Cleanroom Project code repositories.\n"
 	echo
 	echo "Usage:"
 	echo
-	printf "\t$SCRIPT_NAME -f <file> [<file> [<file> [...]]]\n"
+	printf "\t$SCRIPT_NAME --file <file-list>\n"
 	echo
 	echo "Where:"
 	echo
-	printf "\t<file> is the relative path of a file to be generated\n"
-	printf "\twithin the Cleanroom Project repo(s)\n"
+	printf "\t<file-list> is a space-separated list of the relative paths\n"
+	printf "\t(within the target repos) of files to be generated.\n"
 	echo
-	echo "Additional arguments:"
+	echo "Optional arguments accepted:"
 	echo
-# 	printf "\t<file> is the relative path of a file to be generated\n"
-# 	printf "\twithin the Cleanroom Project repo(s)\n"
+	printf "\t--repo <repo-list>\n"
+	echo
+	printf "\t\t<repo-list> is a space-separated list of the repos for which\n"
+	printf "\t\tthe files will be generated. If this argument is not present,\n"
+	printf "\t\tfile(s) will be regenerated for all known repos.\n"
+	echo
+	printf "\t--commit \"<message>\"\n"
+	echo
+	printf "\t\tIf this argument is specified, the script will attempt to.\n"
+	printf "\t\tcommit changes using <message> as the commit message.\n"
+	echo
+	echo "Command-line flag aliases:"
+	echo
+	printf "\tShorthand aliases exist for all command-line flags:\n"
+	echo
+	printf "\t\t-f = --file\n"
+	printf "\t\t-r = --repo\n"
+	printf "\t\t-c = --commit\n"
 	echo
 	echo "Help"
 	echo
@@ -135,7 +154,7 @@ expectRepo()
 }
 
 if [[ $SHOW_HELP ]]; then
-	showHelp
+	showHelp | less
 	exit 1
 fi
 
@@ -186,3 +205,17 @@ for f in ${FILE_LIST[@]}; do
 		printf " (done!)\n"
 	done
 done
+
+#
+# commit modified files, if we're supposed to
+#
+if [[ ! -z "$COMMIT_MESSAGE" ]]; then
+	for r in ${REPO_LIST[@]}; do
+		pushd "../../$r" > /dev/null
+		echo "Committing $r"
+		COMMIT_FILES=`printf " \"%s\"" ${FILE_LIST[@]}`
+		git add$COMMIT_FILES
+		git commit$COMMIT_FILES -m '$COMMIT_MESSAGE'
+		popd > /dev/null
+	done
+fi
