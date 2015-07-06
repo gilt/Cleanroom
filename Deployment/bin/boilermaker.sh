@@ -158,6 +158,10 @@ if [[ $SHOW_HELP ]]; then
 	exit 1
 fi
 
+if [[ ${#FILE_LIST[@]} < 1 ]]; then
+	exitWithErrorSuggestHelp "At least one file must be specified"
+fi
+
 #
 # if no repos were specified, use everything we have data for
 #
