@@ -1,5 +1,11 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomAppSettings"/>
+	<Var name="project:license" literal="MIT"/>
+
+	<Var name="project:description:formats" type="map">
+		<Var name="text">CleanroomAppSettings provides a set of interfaces and implementations to abstract away code dependence on a singleton NSUserDefaults instance.</Var>
+		<Var name="markdown">CleanroomAppSettings provides a set of interfaces and implementations to abstract away code dependence on a singleton `NSUserDefaults` instance.</Var>
+	</Var>
 	
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>

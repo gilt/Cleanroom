@@ -1,6 +1,8 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomDeepLinking"/>
 	
+	<Var name="project:description">The CleanroomDeepLinking framework implements the core plumbing of the Cleanroom app's deep linking subsystem.</Var>
+
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
 	</Var>

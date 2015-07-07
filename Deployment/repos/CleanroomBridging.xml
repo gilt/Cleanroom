@@ -1,5 +1,8 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomBridging"/>
+	<Var name="project:license" literal="MIT"/>
+
+	<Var name="project:description">The CleanroomBridging framework contains utilities that help bridge the gap between Objective-C and Swift.</Var>
 	
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>

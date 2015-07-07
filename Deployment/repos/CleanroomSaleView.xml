@@ -1,6 +1,8 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomSaleView"/>
 	
+	<Var name="project:description">CleanroomProductView implements the plumbing needed to display the Cleanroom app's sale view (PLP).</Var>
+
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
 	</Var>

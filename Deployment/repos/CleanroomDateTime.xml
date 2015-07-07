@@ -1,5 +1,8 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomDateTime"/>
+	<Var name="project:license" literal="MIT"/>
+
+	<Var name="project:description">CleanroomDateTime is a Swift framework providing utilities for handling dates and times.</Var>
 	
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>

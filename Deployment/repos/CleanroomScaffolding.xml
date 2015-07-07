@@ -1,5 +1,7 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomScaffolding"/>
+
+	<Var name="project:description">CleanroomScaffolding contains temporary scaffolding intended to support us while we're working on the Cleanroom app.</Var>
 	
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>

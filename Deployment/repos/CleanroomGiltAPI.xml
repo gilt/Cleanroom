@@ -1,6 +1,8 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomGiltAPI"/>
 	
+	<Var name="project:description">CleanroomGiltAPI is a Swift framework providing a client-side iOS API for accessing Gilt backend services.</Var>
+
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
 	</Var>

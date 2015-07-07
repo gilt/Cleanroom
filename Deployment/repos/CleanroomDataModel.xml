@@ -1,6 +1,8 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomDataModel"/>
 	
+	<Var name="project:description">CleanroomDataModel houses the various Gilt-specific data model object interfaces and implementation for the Cleanroom Project.</Var>
+	
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
 	</Var>

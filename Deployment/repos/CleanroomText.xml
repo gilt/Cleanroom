@@ -1,6 +1,9 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomText"/>
+	<Var name="project:license" literal="MIT"/>
 	
+	<Var name="project:description">CleanroomText is a Swift framework providing tools for working with strings and text.</Var>
+
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
         <Var literal="OSX"/>
