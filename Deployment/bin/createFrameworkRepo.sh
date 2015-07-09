@@ -4,10 +4,16 @@ SCRIPT_NAME=`basename $0`
 SCRIPT_DIR=`dirname "$PWD/$0"`
 PLATE_BIN="$SCRIPT_DIR/plate"
 DEST_ROOT="$SCRIPT_DIR/../../.."
+DEFAULT_DEST_ROOT=$( cd "$DEST_ROOT"; echo $PWD )
+POSSIBLE_PLATFORMS=( iOS OSX all )
+REAL_PLATFORMS=${POSSIBLE_PLATFORMS[@]:0:${#POSSIBLE_PLATFORMS[@]}-1}
+POSSIBLE_PLATFORMS_STR=`echo -n "${POSSIBLE_PLATFORMS[@]}"`
+POSSIBLE_PLATFORMS_PARAM=`echo $POSSIBLE_PLATFORMS_STR | sed 's/ /|/g'`
 
 #
 # parse the command-line arguments
 #
+PLATFORMS=()
 while [[ $1 ]]; do
 	case $1 in
 	--help|-h|-\?)
@@ -58,9 +64,14 @@ while [[ $1 ]]; do
  			-*)
  				break
  				;;
+ 			
+ 			all)
+ 				PLATFORMS=(${PLATFORMS[@]} ${REAL_PLATFORMS[@]})
+ 				shift
+ 				;;
  				
  			*)
-				PLATFORM="$2"
+				PLATFORMS+=($2)
 		 		shift
 				;;	
  			esac
@@ -82,9 +93,19 @@ showHelp()
 {
 	echo "$SCRIPT_NAME"
 	echo
-	printf "\tCreates a skeleton Xcode project structure with common build settings.\n" 
-	printf "\tThe directory will be placed parallel to that of the Cleanroom repo,\n"
-	printf "\tand will be initialized as a git repo.\n"
+	printf "\tCreates a skeleton Xcode project structure with standard build settings\n" 
+	printf "\tideal for creating a Swift dynamic framework.\n"
+	echo
+	printf "\tWith this script, you can be up and running building cross-platform\n"
+	printf "\tSwift dynamic frameworks in no time. Just write your code and go.\n"
+	echo
+	printf "\tThe script creates a new directory <project-name> inside the\n"
+	printf "\t<destination-dir> and populates it with an Xcode project file\n"
+	printf "\tcontaining one or more framework build targets (one for each\n"
+	printf "\tplatform to be supported) and stub code.\n"
+	echo
+	printf "\tOnce the project directory has been created, it will then be\n"
+	printf "\tinitialized as a git repo.\n"
 	echo
 	echo "Usage:"
 	echo
@@ -98,24 +119,30 @@ showHelp()
 	echo
 	printf "\t<github-user-id> is the GitHub user ID of the repo's owner.\n"
 	echo
-	echo "Optional arguments accepted:"
+	echo "Optional arguments:"
 	echo
 	printf "\t--dest <destination-dir>\n"
 	echo
 	printf "\t\tThe --dest (or -d) argument accepts a filesystem path\n"
 	printf "\t\tspecifying the directory in which the project repo will\n"
-	printf "\t\tbe created. If not specified, the new repo will be created\n"
-	printf "\t\tin the parent directory of the repo in which this script lives.\n"
+	printf "\t\tbe created.\n"
 	echo
-	printf "\t--platform (iOS|OSX)\n"
+	printf "\t\tIf this argument is not provided, newly-created repos will\n"
+	printf "\t\tbe placed within:\n"
 	echo
-	printf "\t\tThe --platform (or -p) argument accepts a single platform\n"
-	printf "\t\tspecifier (either 'iOS' or 'OSX'); the resulting Xcode project\n"
-	printf "\t\twill be specific to that platform.\n"
+	printf "\t\t\t${DEFAULT_DEST_ROOT}\n"
+	echo
+	printf "\t--platform ($POSSIBLE_PLATFORMS_PARAM)\n"
+	echo
+	printf "\t\tThe --platform (or -p) argument accepts a platform specifier\n"
+	printf "\t\tthat governs which platform(s) will be supported by the project\n"
+	printf "\t\tfile to be created. The value 'all' specifies all supported\n"
+	printf "\t\tplatforms. If no value for the --platform argument is provided,\n"
+	printf "\t\t'all' is assumed; let's be cross-platform by default!\n"
 	echo
 	printf "\t--force\n"
 	echo
-	printf "\t\tBy default, the script will not run if the destination directory\n"
+	printf "\t\tBy default, the script won't run if the destination directory\n"
 	printf "\t\talready contains a file named <project-name>. Using --force (or\n"
 	printf "\t\t-f) overrides this check, allowing the script to proceed.\n"
 	echo
@@ -159,6 +186,12 @@ executeCommand()
 	fi
 }
 
+isInArray()
+{
+	for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 1; done
+	return 0
+}
+
 if [[ $SHOW_HELP ]]; then
 	showHelp | less
 	exit 1
@@ -181,14 +214,57 @@ if [[ -z "$NEW_REPO_NAME" ]]; then
 	exitWithErrorSuggestHelp "At least one repo must be specified"
 fi
 
-if [[ ! -z "$PLATFORM" ]]; then
-	exitWithErrorSuggestHelp "The --platform (-p) argument is not yet implemented"
+if [[ ${#PLATFORMS[@]} == 0 ]]; then
+	PLATFORMS=(${REAL_PLATFORMS[@]})
+fi
+
+INCLUDE_IOS=0
+INCLUDE_OSX=0
+for p in "${PLATFORMS[@]}"; do
+	isInArray "$p" ${REAL_PLATFORMS[@]}
+	if [[ $? == 0 ]]; then
+		exitWithErrorSuggestHelp "The value \"$p\" passed to the --platform (-p) argument is not recognized" "Accepted values: $POSSIBLE_PLATFORMS_STR"
+	fi
+
+	case $p in
+	iOS)
+		INCLUDE_IOS=1
+		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"iOS\"/>"
+		;;
+		
+	OSX)
+		INCLUDE_OSX=1
+		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"OSX\"/>"
+		;;
+	esac
+done
+
+# exclude unneeded platform-specific files
+EXCLUDE_FILE_PATTERNS=()
+if [[ $INCLUDE_IOS == 0 ]]; then
+	EXCLUDE_FILE_PATTERNS+=("iOS\.xcconfig\$" "\-iOS\.xcscheme\.boilerplate\$")
+fi
+if [[ $INCLUDE_OSX == 0 ]]; then
+	EXCLUDE_FILE_PATTERNS+=("OSX\.xcconfig\$" "\-OSX\.xcscheme\.boilerplate\$")
 fi
 
 processDirectory()
 {
 	pushd "$1" > /dev/null
 	for f in *; do
+		if [[ ${#EXCLUDE_FILE_PATTERNS[@]} > 0 ]]; then
+			BYPASS=0
+			for x in "${EXCLUDE_FILE_PATTERNS[@]}"; do
+				if [[ $( echo "$f" | grep -c "$x" ) > 0 ]]; then
+					BYPASS=1
+					break
+				fi
+			done
+			if [[ $BYPASS == 1 ]]; then
+				continue
+			fi
+		fi
+	
 		DEST_NAME=$( echo "$f" | sed "s/CleanroomSkeleton/${NEW_REPO_NAME}/" )
 		if [[ $( echo "$f" | grep -c "^_" ) > 0 ]]; then
 			DEST_NAME=$( echo "$f" | sed "s/^_/./" )
@@ -213,8 +289,14 @@ processDirectory()
 	<Var name="project:name" literal="${NEW_REPO_NAME}"/>
 	<Var name="project:creator:name" literal="${CREATOR_NAME}"/>
 	<Var name="project:creator:id" literal="${CREATOR_USER}"/>
+	<Var name="project:platforms" type="list">
+		$PLATFORM_MBML
+	</Var>
 </MBML>
 MBML_BLOCK
+			if [[ $( echo "$DEST_NAME" | grep -c "\.sh\$" ) > 0 ]]; then
+				chmod a+x "${DEST_ROOT}/${DEST_DIR}${DEST_NAME}"
+			fi
 		else
 			if [[ "$f" == "$DEST_NAME" ]]; then
 				printf "\t${DEST_ROOT}/${DEST_DIR}. <- $f\n"
@@ -233,5 +315,16 @@ echo "Creating new Xcode framework project repo $NEW_REPO_NAME in $DEST_ROOT"
 processDirectory "framework"
 
 cd "$DEST_ROOT/$NEW_REPO_NAME"
-git init
+if [[ ! -d .git ]]; then
+	echo "Creating git repo and performing initial commit"
+	git init
+	git add .
+	git commit -F - <<COMMIT_MESSAGE
+Initial commit of $NEW_REPO_NAME
+
+Automated by $SCRIPT_NAME
+COMMIT_MESSAGE
+else
+	echo "It looks like $PWD is already under git control; won't make any further changes"
+fi
 echo "Done!"
