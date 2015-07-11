@@ -197,6 +197,10 @@ if [[ $SHOW_HELP ]]; then
 	exit 1
 fi
 
+if [[ -z "$NEW_REPO_NAME" ]]; then
+	exitWithErrorSuggestHelp "At least one repo must be specified"
+fi
+
 DEST_ROOT=$( cd "$DEST_ROOT"; echo $PWD )
 if [[ ! -d "$DEST_ROOT" ]]; then
 	exitWithErrorSuggestHelp "Couldn't find destination directory: $DEST_ROOT"
@@ -208,10 +212,6 @@ fi
 
 if [[ -z "$REPO_OWNER" ]]; then
 	exitWithErrorSuggestHelp "The repo's owner must be specified"
-fi
-
-if [[ -z "$NEW_REPO_NAME" ]]; then
-	exitWithErrorSuggestHelp "At least one repo must be specified"
 fi
 
 if [[ ${#PLATFORMS[@]} == 0 ]]; then
