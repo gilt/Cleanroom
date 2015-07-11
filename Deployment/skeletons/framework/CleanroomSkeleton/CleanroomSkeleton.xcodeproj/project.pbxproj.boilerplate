@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		3BB847C41B4DD394005E3A5C /* ${project:name}Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC7F2BA1B4CB1A5007D2449 /* ${project:name}Tests.swift */; };
 		3BC7F27B1B4CAFB1007D2449 /* ${project:name}.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC7F2701B4CAFB0007D2449 /* ${project:name}.framework */; };
-		3BC7F2BB1B4CB1AB007D2449 /* ${project:name}.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC7F2B81B4CB1A5007D2449 /* ${project:name}.swift */; };
-		3BC7F2BC1B4CB1AB007D2449 /* ${project:name}.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC7F2B81B4CB1A5007D2449 /* ${project:name}.swift */; };
+		3BC7F2BB1B4CB1AB007D2449 /* ${project:name}.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC7F2B81B4CB1A5007D2449 /* ${project:name}.swift */; };^if($project:isOSX|
+		3BC7F2BC1B4CB1AB007D2449 /* ${project:name}.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC7F2B81B4CB1A5007D2449 /* ${project:name}.swift */; };)
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,8 +25,8 @@
 
 /* Begin PBXFileReference section */
 		3BC7F2701B4CAFB0007D2449 /* ${project:name}.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ${project:name}.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BC7F27A1B4CAFB1007D2449 /* ${project:name}Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ${project:name}Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BC7F28D1B4CAFC4007D2449 /* ${project:name}.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ${project:name}.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BC7F27A1B4CAFB1007D2449 /* ${project:name}Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ${project:name}Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };^if($project:isOSX|
+		3BC7F28D1B4CAFC4007D2449 /* ${project:name}.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ${project:name}.framework; sourceTree = BUILT_PRODUCTS_DIR; };)
 		3BC7F2AA1B4CB095007D2449 /* Debug-iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-iOS.xcconfig"; sourceTree = "<group>"; };
 		3BC7F2AB1B4CB095007D2449 /* Debug-OSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-OSX.xcconfig"; sourceTree = "<group>"; };
 		3BC7F2AC1B4CB095007D2449 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -59,14 +59,14 @@
 				3BC7F27B1B4CAFB1007D2449 /* ${project:name}.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
+		};^if($project:isOSX|
 		3BC7F2891B4CAFC4007D2449 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
+		};)
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -84,8 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				3BC7F2701B4CAFB0007D2449 /* ${project:name}.framework */,
-				3BC7F27A1B4CAFB1007D2449 /* ${project:name}Tests.xctest */,
-				3BC7F28D1B4CAFC4007D2449 /* ${project:name}.framework */,
+				3BC7F27A1B4CAFB1007D2449 /* ${project:name}Tests.xctest */,^if($project:isOSX|
+				3BC7F28D1B4CAFC4007D2449 /* ${project:name}.framework */,)
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,14 +143,14 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
+		};^if($project:isOSX|
 		3BC7F28A1B4CAFC4007D2449 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
+		};)
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -189,7 +189,7 @@
 			productName = ${project:name}Tests;
 			productReference = 3BC7F27A1B4CAFB1007D2449 /* ${project:name}Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
+		};^if($project:isOSX|
 		3BC7F28C1B4CAFC4007D2449 /* ${project:name} OSX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BC7F29E1B4CAFC4007D2449 /* Build configuration list for PBXNativeTarget "${project:name} OSX" */;
@@ -207,7 +207,7 @@
 			productName = ${project:name};
 			productReference = 3BC7F28D1B4CAFC4007D2449 /* ${project:name}.framework */;
 			productType = "com.apple.product-type.framework";
-		};
+		};)
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -221,10 +221,10 @@
 					};
 					3BC7F2791B4CAFB1007D2449 = {
 						CreatedOnToolsVersion = 7.0;
-					};
+					};^if($project:isOSX|
 					3BC7F28C1B4CAFC4007D2449 = {
 						CreatedOnToolsVersion = 7.0;
-					};
+					};)
 				};
 			};
 			buildConfigurationList = 3BC7F2681B4CAF76007D2449 /* Build configuration list for PBXProject "${project:name}" */;
@@ -239,8 +239,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3BC7F26F1B4CAFB0007D2449 /* ${project:name} iOS */,
-				3BC7F28C1B4CAFC4007D2449 /* ${project:name} OSX */,
+				3BC7F26F1B4CAFB0007D2449 /* ${project:name} iOS */,^if($project:isOSX|
+				3BC7F28C1B4CAFC4007D2449 /* ${project:name} OSX */,)
 				3BC7F2791B4CAFB1007D2449 /* ${project:name}Tests */,
 			);
 		};
@@ -253,14 +253,14 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
+		};^if($project:isOSX|
 		3BC7F2781B4CAFB1007D2449 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
+		};)
 		3BC7F28B1B4CAFC4007D2449 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -286,7 +286,7 @@
 				3BB847C41B4DD394005E3A5C /* ${project:name}Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
+		};^if($project:isOSX|
 		3BC7F2881B4CAFC4007D2449 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -294,7 +294,7 @@
 				3BC7F2BC1B4CB1AB007D2449 /* ${project:name}.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
+		};)
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -515,7 +515,7 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
+		};^if($project:isOSX|
 		3BC7F29F1B4CAFC4007D2449 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3BC7F2AB1B4CB095007D2449 /* Debug-OSX.xcconfig */;
@@ -613,7 +613,7 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
+		};)
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -633,6 +633,7 @@
 				3BC7F2841B4CAFB1007D2449 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3BC7F2851B4CAFB1007D2449 /* Build configuration list for PBXNativeTarget "${project:name}Tests" */ = {
 			isa = XCConfigurationList;
@@ -641,7 +642,8 @@
 				3BC7F2871B4CAFB1007D2449 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
+			defaultConfigurationName = Release;
+		};^if($project:isOSX|
 		3BC7F29E1B4CAFC4007D2449 /* Build configuration list for PBXNativeTarget "${project:name} OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -649,7 +651,8 @@
 				3BC7F2A01B4CAFC4007D2449 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
+			defaultConfigurationName = Release;
+		};)
 /* End XCConfigurationList section */
 	};
 	rootObject = 3BC7F2651B4CAF76007D2449 /* Project object */;
