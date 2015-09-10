@@ -5,7 +5,12 @@
 	
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
+		<Var literal="OSX"/>
 	</Var>
+
+    <Var name="project:dependencies" type="list">
+        <Var literal="CleanroomLogger"/>
+    </Var>
 
 	<Var name="repo:owner" literal="gilt"/>
 </MBML>
