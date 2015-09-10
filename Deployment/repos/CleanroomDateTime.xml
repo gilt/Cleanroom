@@ -7,6 +7,7 @@
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
         <Var literal="OSX"/>
+        <Var literal="tvOS"/>
 	</Var>
 
 	<Var name="repo:owner" literal="emaloney"/>
