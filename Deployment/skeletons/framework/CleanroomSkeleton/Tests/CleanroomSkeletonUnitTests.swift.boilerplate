@@ -1,5 +1,5 @@
 //
-//  ${project:name}Tests.swift
+//  ${project:name}UnitTests.swift
 //  Cleanroom Project
 //
 //  Created by ${project:creator:name} on ^formatDate(^currentTime()|M/d/yy).
@@ -7,9 +7,9 @@
 //
 
 import XCTest
-import ${project:name}
+@testable import ${project:name}
 
-class ${project:name}Tests: XCTestCase {
+class ${project:name}UnitTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
