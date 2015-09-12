@@ -5,7 +5,7 @@ SCRIPT_DIR=`dirname "$PWD/$0"`
 PLATE_BIN="$SCRIPT_DIR/plate"
 DEST_ROOT="$SCRIPT_DIR/../../.."
 DEFAULT_DEST_ROOT=$( cd "$DEST_ROOT"; echo $PWD )
-POSSIBLE_PLATFORMS=( iOS OSX all )
+POSSIBLE_PLATFORMS=( iOS OSX tvOS all )
 REAL_PLATFORMS=${POSSIBLE_PLATFORMS[@]:0:${#POSSIBLE_PLATFORMS[@]}-1}
 POSSIBLE_PLATFORMS_STR=`echo -n "${POSSIBLE_PLATFORMS[@]}"`
 POSSIBLE_PLATFORMS_PARAM=`echo $POSSIBLE_PLATFORMS_STR | sed 's/ /|/g'`
@@ -220,6 +220,7 @@ fi
 
 INCLUDE_IOS=0
 INCLUDE_OSX=0
+INCLUDE_TVOS=0
 for p in "${PLATFORMS[@]}"; do
 	isInArray "$p" ${REAL_PLATFORMS[@]}
 	if [[ $? == 0 ]]; then
@@ -236,6 +237,11 @@ for p in "${PLATFORMS[@]}"; do
 		INCLUDE_OSX=1
 		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"OSX\"/>"
 		;;
+		
+	tvOS)
+		INCLUDE_TVOS=1
+		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"tvOS\"/>"
+		;;
 	esac
 done
 
@@ -246,6 +252,9 @@ if [[ $INCLUDE_IOS == 0 ]]; then
 fi
 if [[ $INCLUDE_OSX == 0 ]]; then
 	EXCLUDE_FILE_PATTERNS+=("OSX\.xcconfig\$" "\-OSX\.xcscheme\.boilerplate\$")
+fi
+if [[ $INCLUDE_OSX == 0 ]]; then
+	EXCLUDE_FILE_PATTERNS+=("tvOS\.xcconfig\$" "\-tvOS\.xcscheme\.boilerplate\$")
 fi
 
 processDirectory()
