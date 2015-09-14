@@ -7,6 +7,8 @@
 
 	<Var name="project:isIOS" type="dynamic" expression="^containsValue($project:platforms|iOS)"/>
 	<Var name="project:isOSX" type="dynamic" expression="^containsValue($project:platforms|OSX)"/>
+	<Var name="project:isTVOS" type="dynamic" expression="^containsValue($project:platforms|tvOS)"/>
+	<Var name="project:isWATCHOS" type="dynamic" expression="^containsValue($project:platforms|watchOS)"/>
 
 	<Var name="project:file" type="dynamic" expression="${project:name}.xcodeproj"/>
 	<Var name="project:framework" type="dynamic" expression="${project:name}.framework"/>

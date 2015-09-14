@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3B00E5991BA37A420011486D"
-               BuildableName = "$(project:name).framework"
-               BlueprintName = "$(project:name)-tvOS"
-               ReferencedContainer = "container:$(project:name).xcodeproj">
+               BuildableName = "${project:name}.framework"
+               BlueprintName = "${project:name}-tvOS"
+               ReferencedContainer = "container:${project:name}.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3B00E5A21BA37A420011486D"
-               BuildableName = "$(project:name)UnitTests.xctest"
-               BlueprintName = "$(project:name)UnitTests-tvOS"
-               ReferencedContainer = "container:$(project:name).xcodeproj">
+               BuildableName = "${project:name}UnitTests.xctest"
+               BlueprintName = "${project:name}UnitTests-tvOS"
+               ReferencedContainer = "container:${project:name}.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B00E5991BA37A420011486D"
-            BuildableName = "$(project:name).framework"
-            BlueprintName = "$(project:name)-tvOS"
-            ReferencedContainer = "container:$(project:name).xcodeproj">
+            BuildableName = "${project:name}.framework"
+            BlueprintName = "${project:name}-tvOS"
+            ReferencedContainer = "container:${project:name}.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B00E5991BA37A420011486D"
-            BuildableName = "$(project:name).framework"
-            BlueprintName = "$(project:name)-tvOS"
-            ReferencedContainer = "container:$(project:name).xcodeproj">
+            BuildableName = "${project:name}.framework"
+            BlueprintName = "${project:name}-tvOS"
+            ReferencedContainer = "container:${project:name}.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B00E5991BA37A420011486D"
-            BuildableName = "$(project:name).framework"
-            BlueprintName = "$(project:name)-tvOS"
-            ReferencedContainer = "container:$(project:name).xcodeproj">
+            BuildableName = "${project:name}.framework"
+            BlueprintName = "${project:name}-tvOS"
+            ReferencedContainer = "container:${project:name}.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

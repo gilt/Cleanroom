@@ -10,10 +10,12 @@ $project:name is built as a *Swift framework*, and as such, it has the following
 
 Platform|Minimum version
 --------|------------------------
+^if($project:isTVOS|Apple TV^q(|)tvOS 9.0)
+^if($project:isWATCHOS|Apple Watch^q(|)watchOS 2.0)
 ^if($project:isIOS|iOS^q(|)iOS 8.0)
 ^if($project:isOSX|Mac^q(|)OS X 10.10)
 
-$project:name is **Swift 2.0**-compliant and requires **Xcode 7 beta 2 or higher** to be built.
+$project:name is **Swift 2.0**-compliant and requires **Xcode 7 or higher** to be built.
 
 ^q(###) Contents
 

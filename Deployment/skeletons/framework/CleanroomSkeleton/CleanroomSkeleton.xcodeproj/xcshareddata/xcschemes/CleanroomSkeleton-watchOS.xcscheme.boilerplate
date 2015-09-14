@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B00E57B1BA379830011486D"
+               BlueprintIdentifier = "3B78C6CD1BA7634E00173EAC"
                BuildableName = "${project:name}.framework"
-               BlueprintName = "${project:name}-OSX"
+               BlueprintName = "${project:name}-watchOS"
                ReferencedContainer = "container:${project:name}.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B00E5841BA379830011486D"
-               BuildableName = "${project:name}UnitTests.xctest"
-               BlueprintName = "${project:name}UnitTests-OSX"
-               ReferencedContainer = "container:${project:name}.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3B00E57B1BA379830011486D"
-            BuildableName = "${project:name}.framework"
-            BlueprintName = "${project:name}-OSX"
-            ReferencedContainer = "container:${project:name}.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3B00E57B1BA379830011486D"
+            BlueprintIdentifier = "3B78C6CD1BA7634E00173EAC"
             BuildableName = "${project:name}.framework"
-            BlueprintName = "${project:name}-OSX"
+            BlueprintName = "${project:name}-watchOS"
             ReferencedContainer = "container:${project:name}.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3B00E57B1BA379830011486D"
+            BlueprintIdentifier = "3B78C6CD1BA7634E00173EAC"
             BuildableName = "${project:name}.framework"
-            BlueprintName = "${project:name}-OSX"
+            BlueprintName = "${project:name}-watchOS"
             ReferencedContainer = "container:${project:name}.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

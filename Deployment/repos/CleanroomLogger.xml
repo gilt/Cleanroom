@@ -15,6 +15,7 @@ The API provided by CleanroomLogger is designed to be readily understood by anyo
 		<Var literal="iOS"/>
 		<Var literal="OSX"/>
         <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
 	</Var>
 
 	<Var name="project:dependencies" type="list">

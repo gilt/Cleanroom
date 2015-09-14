@@ -64,6 +64,11 @@ Peter Hosey’s *Idle Time* blog also has [a number of informative posts on ASL]
 		<Var literal="iOS"/>
 		<Var literal="OSX"/>
         <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+	</Var>
+
+	<Var name="project:settings" type="map">
+		<Var name="app-extension-only" boolean="T"/>
 	</Var>
 
 	<Var name="repo:owner" literal="emaloney"/>

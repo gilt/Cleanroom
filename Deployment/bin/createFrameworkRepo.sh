@@ -259,10 +259,10 @@ fi
 if [[ $INCLUDE_OSX == 0 ]]; then
 	EXCLUDE_FILE_PATTERNS+=("OSX\.xcconfig\$" "\-OSX\.xcscheme\.boilerplate\$")
 fi
-if [[ $INCLUDE_OSX == 0 ]]; then
+if [[ $INCLUDE_TVOS == 0 ]]; then
 	EXCLUDE_FILE_PATTERNS+=("tvOS\.xcconfig\$" "\-tvOS\.xcscheme\.boilerplate\$")
 fi
-if [[ $INCLUDE_OSX == 0 ]]; then
+if [[ $INCLUDE_WATCHOS == 0 ]]; then
 	EXCLUDE_FILE_PATTERNS+=("watchOS\.xcconfig\$" "\-watchOS\.xcscheme\.boilerplate\$")
 fi
 
