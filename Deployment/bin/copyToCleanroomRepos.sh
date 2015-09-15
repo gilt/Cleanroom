@@ -1,34 +1,10 @@
 #!/bin/bash
 
-SCRIPT_NAME=`basename $0`
-SCRIPT_DIR=`dirname "$PWD/$0"`
+SCRIPT_NAME=$(basename "$0")
+SCRIPT_DIR=$(cd $PWD ; cd `dirname "$0"` ; echo $PWD)
 
-cd "$SCRIPT_DIR/../.."
-REPO_DIR="$PWD"
-REPO_NAME=`basename "$PWD"`
-cd ..
-EXEC_DIR="$PWD"
-
-isNotRepo()
-{
-	pushd "$1" > /dev/null
-	git status 2&> /dev/null
-	RESULT=$?
-	popd > /dev/null
-	echo $RESULT
-}
-
-#
-# find the individual Cleanroom Project repos
-#
-REPO_LIST=()
-for f in *; do
-	if [[ -d "$f" ]] && [[ $f != "$REPO_NAME" ]] && [[ $f == "Cleanroom"* ]]; then
-		if [[ $(isNotRepo "$f") == 0 ]]; then
-			REPO_LIST+=("$f")
-		fi
-	fi
-done
+cd "$SCRIPT_DIR"
+source common-include.sh
 
 showHelp()
 {
@@ -69,66 +45,38 @@ showHelp()
 	echo
 }
 
-printError()
-{
-	echo "error: $1"
-	echo
-	if [[ ! -z $2 ]]; then
-		printf "  $2\n\n"
-	fi
-}
-
-exitWithError()
-{
-	printError "$1" "$2"
-	exit 1
-}
-
-exitWithErrorSuggestHelp()
-{
-	printError "$1" "$2"
-	printf "  To display help, run:\n\n\t$0 --help\n"
-	exit 1
-}
-
-confirmationPrompt()
-{
-	echo
-	printf "$1\n"
-	echo
-	read -p "Are you sure you want to continue? " -n 1 -r
-	echo
-	if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-		exit -1
-	fi
-}
-
-expectRepo()
-{
-	if [[ $(isNotRepo "$1") != 0 ]]; then
-		echo "error: Expected $1 (within the directory $PWD) to be a git repo"
-		exit 1
-	fi
-}
-
-executeCommand()
-{
-	eval "$1"
-	if [[ $? != 0 ]]; then
-		exitWithError "Command failed"
-	fi
-}
-
 #
 # parse the command-line arguments
 #
 ARGS=()
+REPO_LIST=()
 while [[ $1 ]]; do
 	case $1 in
 	--help|-h|-\?)
 		SHOW_HELP=1
 		;;
 	
+	--repo|-r)
+ 		REPOS_SPECIFIED=1
+ 		while [[ $2 ]]; do
+ 			case $2 in
+ 			-*)
+ 				break
+ 				;;
+ 				
+ 			*)
+				REPO_LIST+=($2)
+				shift
+				;;	
+ 			esac
+ 		done
+ 		;;
+ 		
+ 		
+ 	--all|-a)
+		ALL_REPOS_FLAG=1
+		;;
+
 	--force|-f)
 		FORCE_MODE=1
 		;;
@@ -149,13 +97,39 @@ if [[ $SHOW_HELP ]]; then
 	exit 1
 fi
 
+cd "$SCRIPT_DIR/../.."
+REPO_DIR="$PWD"
+REPO_NAME=`basename "$PWD"`
+cd ..
+EXEC_DIR="$PWD"
+
 #
-# do some sanity checking on the execution environment
+# validate the input
 #
-if [[ ${#REPO_LIST[@]} < 1 ]]; then
-	exitWithErrorSuggestHelp "Expecting to find at least one Cleanroom Project repo within $EXEC_DIR"
+if [[ $REPOS_SPECIFIED && $ALL_REPOS_FLAG ]]; then
+	exitWithErrorSuggestHelp "--repo|-r and --all|-a are mutually exclusive; they may not both be specified at the same time"
+fi
+if [[ ! $REPOS_SPECIFIED ]]; then
+	if [[ ! $ALL_REPOS_FLAG ]]; then
+		exitWithErrorSuggestHelp "If no --repo|-r values were specified, --all|-a must be specified"
+	fi
+
+	for f in "$SCRIPT_DIR/../repos/"*.xml; do
+		REPO_LIST+=(`basename "$f" | sed "s/^repos\///" | sed "s/.xml$//"`)
+	done
 fi
 
+if [[ ${#REPO_LIST[@]} < 1 ]]; then
+	exitWithErrorSuggestHelp "At least one repo must be specified"
+fi
+
+if [[ ${#ARGS[@]} < 1 ]]; then
+	exitWithErrorSuggestHelp "At least file to copy must be specified"
+fi
+
+#
+# make sure we're being run from the expected place
+#
 expectRepo "$REPO_NAME"
 if [[ "$REPO_NAME" != "Cleanroom" ]]; then
 	confirmationPrompt "WARNING: This script is expected to run within a repo named Cleanroom.\n\nInstead, this script is being run from within $REPO_NAME."
@@ -165,8 +139,8 @@ fi
 # ensure that the arguments are all things that can be copied
 #
 for f in ${ARGS[@]}; do
-	ITEM=`basename $f`
-	DIR=`dirname $f`
+	ITEM=`basename "$f"`
+	DIR=`dirname "$f"`
 	if [[ $DIR == '.' ]]; then
 		DIR=""
 	else
@@ -177,8 +151,14 @@ for f in ${ARGS[@]}; do
 	else
 		CP_ARGS="i"
 	fi
+	
+	SRCDIR="${REPO_NAME}/Deployment/boilerplate"
 	for r in ${REPO_LIST[@]}; do
-		echo "Copying $ITEM to $r/$DIR."
-		executeCommand "cp -${CP_ARGS}R \"${REPO_NAME}/${DIR}${ITEM}\" \"$r/$DIR.\""
+		DESTITEM=$( echo "$ITEM" | sed sq^_q.q )
+		echo "Copying $ITEM to $r/${DIR}${DESTITEM}"
+		executeCommand "cp -${CP_ARGS}R \"${SRCDIR}/${DIR}${ITEM}\" \"$r/$DIR.\""
+		if [[ "$DESTITEM" != "$ITEM" ]]; then
+			executeCommand "mv -f \"$r/${DIR}${ITEM}\" \"$r/${DIR}${DESTITEM}\""
+		fi
 	done
 done

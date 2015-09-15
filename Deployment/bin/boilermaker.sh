@@ -1,31 +1,10 @@
 #!/bin/bash
 
-SCRIPT_NAME=`basename $0`
-SCRIPT_DIR=`dirname "$PWD/$0"`
+SCRIPT_NAME=$(basename "$0")
+SCRIPT_DIR=$(cd $PWD ; cd `dirname "$0"` ; echo $PWD)
 
 cd "$SCRIPT_DIR/.."
-
-printError()
-{
-	echo "error: $1"
-	echo
-	if [[ ! -z $2 ]]; then
-		printf "  $2\n\n"
-	fi
-}
-
-exitWithError()
-{
-	printError "$1" "$2"
-	exit 1
-}
-
-exitWithErrorSuggestHelp()
-{
-	printError "$1" "$2"
-	printf "  To display help, run:\n\n\t$0 --help\n"
-	exit 1
-}
+source "bin/common-include.sh"
 
 #
 # parse the command-line arguments
@@ -143,29 +122,6 @@ showHelp()
 	echo
 }
 
-isNotRepo()
-{
-	REPO_DIR="../../$1"
-	if [[ ! -d "$REPO_DIR" ]]; then
-		echo 1
-	else
-		pushd "$REPO_DIR" > /dev/null
-		git status 2&> /dev/null
-		RESULT=$?
-		popd > /dev/null
-		echo $RESULT
-	fi
-}
-
-expectRepo()
-{
-	if [[ $(isNotRepo "$1") != 0 ]]; then
-		REPO_PARENT="`cd ../..; pwd`"
-		echo "error: Expected $1 (within the directory $REPO_PARENT) to be a git repo"
-		exit 1
-	fi
-}
-
 if [[ $SHOW_HELP ]]; then
 	showHelp | less
 	exit 1
@@ -199,7 +155,7 @@ fi
 # make sure everything we were handed looks like a real repo
 #
 for r in ${REPO_LIST[@]}; do
-	expectRepo "$r"
+	expectRepo "../../$r"
 done
 
 #

@@ -1,7 +1,11 @@
 #!/bin/bash
 
-SCRIPT_NAME=`basename $0`
-SCRIPT_DIR=`dirname "$PWD/$0"`
+SCRIPT_NAME=$(basename "$0")
+SCRIPT_DIR=$(cd $PWD ; cd `dirname "$0"` ; echo $PWD)
+
+cd "$SCRIPT_DIR"
+source common-include.sh
+
 PLATE_BIN="$SCRIPT_DIR/plate"
 DEST_ROOT="$SCRIPT_DIR/../../.."
 DEFAULT_DEST_ROOT=$( cd "$DEST_ROOT"; echo $PWD )
@@ -154,42 +158,6 @@ showHelp()
 	printf "\tNote that when this script displays help documentation, all other\n"
 	printf "\tcommand line arguments are ignored and no other actions are performed.\n"
 	echo
-}
-
-printError()
-{
-	echo "error: $1"
-	echo
-	if [[ ! -z $2 ]]; then
-		printf "  $2\n\n"
-	fi
-}
-
-exitWithError()
-{
-	printError "$1" "$2"
-	exit 1
-}
-
-exitWithErrorSuggestHelp()
-{
-	printError "$1" "$2"
-	printf "  To display help, run:\n\n\t$0 --help\n"
-	exit 1
-}
-
-executeCommand()
-{
-	eval "$@"
-	if [[ $? != 0 ]]; then
-		exitWithError "Command failed"
-	fi
-}
-
-isInArray()
-{
-	for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 1; done
-	return 0
 }
 
 if [[ $SHOW_HELP ]]; then
