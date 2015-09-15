@@ -5,6 +5,12 @@
 	<Var name="repo:url:http" type="dynamic" expression="${repo:url:home}.git"/>
 	<Var name="repo:url:ssh" type="dynamic" expression="git@github.com:${repo:owner}/${repo:name}.git"/>
 
+	<Var name="version" type="map">
+		<Var name="git" literal="git version 2.3.8 (Apple Git-58)"/> 
+		<Var name="Swift" literal="2.0"/> 
+		<Var name="Xcode" literal="7.0"/> 
+	</Var>
+
 	<Var name="project:isIOS" type="dynamic" expression="^containsValue($project:platforms|iOS)"/>
 	<Var name="project:isOSX" type="dynamic" expression="^containsValue($project:platforms|OSX)"/>
 	<Var name="project:isTVOS" type="dynamic" expression="^containsValue($project:platforms|tvOS)"/>
