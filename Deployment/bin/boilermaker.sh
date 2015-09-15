@@ -87,7 +87,7 @@ showHelp()
 	echo
 	printf "\t--commit \"<message>\"\n"
 	echo
-	printf "\t\tIf this argument is specified, the script will attempt to.\n"
+	printf "\t\tIf this argument is specified, the script will attempt to\n"
 	printf "\t\tcommit changes using <message> as the commit message.\n"
 	echo
 	echo "Command-line flag aliases:"
