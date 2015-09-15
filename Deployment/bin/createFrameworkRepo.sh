@@ -161,7 +161,7 @@ showHelp()
 }
 
 if [[ $SHOW_HELP ]]; then
-	showHelp | less
+	showHelp
 	exit 1
 fi
 
