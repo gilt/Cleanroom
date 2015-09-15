@@ -314,11 +314,7 @@ while [[ $1 ]]; do
 done
 
 if [[ $SHOW_HELP ]]; then
-	if [[ -z $AUTOMATED_MODE ]]; then
-		showHelp | less
-	else
-		showHelp
-	fi
+	showHelp
 	exit 1
 fi
 
