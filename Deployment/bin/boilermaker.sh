@@ -5,6 +5,28 @@ SCRIPT_DIR=`dirname "$PWD/$0"`
 
 cd "$SCRIPT_DIR/.."
 
+printError()
+{
+	echo "error: $1"
+	echo
+	if [[ ! -z $2 ]]; then
+		printf "  $2\n\n"
+	fi
+}
+
+exitWithError()
+{
+	printError "$1" "$2"
+	exit 1
+}
+
+exitWithErrorSuggestHelp()
+{
+	printError "$1" "$2"
+	printf "  To display help, run:\n\n\t$0 --help\n"
+	exit 1
+}
+
 #
 # parse the command-line arguments
 #
@@ -47,6 +69,11 @@ while [[ $1 ]]; do
  		done
  		;;
  		
+ 		
+ 	--all|-a)
+		ALL_REPOS_FLAG=1
+		;;
+		
  	--commit|-c)
  		if [[ $2 ]]; then
  			COMMIT_MESSAGE=$2
@@ -72,18 +99,25 @@ showHelp()
 	echo
 	printf "\t$SCRIPT_NAME --file <file-list>\n"
 	echo
-	echo "Where:"
+	echo "Required arguments:"
 	echo
 	printf "\t<file-list> is a space-separated list of the relative paths\n"
 	printf "\t(within the target repos) of files to be generated.\n"
-	echo
-	echo "Optional arguments accepted:"
 	echo
 	printf "\t--repo <repo-list>\n"
 	echo
 	printf "\t\t<repo-list> is a space-separated list of the repos for which\n"
 	printf "\t\tthe files will be generated. If this argument is not present,\n"
-	printf "\t\tfile(s) will be regenerated for all known repos.\n"
+	printf "\t\tthe --all flag must be provided to force generation of all\n"
+	printf "\t\tknown repos.\n"
+	echo
+	printf "\t--all\n"
+	echo
+	printf "\t\tThis argument is only required if --repo is not specified.\n"
+	printf "\t\tWhen --all is specified, boilerplate regeneration will occur\n"
+	printf "\t\tfor all known repos.\n"
+	echo
+	echo "Optional:"
 	echo
 	printf "\t--commit \"<message>\"\n"
 	echo
@@ -96,6 +130,7 @@ showHelp()
 	echo
 	printf "\t\t-f = --file\n"
 	printf "\t\t-r = --repo\n"
+	printf "\t\t-a = --all\n"
 	printf "\t\t-c = --commit\n"
 	echo
 	echo "Help"
@@ -106,28 +141,6 @@ showHelp()
 	printf "\tNote that when this script displays help documentation, all other\n"
 	printf "\tcommand line arguments are ignored and no other actions are performed.\n"
 	echo
-}
-
-printError()
-{
-	echo "error: $1"
-	echo
-	if [[ ! -z $2 ]]; then
-		printf "  $2\n\n"
-	fi
-}
-
-exitWithError()
-{
-	printError "$1" "$2"
-	exit 1
-}
-
-exitWithErrorSuggestHelp()
-{
-	printError "$1" "$2"
-	printf "  To display help, run:\n\n\t$0 --help\n"
-	exit 1
 }
 
 isNotRepo()
@@ -163,9 +176,16 @@ if [[ ${#FILE_LIST[@]} < 1 ]]; then
 fi
 
 #
-# if no repos were specified, use everything we have data for
+# if no repos were specified, require --all & use everything we have data for
 #
+if [[ $REPOS_SPECIFIED && $ALL_REPOS_FLAG ]]; then
+	exitWithErrorSuggestHelp "--repo|-r and --all|-a are mutually exclusive; they may not both be specified at the same time"
+fi
 if [[ ! $REPOS_SPECIFIED ]]; then
+	if [[ ! $ALL_REPOS_FLAG ]]; then
+		exitWithErrorSuggestHelp "If no --repo|-r values were specified, --all|-a must be specified"
+	fi
+
 	for f in repos/*.xml; do
 		REPO_LIST+=(`echo $f | sed "s/^repos\///" | sed "s/.xml$//"`)
 	done
