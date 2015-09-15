@@ -37,14 +37,12 @@ Once integrated, just add the following `import` statement to any Swift file whe
 $project:import
 ```
 
-^q(##) Using $project:name
-
 ^if($project:readme:examples|$project:readme:examples
 
-
+)
 ^q(###) API documentation
 
-)For detailed information on using $project:name, [API documentation](https://rawgit.com/${repo:owner}/${repo:name}/master/Documentation/index.html) is available.
+For detailed information on using $project:name, [API documentation](https://rawgit.com/${repo:owner}/${repo:name}/master/Documentation/index.html) is available.
 
 
 ^if($project:readme:summation|$project:readme:summation
