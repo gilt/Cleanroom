@@ -198,7 +198,7 @@ if [[ $SHOW_HELP ]]; then
 fi
 
 if [[ -z "$NEW_REPO_NAME" ]]; then
-	exitWithErrorSuggestHelp "At least one repo must be specified"
+	exitWithErrorSuggestHelp "Must provide name of new repo/project"
 fi
 
 DEST_ROOT=$( cd "$DEST_ROOT"; echo $PWD )
@@ -210,7 +210,8 @@ if [[ -e "$DEST_ROOT/$NEW_REPO_NAME" && $FORCE_MODE != 1 ]]; then
 	exitWithErrorSuggestHelp "Directory already exists: $DEST_ROOT/$NEW_REPO_NAME" "Use --force (or -f) to override"
 fi
 
-if [[ -z "$REPO_OWNER" ]]; then
+REPO_SETTINGS_FILE="$SCRIPT_DIR/../repos/${NEW_REPO_NAME}.xml"
+if [[ -z "$REPO_OWNER" && ! -r "$REPO_SETTINGS_FILE" ]]; then
 	exitWithErrorSuggestHelp "The repo's owner must be specified"
 fi
 
@@ -301,7 +302,10 @@ processDirectory()
 				printf "\t${DEST_ROOT}/${DEST_DIR}${DEST_NAME} <- $f\n"
 			CREATOR_USER=`id -un`
 			CREATOR_NAME=`id -F`
-			$PLATE_BIN -t "$f" -o "${DEST_ROOT}/${DEST_DIR}${DEST_NAME}" -m ../include/repos.xml --stdin-data <<MBML_BLOCK
+			if [[ -r "$REPO_SETTINGS_FILE" ]]; then
+				$PLATE_BIN -t "$f" -o "${DEST_ROOT}/${DEST_DIR}${DEST_NAME}" -m ../include/repos.xml -d "$REPO_SETTINGS_FILE"
+			else
+				$PLATE_BIN -t "$f" -o "${DEST_ROOT}/${DEST_DIR}${DEST_NAME}" -m ../include/repos.xml --stdin-data <<MBML_BLOCK
 <MBML>
 	<Var name="repo:owner" literal="${REPO_OWNER}"/>
 	<Var name="project:name" literal="${NEW_REPO_NAME}"/>
@@ -312,6 +316,7 @@ processDirectory()
 	</Var>
 </MBML>
 MBML_BLOCK
+			fi
 			if [[ $( echo "$DEST_NAME" | grep -c "\.sh\$" ) > 0 ]]; then
 				chmod a+x "${DEST_ROOT}/${DEST_DIR}${DEST_NAME}"
 			fi
@@ -328,9 +333,12 @@ MBML_BLOCK
 }
 
 cd "$SCRIPT_DIR/../skeletons"
-
 echo "Creating new Xcode framework project repo $NEW_REPO_NAME in $DEST_ROOT"
 processDirectory "framework"
+
+cd "$SCRIPT_DIR"
+echo "Generating boilerplate documentation"
+./updateBoilerplate.sh --repo "$NEW_REPO_NAME"
 
 cd "$DEST_ROOT/$NEW_REPO_NAME"
 if [[ ! -d .git ]]; then
