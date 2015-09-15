@@ -15,7 +15,7 @@ Platform|Minimum version
 ^if($project:isIOS|iOS^q(|)iOS 8.0)
 ^if($project:isOSX|Mac^q(|)OS X 10.10)
 
-$project:name is **Swift 2.0**-compliant and requires **Xcode 7 or higher** to be built.
+$project:name is **Swift $version[Swift]**-compliant and requires **Xcode $version[Xcode] or higher** to be built.
 
 ^q(###) Contents
 
@@ -27,7 +27,7 @@ $project:name is **Swift 2.0**-compliant and requires **Xcode 7 or higher** to b
 
 Some familiarity with the Terminal application, the bash command line, and the `git` command is assumed.
 
-The steps below have been tested with **git 2.3.7 (Apple Git-57)**, although they should be compatible with a wide range of git versions.
+The steps below have been tested with **git $version[git]**, although they should be compatible with a wide range of git versions.
 
 ^q(###) About Frameworks on iOS
 

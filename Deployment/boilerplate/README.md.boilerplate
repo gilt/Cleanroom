@@ -10,9 +10,9 @@
 ^if($project:readme:preamble|$project:readme:preamble
 
 
-)^q(###) Swift 2.0 compatibility
+)^q(###) Swift $version[Swift] compatibility
 
-The `master` branch of this project is Swift 2.0 compliant and therefore **requires Xcode 7 beta 2 or higher to compile**.
+The `master` branch of this project is Swift $version[Swift] compliant and therefore **requires Xcode $version[Xcode] or higher to compile**.
 
 
 ^if($project:license|^q(###) License
@@ -52,9 +52,9 @@ $project:import
 
 )^q(##) About
 
-The Cleanroom Project is an experiment in re-imagining Gilt's iOS codebase in a legacy-free incarnation that embraces the latest Apple technology.
+The Cleanroom Project began as an experiment in re-imagining Gilt's iOS codebase in a legacy-free incarnation embracing the latest Apple technology. Since then, Cleanroom Project code has served as the basis of our tvOS app.
 
-We'll be tracking the most up-to-date releases of Swift, iOS and Xcode, and we'll be [open-sourcing major portions of our code](https://github.com/gilt/Cleanroom#open-source-by-default) as we go.
+We'll be tracking the latest releases of Swift and Xcode, and we'll be [open-sourcing major portions of our code](https://github.com/gilt/Cleanroom#open-source-by-default) as we go.
 
 
 ^q(###) Contributing
