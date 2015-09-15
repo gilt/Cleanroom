@@ -8,11 +8,11 @@ This document describes how to integrate $project:name into your application.
 
 $project:name is built as a *Swift framework*, and as such, it has the following base platform requirements:
 
-Platform|Minimum version
+Platform|Minimum OS version
 --------|------------------------
 ^if($project:isTVOS|Apple TV^q(|)tvOS 9.0)
 ^if($project:isWATCHOS|Apple Watch^q(|)watchOS 2.0)
-^if($project:isIOS|iOS^q(|)iOS 8.0)
+^if($project:isIOS|iPhone/iPad^q(|)iOS 8.0)
 ^if($project:isOSX|Mac^q(|)OS X 10.10)
 
 $project:name is **Swift $version[Swift]**-compliant and requires **Xcode $version[Xcode] or higher** to be built.
@@ -20,8 +20,8 @@ $project:name is **Swift $version[Swift]**-compliant and requires **Xcode $versi
 ^q(###) Contents
 
 - **[Options for integration](#options-for-integration)**
-- **[Instructions for manual integration](#manual-integration)**
 - **[Instructions for integration using Carthage](#carthage-integration)**
+- **[Instructions for manual integration](#manual-integration)**
 
 ^q(###) Prerequisites
 
@@ -29,29 +29,147 @@ Some familiarity with the Terminal application, the bash command line, and the `
 
 The steps below have been tested with **git $version[git]**, although they should be compatible with a wide range of git versions.
 
-^q(###) About Frameworks on iOS
+^if($project:isIOS -OR $project:isTVOS -OR $project:isWATCHOS|
+^q(###) Of Frameworks and Simulators
 
-Official support for third-party iOS frameworks was introduced with Xcode 6 and iOS 8. Prior to that, developers had been using frameworks in an unsupported fashion by placing shared libraries and resources inside a filesystem structure that mimicked that of the frameworks published by Apple.
+When developing for a platform with a simulator, there are some kinks in the process:
 
-Given that *real* third-party iOS framework support is still in its infancy, it should be no surprise that there are still kinks in the development process when using them:
+- Simulators use a different processor architecture than real devices. As a result, **frameworks compiled only for device won’t work in the simulator, and vice-versa**. Sure, you *could* use `lipo` to stitch together a universal binary and use that instead, but...
 
-- The iOS Simulator uses a different processor architecture than real devices. As a result, **frameworks compiled for device won’t work in the simulator, and vice-versa**. Sure, you *could* use `lipo` to stitch together a universal binary and use that instead, but...
-
-- **Apple will not accept App Store binaries containing iOS Simulator code.** That means if you go the universal binary route, now you need a custom build step to make the universal binary, and you need another step to un-make the universal binary when you’re building for submission. Okay, well, why not just build *two* frameworks: one for the iOS Simulator and one for devices?
+- **Apple will not accept App Store binaries containing simulator code.** That means if you go the universal binary route, you now need a custom build step to make the universal binary, and another step to un-make the universal binary when you’re building for submission. Okay, well, why not just build *two* frameworks: one specifically for the simulator and the other for devices?
 
 - **Xcode won’t be happy if you import two separate frameworks with the same symbols.** Xcode won’t notice that there really is no conflict because the frameworks are compiled for different processor architectures. All Xcode will care about is that you’re importing two separate frameworks that both claim to have the same module name.
 
 For these reasons, we do not release Cleanroom projects as framework binaries. Instead, we provide the source, the Xcode project file, and options for integrating so that you can use it from within your code and submit an app that Apple will accept. (Or, at the very least, if Apple *doesn’t* accept your app, we don’t want it to be the fault of *this* project!)
-
+)
 ^q(###) Options for integration
 
 There are two supported options for integration:
 
-- **[Manual integration](#manual-integration)** — The `${project:file}` Xcode project file is embedded directly within your project. You then add $docs:frameworkAndList to the *Embedded Binaries* and *Linked Frameworks and Libraries* sections under the *General* tab for your application target.
+- **[Carthage integration](#carthage-integration)** — Explains how to use the [Carthage](https://github.com/Carthage/Carthage) dependency manager for adding ${project:name} to your project.
 
-- **[Carthage integration](#carthage-integration)** — [Carthage](https://github.com/Carthage/Carthage) is a dependency package manager designed to build frameworks. Once Carthage is installed, to add $project:name to your project using Carthage, you would put the line `${repo:host} "${repo:owner}/${repo:name}"` in your `Cartfile` and then issue the command `carthage update`.
+- **[Manual integration](#manual-integration)** — Demonstrates the steps for adding ${project:name} by embedding `${project:file}` within your own Xcode project. (**Note:** Manual integration is a bit more involved than using Carthage).
 
 Whether you choose one over the other largely depends on your preferences and—in the case of Carthage—whether you’re already using that solution for other dependencies.
+
+^q(##) Carthage Integration
+
+Carthage is a third-party package dependency manager for iOS and Mac OS X. Carthage works by building frameworks for each of a project’s dependencies.
+
+^q(###) Verifying Carthage availability
+
+Before attempting any of the steps below, you should verify that Carthage is available on your system. To do that, open Terminal and execute the command:
+
+```bash
+carthage version
+```
+
+If Carthage is available, the version you have installed will be shown.
+
+> As of this writing, the current version of Carthage is $version[Carthage].
+
+If Carthage is not present, you will see an error that looks like:
+
+```
+-bash: carthage: command not found
+```
+
+Installing Carthage is beyond the scope of this document. If you do not have Carthage installed but would like to use it, [you can find installation instructions on the project page](https://github.com/Carthage/Carthage#installing-carthage).
+
+^q(###) How Carthage builds frameworks
+
+When building a framework for a platform with a simulator, Carthage creates a *universal binary*, allowing `${project:framework}` to work in the simulator as well as on actual devices.
+
+However, because Apple will not accept App Store submissions containing universal binary code, Carthage requires the addition of a build step that strips all unused architectures out of the universal binaries. That way, when building for the simulator, device code is removed; conversely, when creating a device build, simulator code is removed. This keeps Apple happy, while also making it easy to switch back and forth between running on the device and in the simulator.
+
+^q(###) An Overview of the Process
+
+Carthage integration is a little simpler than manual integration:
+
+1. Update the `Cartfile` with an entry for $project:name
+2. Download and build $project:name
+3. Add $docs:frameworkAndList to your application target
+4. Create a build phase to strip the extra processor architectures from the Carthage $docs:targetFrameworksTerm ^if($project:isOSX|(not necessary for Mac OS X builds))
+
+^q(###) Getting Started
+
+We’ll start in the Terminal, by `cd`ing into to your project’s root directory. The commands you’ll need to issue below can all be done from this location.
+
+^q(###) 1. Update the Cartfile
+
+In your project’s root directory, edit the file named `Cartfile`—creating it if necessary—to add the following line:
+
+```
+$docs:carthageSpec
+```
+
+^q(###) 2. Download & Build using Carthage
+
+The command `carthage update` causes Carthage to download and build ${project:name}.
+
+By default, `carthage update` builds all platform targets in a project. Normally, this is _not_ what you want; you’ll usually use ${project:name} on just one platform at a time.
+
+To speed up the build process—and to avoid trying to build for a platform that might not be supported by the version of Xcode you have—it is _strongly recommended_ that you pass the `--platform` argument to `carthage update`:
+
+To build for|Run the command
+--------|------------------------
+^if($project:isTVOS|Apple TV^q(|)`carthage update --platform tvos`)
+^if($project:isWATCHOS|Apple Watch^q(|)`carthage update --platform watchos`)
+^if($project:isIOS|iPhone/iPad^q(|)`carthage update --platform ios`)
+^if($project:isOSX|Mac^q(|)`carthage update --platform mac`)
+
+^q(####) Where Carthage stores files
+
+Carthage puts its files within a top-level directory called `Carthage` at the root of your project’s directory structure (i.e., the `Carthage` directory is a sibling of the `Cartfile`). Within this directory are two more directories: `Build`, which contains any frameworks built by Carthage; and `Checkouts`, which contains fully populated directory structures for each repository specified in the `Cartfile`.
+
+^if($project:platforms.count -GT 0|> **Note:** By default, Carthage builds a framework for each platform supported by the project. You can limit the build to a specific platform by specifying a value for the `--platform` argument when invoking the `carthage` command.
+
+)Once Carthage is done building $project:name^if($project:dependencies| and its dependencies), you can use the `open` command to locate the framework $docs:projectBinariesTerm in Finder:
+
+```bash
+open Carthage/Build/iOS
+```
+
+^if($project:isOSX|The command above opens the directory containing the iOS framework $docs:targetBinariesTerm; to locate the Mac OS X $docs:targetBinariesTerm, execute:
+
+```bash
+open Carthage/Build/Mac
+```
+
+)If all went well, the Carthage build director^if($project:platforms.count -EQ 1|y|ies) should contain the ^if($project:dependencies|files:
+
+- `${project:framework}`
+^if($project:dependencies|^join(^list($project:dependencies|- `$(item).framework`)|\n))
+
+|file `${project:framework}`. )If ^if($project:dependencies|those files aren’t|that file isn’t) present, something went wrong with the build.
+
+^q(###) 3. Add the necessary $docs:targetFrameworksTerm to your app target
+
+In Xcode, select the *General* tab in the build settings for your application target. Scroll to the bottom of the screen to reveal the section entitled *Embedded Binaries* (the second-to-last section).
+
+Go back to Finder, select the file^if($project:dependencies|s) $docs:frameworkAndList, and then drag ^if($project:dependencies|them|it) into the list area directly below *Embedded Binaries*.
+
+If successful, you should see $docs:frameworkAndList listed under both the *Embedded Binaries* and *Linked Frameworks and Libraries* sections.
+
+^q(###) 4. Create a build phase to strip the Carthage $docs:targetFrameworksTerm
+
+^if($project:isOSX|> **Note:** You do *not* need to perform this step when building for Mac OS X. This step is only necessary when building for targets that can be run in a simulator.
+
+)In Xcode, select the *Build Phases* tab in the build settings for your application target.
+
+At the top-left corner of the list of build phases, you will see a “`+`” icon. Click that icon and add a “New Run Script Phase”.
+
+Then, in the script editor area just below the *Shell* line, add the following text:
+
+```
+$$PROJECT_DIR/Carthage/Checkouts/${repo:name}/BuildControl/bin/stripCarthageFrameworks.sh
+```
+
+This script will ensure that any frameworks built by Carthage are stripped of unnecessary processor architectures. Without this step, Apple would reject your app submission because the $docs:targetFrameworksTerm would be included as universal binaries, which [isn’t allowed in App Store submissions](http://www.openradar.me/radar?id=6409498411401216).
+
+Once you’ve done this, try building your application. If you don’t see any errors, **_you’re all done integrating ${project:name}!_**
+
+But before you start coding, skip to the [Adding the Swift import](#adding-the-swift-import) section to see how you can import $project:name for use in your Swift code.
 
 ^q(##) Manual Integration
 
@@ -165,118 +283,6 @@ To do this^if($project:dependencies|, repeat the following steps for each framew
 6. If the *Location* dropdown does not show “Relative to Build Products” as the setting, select “Relative to Build Products”
 
 Once you’ve done this for each framework, **_you’re all done integrating ${project:name}!_**
-
-Skip to the [Adding the Swift import](#adding-the-swift-import) section to see how you can import $project:name for use in your Swift code.
-
-^q(##) Carthage Integration
-
-Carthage is a third-party package dependency manager for iOS and Mac OS X. Carthage works by building frameworks for each of a project’s dependencies.
-
-^q(###) Verifying Carthage availability
-
-Before attempting any of the steps below, you should verify that Carthage is available on your system. To do that, open Terminal and execute the command:
-
-```bash
-carthage version
-```
-
-If Carthage is available, the version you have installed will be shown.
-
-> As of this writing, the current version of Carthage is $version[Carthage].
-
-If Carthage is not present, you will see an error that looks like:
-
-```
--bash: carthage: command not found
-```
-
-Installing Carthage is beyond the scope of this document. If you do not have Carthage installed but would like to use it, [you can find installation instructions on the project page](https://github.com/Carthage/Carthage#installing-carthage).
-
-^q(###) How Carthage builds iOS frameworks
-
-When building iOS frameworks, Carthage creates *universal binaries*, meaning that they will work in the iOS Simulator as well as on actual devices. However, because Apple will not accept App Store submissions containing universal binary code, Carthage requires the addition of a build step that strips all unused architectures out of the universal binaries. That way, when building for the simulator, device code is removed; conversely, when creating a device build, simulator code is removed. This keeps Apple happy, while also making it easy to switch back and forth between running on the device and in the simulator.
-
-^q(###) An Overview of the Process
-
-Carthage integration is a little simpler than manual integration:
-
-1. Update the `Cartfile` with an entry for $project:name
-2. Download and build $project:name
-3. Add $docs:frameworkAndList to your application target
-4. Create a build phase to strip the extra processor architectures from the Carthage $docs:targetFrameworksTerm ^if($project:isOSX|(not necessary for Mac OS X builds))
-
-^q(###) Getting Started
-
-We’ll start in the Terminal, by `cd`ing into to your project’s root directory. The commands you’ll need to issue below can all be done from this location.
-
-^q(###) 1. Update the Cartfile
-
-In your project’s root directory, edit the file named `Cartfile`—creating it if necessary—to add the following line:
-
-```
-$docs:carthageSpec
-```
-
-^q(###) 2. Download & Build using Carthage
-
-In Terminal, issue the command:
-
-```bash
-carthage update
-```
-
-This will cause Carthage to download and build ${project:name}.
-
-^q(####) Where Carthage stores files
-
-Carthage puts its files within a top-level directory called `Carthage` at the root of your project’s directory structure (i.e., the `Carthage` directory is a sibling of the `Cartfile`). Within this directory are two more directories: `Build`, which contains any frameworks built by Carthage; and `Checkouts`, which contains fully populated directory structures for each repository specified in the `Cartfile`.
-
-^if($project:platforms.count -GT 0|> **Note:** By default, Carthage builds a framework for each platform supported by the project. You can limit the build to a specific platform by specifying a value for the `--platform` argument when invoking the `carthage` command.
-
-)Once Carthage is done building $project:name^if($project:dependencies| and its dependencies), you can use the `open` command to locate the framework $docs:projectBinariesTerm in Finder:
-
-```bash
-open Carthage/Build/iOS
-```
-
-^if($project:isOSX|The command above opens the directory containing the iOS framework $docs:targetBinariesTerm; to locate the Mac OS X $docs:targetBinariesTerm, execute:
-
-```bash
-open Carthage/Build/Mac
-```
-
-)If all went well, the Carthage build director^if($project:platforms.count -EQ 1|y|ies) should contain the ^if($project:dependencies|files:
-
-- `${project:framework}`
-^if($project:dependencies|^join(^list($project:dependencies|- `$(item).framework`)|\n))
-
-|file `${project:framework}`. )If ^if($project:dependencies|those files aren’t|that file isn’t) present, something went wrong with the build.
-
-^q(###) 3. Add the necessary $docs:targetFrameworksTerm to your app target
-
-In Xcode, select the *General* tab in the build settings for your application target. Scroll to the bottom of the screen to reveal the section entitled *Embedded Binaries* (the second-to-last section).
-
-Go back to Finder, select the file^if($project:dependencies|s) $docs:frameworkAndList, and then drag ^if($project:dependencies|them|it) into the list area directly below *Embedded Binaries*.
-
-If successful, you should see $docs:frameworkAndList listed under both the *Embedded Binaries* and *Linked Frameworks and Libraries* sections.
-
-^q(###) 4. Create a build phase to strip the Carthage $docs:targetFrameworksTerm
-
-^if($project:isOSX|> **Note:** You do *not* need to perform this step when building for Mac OS X. This step is only necessary when building for targets that can be run in a simulator.
-
-)In Xcode, select the *Build Phases* tab in the build settings for your application target.
-
-At the top-left corner of the list of build phases, you will see a “`+`” icon. Click that icon and add a “New Run Script Phase”.
-
-Then, in the script editor area just below the *Shell* line, add the following text:
-
-```
-$$PROJECT_DIR/Carthage/Checkouts/${repo:name}/BuildControl/bin/stripCarthageFrameworks.sh
-```
-
-This script will ensure that any frameworks built by Carthage are stripped of unnecessary processor architectures. Without this step, Apple would reject your app submission because the $docs:targetFrameworksTerm would be included as universal binaries, which [isn’t allowed in App Store submissions](http://www.openradar.me/radar?id=6409498411401216).
-
-Once you’ve done this, try building your application. If you don’t see any errors, **_you’re all done integrating ${project:name}!_**
 
 ^q(##) Adding the Swift import
 
