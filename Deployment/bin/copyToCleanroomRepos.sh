@@ -156,6 +156,7 @@ for f in ${ARGS[@]}; do
 	for r in ${REPO_LIST[@]}; do
 		DESTITEM=$( echo "$ITEM" | sed sq^_q.q )
 		echo "Copying $ITEM to $r/${DIR}${DESTITEM}"
+		mkdir -p "$r/$DIR"
 		executeCommand "cp -${CP_ARGS}R \"${SRCDIR}/${DIR}${ITEM}\" \"$r/$DIR.\""
 		if [[ "$DESTITEM" != "$ITEM" ]]; then
 			executeCommand "mv -f \"$r/${DIR}${ITEM}\" \"$r/${DIR}${DESTITEM}\""
