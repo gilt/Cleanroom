@@ -4,11 +4,16 @@
 	
 	<Var name="project:description">CleanroomText is a Swift framework providing tools for working with strings and text.</Var>
 
-	<Var name="project:platforms" type="list">
-		<Var literal="iOS"/>
+    <Var name="project:platforms" type="list">
+        <Var literal="iOS"/>
         <Var literal="OSX"/>
         <Var literal="tvOS"/>
-	</Var>
+        <Var literal="watchOS"/>
+    </Var>
+
+    <Var name="project:settings" type="map">
+        <Var name="app-extension-only" boolean="T"/>
+    </Var>
 
 	<Var name="repo:owner" literal="emaloney"/>
 </MBML>

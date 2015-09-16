@@ -7,11 +7,16 @@
 		<Var name="markdown">CleanroomAppSettings provides a set of interfaces and implementations to abstract away code dependence on a singleton `NSUserDefaults` instance.</Var>
 	</Var>
 	
-	<Var name="project:platforms" type="list">
-		<Var literal="iOS"/>
+    <Var name="project:platforms" type="list">
+        <Var literal="iOS"/>
         <Var literal="OSX"/>
         <Var literal="tvOS"/>
-	</Var>
+        <Var literal="watchOS"/>
+    </Var>
+
+    <Var name="project:settings" type="map">
+        <Var name="app-extension-only" boolean="T"/>
+    </Var>
 
 	<Var name="repo:owner" literal="emaloney"/>
 </MBML>
