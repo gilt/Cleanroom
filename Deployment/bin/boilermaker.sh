@@ -152,13 +152,6 @@ if [[ ${#REPO_LIST[@]} < 1 ]]; then
 fi
 
 #
-# make sure everything we were handed looks like a real repo
-#
-for r in ${REPO_LIST[@]}; do
-	expectRepo "../../$r"
-done
-
-#
 # make sure boilerplate exists for each file specified
 #
 for f in ${FILE_LIST[@]}; do
