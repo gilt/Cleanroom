@@ -182,6 +182,9 @@ for f in ${FILE_LIST[@]}; do
 		if [[ "$?" != 0 ]]; then
 			exit 3
 		fi
+		if [[ $(echo "$f" | grep -c "\.sh\$") > 0 ]]; then
+			chmod a+x "../../$r/$f"
+		fi
 		printf " (done!)\n"
 	done
 done
