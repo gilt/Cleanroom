@@ -1,0 +1,18 @@
+<MBML>
+	<Var name="project:name" literal="SwiftyJSON"/>
+
+	<Var name="project:description">Gilt's fork of SwiftyJSON.</Var>
+	
+    <Var name="project:platforms" type="list">
+        <Var literal="iOS"/>
+        <Var literal="OSX"/>
+        <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+    </Var>
+
+    <Var name="project:settings" type="map">
+        <Var name="app-extension-only" boolean="T"/>
+    </Var>
+
+	<Var name="repo:owner" literal="gilt"/>
+</MBML>
