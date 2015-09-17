@@ -9,7 +9,9 @@
 	</Var>
 
     <Var name="project:dependencies" type="list">
+        <Var literal="CleanroomASL"/>
         <Var literal="CleanroomDataModel"/>
+        <Var literal="CleanroomLogger"/>
     </Var>
 
 	<Var name="repo:owner" literal="gilt"/>
