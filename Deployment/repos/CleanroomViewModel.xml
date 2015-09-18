@@ -10,10 +10,6 @@
         <Var literal="watchOS"/>
 	</Var>
 
-	<Var name="project:settings" type="map">
-		<Var name="app-extension-only" boolean="T"/>
-	</Var>
-
     <Var name="project:dependencies" type="list">
         <Var literal="CleanroomDataModel"/>
     </Var>

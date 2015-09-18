@@ -1,0 +1,19 @@
+<MBML>
+	<Var name="project:name" literal="CryptoSwift"/>
+	<Var name="project:license" literal="custom"/>
+
+	<Var name="project:description">CryptoSwift, forked from [https://github.com/krzyzanowskim/CryptoSwift].</Var>
+
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="OSX"/>
+        <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+	</Var>
+
+	<Var name="project:settings" type="map">
+		<Var name="app-extension-only" boolean="T"/>
+	</Var>
+
+	<Var name="repo:owner" literal="gilt"/>
+</MBML>
