@@ -2,8 +2,8 @@
 	<Var name="repo:host" literal="github"/>
 	<Var name="repo:name" type="dynamic" expression="$project:name"/>
 	<Var name="repo:url:home" type="dynamic" expression="https://github.com/${repo:owner}/${repo:name}"/>
-	<Var name="repo:url:http" type="dynamic" expression="${repo:url:home}.git"/>
-	<Var name="repo:url:ssh" type="dynamic" expression="git@github.com:${repo:owner}/${repo:name}.git"/>
+	<Var name="repo:url:http" type="dynamic" expression="${repo:url:home}"/>
+	<Var name="repo:url:ssh" type="dynamic" expression="git@github.com:${repo:owner}/${repo:name}"/>
 
 	<Var name="version" type="map">
 		<Var name="Carthage" literal="0.9.1"/>
