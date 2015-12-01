@@ -1,0 +1,16 @@
+<MBML>
+	<Var name="project:name" literal="AppleTart"/>
+
+	<Var name="project:description">AppleTart is Gilt’s closed-source Swift code library for Apple platforms.
+
+Although developed primarily for iOS and tvOS, AppleTart can also be compiled for Mac OS X and watchOS; however, only a subset of functionality is available on those platforms.</Var>
+
+    <Var name="project:platforms" type="list">
+        <Var literal="iOS"/>
+        <Var literal="OSX"/>
+        <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+    </Var>
+
+	<Var name="repo:owner" literal="gilt"/>
+</MBML>
