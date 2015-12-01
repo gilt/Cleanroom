@@ -6,10 +6,10 @@
 	<Var name="repo:url:ssh" type="dynamic" expression="git@github.com:${repo:owner}/${repo:name}"/>
 
 	<Var name="version" type="map">
-		<Var name="Carthage" literal="0.9.1"/>
-		<Var name="git" literal="2.3.8 (Apple Git-58)"/> 
-		<Var name="Swift" literal="2.0"/> 
-		<Var name="Xcode" literal="7.0"/> 
+		<Var name="Carthage" literal="0.10"/>
+		<Var name="git" literal="2.4.9 (Apple Git-60)"/> 
+		<Var name="Swift" literal="2.1"/> 
+		<Var name="Xcode" literal="7.1"/> 
 	</Var>
 
 	<Var name="project:isIOS" type="dynamic" expression="^containsValue($project:platforms|iOS)"/>
