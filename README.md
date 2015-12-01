@@ -2,33 +2,13 @@
 
 # The Cleanroom Project
 
-The Cleanroom Project is an experiment in re-imagining Gilt's iOS codebase in a legacy-free incarnation that embraces the latest Apple technology.
+The Cleanroom Project began as an experiment to re-imagine Gilt’s iOS codebase in a legacy-free, Swift-based incarnation. 
 
-We'll be tracking the most up-to-date releases of Swift, iOS and Xcode, and we'll be open-sourcing major portions of our code as we go.
+Since then, we’ve expanded the Cleanroom Project to include multi-platform support. Much of our codebase now supports tvOS in addition to iOS, and our lower-level code is usable on Mac OS X and watchOS as well.
 
-## Open Source by Default
+Cleanroom Project code serves as the foundation of Gilt on TV, our tvOS app [featured by Apple during the launch of the new Apple TV](http://www.apple.com/apple-events/september-2015/). And as time goes on, we'll be replacing more and more of our existing Objective-C codebase with Cleanroom implementations.
 
-By default, we will strive to release all Cleanroom Project code through an appropriate open-source license.
-
-Open-source Cleanroom Project repos **must**:
-
-- Have an *explicit maintainer* responsible for long-term servicing. The minimum responsibility of the maintainer is to ensure continued compatibility with the latest production-supported development tools.
-
-Open-source Cleanroom Project repos **should**:
-
-- In keeping with the recommendation of Gilt Tech's Open-Source Working Group, the origin repo should by default be released under the maintainer's personal GitHub account. If the maintainer chooses not to do that, the repo **should** be released under [the Gilt account](https://github.com/gilt/) on GitHub, and the maintainer **must** be explicitly named in the repo's root README.
-- Unless there is a specific reason to deviate, we will use the language of [the MIT license](https://github.com/gilt/Cleanroom/blob/master/LICENSE) contained in this repository.
-
-### When we don't open-source
-
-If the repo in question falls into any of the following categories, we will not be releasing it open-source:
-
-- The code is still in flux and multiple sets of breaking changes are likely in the short-term
-- Sufficient documentation does not yet exist to make productive use of the code
-- The code is too specific to Gilt and not likely to be useful to the general public
-- The repo contains intellectual property or other information that we can't disclose publicly
-
-Whenever we decide against releasing something publicly, we should periodically re-evaluate the decision to check whether the conditions that led to the original decision still apply.
+In the meantime, we’ll be tracking the latest releases of Swift & Xcode, and [open-sourcing major portions of our codebase](https://github.com/gilt/Cleanroom#open-source-by-default) along the way.
 
 ## Available Repositories
 
@@ -61,6 +41,30 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 - [CleanroomSaleView](https://github.com/gilt/CleanroomSaleView) — The Sale View (PLP) and the deep link plumbing needed to navigate to it
 - [CleanroomScaffolding](https://github.com/gilt/CleanroomScaffolding) — Temporary scaffolding intended to support work on the Cleanroom app; this will go away at some point as we approach 1.0
 - [CleanroomViewModel](https://github.com/gilt/CleanroomViewModel) — The MVVM *view models* for the Cleanroom app
+
+## Open Source by Default
+
+By default, we will strive to release all Cleanroom Project code through an appropriate open-source license.
+
+Open-source Cleanroom Project repos **must**:
+
+- Have an *explicit maintainer* responsible for long-term servicing. The minimum responsibility of the maintainer is to ensure continued compatibility with the latest production-supported development tools.
+
+Open-source Cleanroom Project repos **should**:
+
+- In keeping with the recommendation of Gilt Tech's Open-Source Working Group, the origin repo should by default be released under the maintainer's personal GitHub account. If the maintainer chooses not to do that, the repo **should** be released under [the Gilt account](https://github.com/gilt/) on GitHub, and the maintainer **must** be explicitly named in the repo's root README.
+- Unless there is a specific reason to deviate, we will use the language of [the MIT license](https://github.com/gilt/Cleanroom/blob/master/LICENSE) contained in this repository.
+
+### When we don't open-source
+
+If the repo in question falls into any of the following categories, we will not be releasing it open-source:
+
+- The code is still in flux and multiple sets of breaking changes are likely in the short-term
+- Sufficient documentation does not yet exist to make productive use of the code
+- The code is too specific to Gilt and not likely to be useful to the general public
+- The repo contains intellectual property or other information that we can't disclose publicly
+
+Whenever we decide against releasing something publicly, we should periodically re-evaluate the decision to check whether the conditions that led to the original decision still apply.
 
 ## Contributing to the Cleanroom Project
 
