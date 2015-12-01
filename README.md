@@ -16,10 +16,6 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 
 ### Open Source
 
-#### Cleanroom Core
-
-##### Under Active Development
-
 - [CleanroomAppSettings](http://github.com/emaloney/CleanroomAppSettings) — A set of interfaces and implementations to abstract away the app's NSUserDefaults singleton
 - [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility
 - [CleanroomBridging](http://github.com/emaloney/CleanroomBridging) — A set of tools to help bridge the gap between Objective-C and Swift
@@ -28,19 +24,9 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 - [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based logging API for iOS applications
 - [CleanroomText](http://github.com/emaloney/CleanroomText) — Swift-based tools for working with strings and text
 
-#### Avro Serialization
-
-- [BlueSteel](https://github.com/gilt/BlueSteel) — A Swift API for working with Avro schemas and binary data
-
 ### Closed Source
 
-- [CleanroomDataModel](https://github.com/gilt/CleanroomDataModel) — Gilt data model interfaces and implementations
-- [CleanroomDeepLinking](https://github.com/gilt/CleanroomDeepLinking) — The core of the deep linking mechanism within the Cleanroom app
-- [CleanroomGiltAPI](https://github.com/gilt/CleanroomGiltAPI) — The client-side Gilt API
-- [CleanroomProductView](https://github.com/gilt/CleanroomProductView) — The Product View (PDP) and the deep link plumbing needed to navigate to it
-- [CleanroomSaleView](https://github.com/gilt/CleanroomSaleView) — The Sale View (PLP) and the deep link plumbing needed to navigate to it
-- [CleanroomScaffolding](https://github.com/gilt/CleanroomScaffolding) — Temporary scaffolding intended to support work on the Cleanroom app; this will go away at some point as we approach 1.0
-- [CleanroomViewModel](https://github.com/gilt/CleanroomViewModel) — The MVVM *view models* for the Cleanroom app
+- [AppleTart](https://github.com/gilt/AppleTart) — AppleTart is Gilt’s proprietary, closed-source Swift code library for Apple platforms. Although developed primarily for iOS and tvOS, AppleTart can also be compiled for Mac OS X and watchOS; however, only a subset of functionality is available on those platforms.
 
 ## Open Source by Default
 
