@@ -25,6 +25,7 @@ while [[ $1 ]]; do
 		;;
 	
 	--force|-f)
+		FORCE_ARG="$1"
 		FORCE_MODE=1
 		;;
 		
@@ -306,7 +307,7 @@ processDirectory "framework"
 
 cd "$SCRIPT_DIR"
 echo "Generating boilerplate documentation"
-./freshenRepo.sh --repo "$NEW_REPO_NAME"
+./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG
 
 cd "$DEST_ROOT/$NEW_REPO_NAME"
 if [[ ! -d .git ]]; then
