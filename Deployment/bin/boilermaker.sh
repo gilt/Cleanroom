@@ -171,14 +171,19 @@ for f in ${FILE_LIST[@]}; do
 	echo "Generating $f..."
 	for r in ${REPO_LIST[@]}; do
 		printf "    ...for the $r repo"
-		./bin/plate -t "$BOILERPLATE_FILE" -d repos/${r}.xml -m include/repos.xml -o "../../$r/$f"
-		if [[ "$?" != 0 ]]; then
-			exit 3
+		REPO_XML="repos/${r}.xml"
+		if [[ -r "$REPO_XML" ]]; then
+			./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$f"
+			if [[ "$?" != 0 ]]; then
+				exit 3
+			fi
+			if [[ $(echo "$f" | grep -c "\.sh\$") > 0 ]]; then
+				chmod a+x "../../$r/$f"
+			fi
+			printf " (done!)\n"
+		else
+			printf "\n        !!! ERROR: Required file $REPO_XML not found\n        !!! Couldn't generate $f for $r\n"
 		fi
-		if [[ $(echo "$f" | grep -c "\.sh\$") > 0 ]]; then
-			chmod a+x "../../$r/$f"
-		fi
-		printf " (done!)\n"
 	done
 done
 
