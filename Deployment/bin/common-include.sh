@@ -76,3 +76,8 @@ isInArray()
 	for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 1; done
 	return 0
 }
+
+CLEANROOM_REPOS=()
+for f in "$SCRIPT_DIR/../repos/"*.xml; do
+	CLEANROOM_REPOS+=(`basename "$f" | sed "s/^repos\///" | sed "s/.xml$//"`)
+done
