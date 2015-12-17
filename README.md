@@ -2,9 +2,31 @@
 
 # The Cleanroom Project
 
-The Cleanroom Project is an experiment in re-imagining Gilt's iOS codebase in a legacy-free incarnation that embraces the latest Apple technology.
+The Cleanroom Project began as an experiment to re-imagine Gilt’s iOS codebase in a legacy-free, Swift-based incarnation. 
 
-We'll be tracking the most up-to-date releases of Swift, iOS and Xcode, and we'll be open-sourcing major portions of our code as we go.
+Since then, we’ve expanded the Cleanroom Project to include multi-platform support. Much of our codebase now supports tvOS in addition to iOS, and our lower-level code is usable on Mac OS X and watchOS as well.
+
+Cleanroom Project code serves as the foundation of Gilt on TV, our tvOS app [featured by Apple during the launch of the new Apple TV](http://www.apple.com/apple-events/september-2015/). And as time goes on, we'll be replacing more and more of our existing Objective-C codebase with Cleanroom implementations.
+
+In the meantime, we’ll be tracking the latest releases of Swift & Xcode, and [open-sourcing major portions of our codebase](https://github.com/gilt/Cleanroom#open-source-by-default) along the way.
+
+## Available Repositories
+
+The Cleanroom Project is spread across several repositories, and we expect the list to continue growing. This page will serve as the definitive index for the available Cleanroom Project repos.
+
+### Open Source
+
+- [CleanroomAppSettings](http://github.com/emaloney/CleanroomAppSettings) — A set of interfaces and implementations to abstract away the app's NSUserDefaults singleton
+- [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility
+- [CleanroomBridging](http://github.com/emaloney/CleanroomBridging) — A set of tools to help bridge the gap between Objective-C and Swift
+- [CleanroomConcurrency](http://github.com/emaloney/CleanroomConcurrency) — Utilities for simplifying asynchronous code execution & coordinating concurrent access to shared resources
+- [CleanroomDateTime](http://github.com/emaloney/CleanroomDateTime) — Utilities for handling dates and times
+- [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based logging API for iOS applications
+- [CleanroomText](http://github.com/emaloney/CleanroomText) — Swift-based tools for working with strings and text
+
+### Closed Source
+
+- [AppleTart](https://github.com/gilt/AppleTart) — AppleTart is Gilt’s proprietary, closed-source Swift code library for Apple platforms. Although developed primarily for iOS and tvOS, AppleTart can also be compiled for Mac OS X and watchOS; however, only a subset of functionality is available on those platforms.
 
 ## Open Source by Default
 
@@ -29,38 +51,6 @@ If the repo in question falls into any of the following categories, we will not 
 - The repo contains intellectual property or other information that we can't disclose publicly
 
 Whenever we decide against releasing something publicly, we should periodically re-evaluate the decision to check whether the conditions that led to the original decision still apply.
-
-## Available Repositories
-
-The Cleanroom Project is spread across several repositories, and we expect the list to continue growing. This page will serve as the definitive index for the available Cleanroom Project repos.
-
-### Open Source
-
-#### Cleanroom Core
-
-##### Under Active Development
-
-- [CleanroomAppSettings](http://github.com/emaloney/CleanroomAppSettings) — A set of interfaces and implementations to abstract away the app's NSUserDefaults singleton
-- [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility
-- [CleanroomBridging](http://github.com/emaloney/CleanroomBridging) — A set of tools to help bridge the gap between Objective-C and Swift
-- [CleanroomConcurrency](http://github.com/emaloney/CleanroomConcurrency) — Utilities for simplifying asynchronous code execution & coordinating concurrent access to shared resources
-- [CleanroomDateTime](http://github.com/emaloney/CleanroomDateTime) — Utilities for handling dates and times
-- [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based logging API for iOS applications
-- [CleanroomText](http://github.com/emaloney/CleanroomText) — Swift-based tools for working with strings and text
-
-#### Avro Serialization
-
-- [BlueSteel](https://github.com/gilt/BlueSteel) — A Swift API for working with Avro schemas and binary data
-
-### Closed Source
-
-- [CleanroomDataModel](https://github.com/gilt/CleanroomDataModel) — Gilt data model interfaces and implementations
-- [CleanroomDeepLinking](https://github.com/gilt/CleanroomDeepLinking) — The core of the deep linking mechanism within the Cleanroom app
-- [CleanroomGiltAPI](https://github.com/gilt/CleanroomGiltAPI) — The client-side Gilt API
-- [CleanroomProductView](https://github.com/gilt/CleanroomProductView) — The Product View (PDP) and the deep link plumbing needed to navigate to it
-- [CleanroomSaleView](https://github.com/gilt/CleanroomSaleView) — The Sale View (PLP) and the deep link plumbing needed to navigate to it
-- [CleanroomScaffolding](https://github.com/gilt/CleanroomScaffolding) — Temporary scaffolding intended to support work on the Cleanroom app; this will go away at some point as we approach 1.0
-- [CleanroomViewModel](https://github.com/gilt/CleanroomViewModel) — The MVVM *view models* for the Cleanroom app
 
 ## Contributing to the Cleanroom Project
 
