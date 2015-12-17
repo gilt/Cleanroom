@@ -30,10 +30,9 @@ showHelp()
 	echo
 	printf "\t\t$EXEC_DIR\n"
 	echo
-	printf "\tThe following Cleanroom Project repos have been detected within\n"
-	printf "\tthe directory above:\n"
+	printf "\tThe following Cleanroom Project repos have been detected:\n"
 	echo
-	printf "\t\t%s\n" ${REPO_LIST[@]}
+	printf "\t\t%s\n" ${CLEANROOM_REPOS[@]}
 	echo
 	echo "Help"
 	echo
@@ -114,9 +113,7 @@ if [[ ! $REPOS_SPECIFIED ]]; then
 		exitWithErrorSuggestHelp "If no --repo|-r values were specified, --all|-a must be specified"
 	fi
 
-	for f in "$SCRIPT_DIR/../repos/"*.xml; do
-		REPO_LIST+=(`basename "$f" | sed "s/^repos\///" | sed "s/.xml$//"`)
-	done
+	REPO_LIST=${CLEANROOM_REPOS[@]}
 fi
 
 if [[ ${#REPO_LIST[@]} < 1 ]]; then
