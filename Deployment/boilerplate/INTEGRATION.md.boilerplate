@@ -10,10 +10,10 @@ $project:name is built as a *Swift framework*, and as such, it has the following
 
 Platform|Minimum OS version
 --------|------------------------
-^if($project:isTVOS|Apple TV^q(|)tvOS 9.0)
-^if($project:isWATCHOS|Apple Watch^q(|)watchOS 2.0)
-^if($project:isIOS|iPhone/iPad^q(|)iOS 8.0)
-^if($project:isOSX|Mac^q(|)OS X 10.10)
+^if($project:isTVOS|Apple TV^q(|)tvOS $versions[minimum][tvOS])
+^if($project:isWATCHOS|Apple Watch^q(|)watchOS $versions[minimum][watchOS])
+^if($project:isIOS|iPhone/iPad^q(|)iOS $versions[minimum][iOS])
+^if($project:isOSX|Mac^q(|)OS X $versions[minimum][OSX])
 
 $project:name is **Swift $versions[minimum][Swift] compliant** and therefore **requires Xcode $versions[minimum][Xcode] or higher** to compile.^if($versions[current][Swift] != $versions[minimum][Swift]|
 
@@ -29,7 +29,7 @@ It is also known to work with Swift $versions[current][Swift] in Xcode $versions
 
 Some familiarity with the Terminal application, the bash command line, and the `git` command is assumed.
 
-The steps below have been tested with **git $version[git]**, although they should be compatible with a wide range of git versions.
+The steps below have been tested with **git $versions[current][git]**, although they should be compatible with a wide range of recent git versions.
 
 ^if($project:isIOS -OR $project:isTVOS -OR $project:isWATCHOS|
 ^q(###) Of Frameworks and Simulators
@@ -68,7 +68,7 @@ carthage version
 
 If Carthage is available, the version you have installed will be shown.
 
-> As of this writing, the current version of Carthage is $version[Carthage].
+> As of this writing, the current version of Carthage is $versions[current][Carthage].
 
 If Carthage is not present, you will see an error that looks like:
 
@@ -164,7 +164,7 @@ At the top-left corner of the list of build phases, you will see a “`+`” ico
 Then, in the script editor area just below the *Shell* line, add the following text:
 
 ```
-$$PROJECT_DIR/Carthage/Checkouts/${repo:name}/BuildControl/bin/stripCarthageFrameworks.sh
+"$$PROJECT_DIR"/Carthage/Checkouts/${repo:name}/BuildControl/bin/stripCarthageFrameworks.sh
 ```
 
 This script will ensure that any frameworks built by Carthage are stripped of unnecessary processor architectures. Without this step, Apple would reject your app submission because the $docs:targetFrameworksTerm would be included as universal binaries, which [isn’t allowed in App Store submissions](http://www.openradar.me/radar?id=6409498411401216).
