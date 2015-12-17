@@ -9,11 +9,12 @@
 
 ^if($project:readme:preamble|$project:readme:preamble
 
+)
+^q(###) Swift $versions[minimum][Swift] compatibility
 
-)^q(###) Swift $version[Swift] compatibility
+The `master` branch of this project is **Swift $versions[minimum][Swift] compliant** and therefore **requires Xcode $versions[minimum][Xcode] or higher** to compile.^if($versions[current][Swift] != $versions[minimum][Swift]|
 
-The `master` branch of this project is Swift $version[Swift] compliant and therefore **requires Xcode $version[Xcode] or higher to compile**.
-
+It is also known to work with Swift $versions[current][Swift] in Xcode $versions[current][Xcode].)
 
 ^if($project:license|^q(###) License
 

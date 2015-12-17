@@ -15,7 +15,9 @@ Platform|Minimum OS version
 ^if($project:isIOS|iPhone/iPad^q(|)iOS 8.0)
 ^if($project:isOSX|Mac^q(|)OS X 10.10)
 
-$project:name is **Swift $version[Swift]**-compliant and requires **Xcode $version[Xcode] or higher** to be built.
+$project:name is **Swift $versions[minimum][Swift] compliant** and therefore **requires Xcode $versions[minimum][Xcode] or higher** to compile.^if($versions[current][Swift] != $versions[minimum][Swift]|
+
+It is also known to work with Swift $versions[current][Swift] in Xcode $versions[current][Xcode].)
 
 ^q(###) Contents
 
