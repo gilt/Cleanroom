@@ -5,11 +5,24 @@
 	<Var name="repo:url:http" type="dynamic" expression="${repo:url:home}"/>
 	<Var name="repo:url:ssh" type="dynamic" expression="git@github.com:${repo:owner}/${repo:name}"/>
 
-	<Var name="version" type="map">
-		<Var name="Carthage" literal="0.10"/>
-		<Var name="git" literal="2.4.9 (Apple Git-60)"/> 
-		<Var name="Swift" literal="2.1"/> 
-		<Var name="Xcode" literal="7.1"/> 
+	<Var name="versions" type="map">
+		<Var name="current" type="map">
+			<Var name="Swift" literal="2.1.1"/> 
+			<Var name="Xcode" literal="7.2"/> 
+
+			<Var name="Carthage" literal="0.11"/>
+			<Var name="git" literal="2.5.4 (Apple Git-61)"/> 
+			
+		</Var>
+		<Var name="minimum" type="map">
+			<Var name="Swift" literal="2.1"/> 
+			<Var name="Xcode" literal="7.1"/> 
+
+			<Var name="iOS" literal="8.0"/> 
+			<Var name="OSX" literal="10.10"/> 
+			<Var name="tvOS" literal="9.0"/> 
+			<Var name="watchOS" literal="2.0"/> 
+		</Var>
 	</Var>
 
 	<Var name="project:isIOS" type="dynamic" expression="^containsValue($project:platforms|iOS)"/>
