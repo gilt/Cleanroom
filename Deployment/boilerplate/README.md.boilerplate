@@ -27,7 +27,7 @@ $project:name is provided for your use—free-of-charge—on an as-is basis. We 
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-You’ll need to [integrate $project:name into your project](${repo:url:home}/blob/master/INTEGRATION.md) in order to use [the API](https://rawgit.com/${repo:owner}/${repo:name}/master/Documentation/index.html) it provides. You can choose:
+You’ll need to [integrate $project:name into your project](${repo:url:home}/blob/master/INTEGRATION.md) in order to use [the API]($docs:api:index) it provides. You can choose:
 
 - [Manual integration](${repo:url:home}/blob/master/INTEGRATION.md#manual-integration), wherein you embed ${project:name}’s Xcode project within your own, **_or_**
 - [Using the Carthage dependency manager](${repo:url:home}/blob/master/INTEGRATION.md#carthage-integration) to build a framework that you then embed in your application.
@@ -43,7 +43,7 @@ $project:import
 )
 ^q(###) API documentation
 
-For detailed information on using $project:name, [API documentation](https://rawgit.com/${repo:owner}/${repo:name}/master/Documentation/index.html) is available.
+For detailed information on using $project:name, [API documentation](${docs:api:index}) is available.
 
 
 ^if($project:readme:summation|$project:readme:summation
@@ -69,5 +69,5 @@ If you’d like to contribute to this or any other Cleanroom Project repo, pleas
 
 ^q(###) Acknowledgements
 
-[API documentation for $project:name](https://rawgit.com/${repo:owner}/${repo:name}/master/Documentation/index.html) is generated using [Realm](http://realm.io)’s [jazzy](https://github.com/realm/jazzy/) project, maintained by [JP Simard](https://github.com/jpsim) and [Samuel E. Giddins](https://github.com/segiddins).
+[API documentation for $project:name](${docs:api:index}) is generated using [Realm](http://realm.io)’s [jazzy](https://github.com/realm/jazzy/) project, maintained by [JP Simard](https://github.com/jpsim) and [Samuel E. Giddins](https://github.com/segiddins).
 
