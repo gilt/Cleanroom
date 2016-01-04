@@ -170,12 +170,12 @@
 			path = config;
 			sourceTree = "<group>";
 		};
-		3B00E4D21BA36B840011486D /* Code */ = {
+		3B00E4D21BA36B840011486D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				3B00E4D31BA36B840011486D /* CleanroomSkeleton.swift */,
 			);
-			path = Code;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		3B00E4D51BA36B840011486D /* Tests */ = {
@@ -203,7 +203,7 @@
 		3BCBACE11BA369AD007F1C90 = {
 			isa = PBXGroup;
 			children = (
-				3B00E4D21BA36B840011486D /* Code */,
+				3B00E4D21BA36B840011486D /* Sources */,
 				3B00E4D51BA36B840011486D /* Tests */,
 				3B00E4B91BA36B840011486D /* BuildControl */,
 				3B00E55E1BA3782D0011486D /* Products */,
