@@ -67,7 +67,7 @@ The built-in color scheme—which you can override by supplying your own [`Color
 
 <img alt="XcodeColors sample output" src="https://raw.githubusercontent.com/emaloney/CleanroomLogger/master/Documentation/Images/XcodeColors-sample.png" width="565" height="98"/>
 
-^q(####) Enabling XcodeColors for iOS, tvOS & watchOS
+^q(####) Enabling XcodeColors for iOS, tvOS &amp; watchOS
 
 When your code runs in a simulator or on an external device, it is actually running in an entirely separate operating system that *does not* inherit the environment variables that XcodeColors modifies when it is enabled.
 
@@ -75,7 +75,7 @@ XcodeColors *only* modifies the environment of the local Mac user running Xcode.
 
 If your code is running on iOS, tvOS or watchOS, you will need to change your Xcode settings to pass the `XcodeColors` variable your code’s runtime environment. This can be done by editing any Build Schemes you want to use with XcodeColors.
 
-To edit the current build scheme, press `⌘<` (*command*-*shift*-comma on a US English keyboard). In the editor that appears, select **Run** in the left-hand pane. Then, select the **Arguments** option at the top.
+To edit the current build scheme, press `⌘&lt;` (*command*-*shift*-comma on a US English keyboard). In the editor that appears, select **Run** in the left-hand pane. Then, select the **Arguments** option at the top.
 
 Ensure that the **Environment Variables** section is expanded below, and click the **+** button within that section.
 
