@@ -127,6 +127,7 @@ processSubpath()
 processSubpath .
 
 for r in ${REPO_LIST[@]}; do
+	MASTER_XML="$PWD/../include/repos.xml"
 	REPO_XML="$PWD/../repos/${r}.xml"
 	XML_DEST="$PWD/../../../${r}/BuildControl/."
 	
@@ -138,6 +139,9 @@ for r in ${REPO_LIST[@]}; do
 		echo "error: Didn't find expected $r repo directory: $XML_DEST"
 		continue
 	fi
+	
+	echo "Copying $MASTER_XML to $r/BuildControl"
+	executeCommand "cp -${CP_ARGS} \"$MASTER_XML\" \"$XML_DEST\""
 	
 	echo "Copying $REPO_XML to $r/BuildControl"
 	executeCommand "cp -${CP_ARGS} \"$REPO_XML\" \"$XML_DEST\""
