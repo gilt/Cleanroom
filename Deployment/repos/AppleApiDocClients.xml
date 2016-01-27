@@ -1,0 +1,18 @@
+<MBML>
+	<Var name="repo:owner" literal="gilt"/>
+	<Var name="project:name" literal="AppleApiDocClients"/>
+	<Var name="project:creator:name" literal="Kyle Dorman"/>
+
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="OSX"/>
+		<Var literal="tvOS"/>
+		<Var literal="watchOS"/>
+	</Var>
+	
+	<Var name="project:description">Uses AppleApiDocClients to generate Swift models, enums, and API calls for mobile's apidoc APIs.</Var>
+
+	<Var name="project:settings" type="map">
+		<Var name="app-extension-only" boolean="T"/>
+	</Var>
+</MBML>
