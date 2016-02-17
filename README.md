@@ -20,6 +20,7 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 - [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility
 - [CleanroomBridging](http://github.com/emaloney/CleanroomBridging) — A set of tools to help bridge the gap between Objective-C and Swift
 - [CleanroomConcurrency](http://github.com/emaloney/CleanroomConcurrency) — Swift utilities for simplifying asynchronous code execution & coordinating concurrent access to shared resources
+- [CleanroomDataTransactions](http://github.com/emaloney/CleanroomDataTransactions) — A protocol-independent and format-agnostic Swift library for performing one-way and two-way data transactions; we use this as the basis of communicating with our back-end services
 - [CleanroomDateTime](http://github.com/emaloney/CleanroomDateTime) — Utilities for handling dates and times in Swift
 - [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based console logging API
 - [CleanroomText](http://github.com/emaloney/CleanroomText) — Swift tools for working with strings and text
