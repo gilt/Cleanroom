@@ -31,7 +31,7 @@ You’ll need to [integrate $project:name into your project](${repo:url:home}/bl
 
 - [Manual integration](${repo:url:home}/blob/master/INTEGRATION.md#manual-integration), wherein you embed ${project:name}’s Xcode project within your own, **_or_**
 - [Using the Carthage dependency manager](${repo:url:home}/blob/master/INTEGRATION.md#carthage-integration) to build a framework that you then embed in your application.
- 
+
 Once integrated, just add the following `import` statement to any Swift file where you want to use ${project:name}:
 
 ```swift
@@ -51,7 +51,7 @@ For detailed information on using $project:name, [API documentation](${docs:api:
 
 )^q(##) About
 
-The Cleanroom Project began as an experiment to re-imagine Gilt’s iOS codebase in a legacy-free, Swift-based incarnation. 
+The Cleanroom Project began as an experiment to re-imagine Gilt’s iOS codebase in a legacy-free, Swift-based incarnation.
 
 Since then, we’ve expanded the Cleanroom Project to include multi-platform support. Much of our codebase now supports tvOS in addition to iOS, and our lower-level code is usable on Mac OS X and watchOS as well.
 
