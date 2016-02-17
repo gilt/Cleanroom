@@ -12,8 +12,8 @@
 	</Var>
 
 	<Var name="project:description:formats" type="map">
-		<Var name="text">ApidocSwiftGenerator generates swift models, enums, and api calls for you based on an apidoc.json file.</Var>
-		<Var name="markdown">ApidocSwiftGenerator generates swift models, enums, and api calls for you based on an apidoc.json file.</Var>
+		<Var name="text">ApidocSwiftGenerator generates Swift models, enums, and api calls for you based on an apidoc.json file.</Var>
+		<Var name="markdown">ApidocSwiftGenerator generates Swift models, enums, and api calls for you based on an `apidoc.json` file.</Var>
 	</Var>
 
 	<Var name="project:settings" type="map">
@@ -21,8 +21,8 @@
 	</Var>
 
 	<Var name="project:readme:preamble">^q(####) Why Code Generation?
-		ApiDoc makes it easy for an api owner to define thier models and api endpoints in a JSON format. Because this JSON is in a repeatable format, its reasonable to off load the mundane task of creating models and api endpoints to a code generator. Leaving app builders to focus on app middleware and presentation.
-	</Var>
+
+ApiDoc makes it easy for an api owner to define thier models and api endpoints in a JSON format. Because this JSON is in a repeatable format, its reasonable to off load the mundane task of creating models and api endpoints to a code generator. Leaving app builders to focus on app middleware and presentation.</Var>
 
 	<Var name="project:dependencies" type="list">
         <Var literal="CleanroomLogger"/>
