@@ -10,7 +10,7 @@
 			<Var name="Swift" literal="2.2"/> 
 			<Var name="Xcode" literal="7.3"/> 
 
-			<Var name="Carthage" literal="0.11"/>
+			<Var name="Carthage" literal="0.15.2"/>
 			<Var name="git" literal="2.6.4 (Apple Git-63)"/> 
 		</Var>
 		<Var name="minimum" type="map">
