@@ -5,18 +5,8 @@
 	<Var name="project:license" literal="MIT"/>
 
 	<Var name="project:platforms" type="list">
-		<Var literal="iOS"/>
 		<Var literal="OSX"/>
-		<Var literal="tvOS"/>
-		<Var literal="watchOS"/>
 	</Var>
 
-	<Var name="project:description:formats" type="map">
-		<Var name="text">SwiftPoet is a Swift framework for generating Swift code.</Var>
-		<Var name="markdown">SwiftPoet is a Swift framework for generating Swift code.</Var>
-	</Var>
-
-	<Var name="project:settings" type="map">
-		<Var name="app-extension-only" boolean="T"/>
-	</Var>
+	<Var name="project:description">SwiftPoet is a Swift framework for generating Swift code.</Var>
 </MBML>
