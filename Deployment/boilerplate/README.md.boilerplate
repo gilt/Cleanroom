@@ -7,14 +7,24 @@
 )$project:name is part of [the Cleanroom Project](https://github.com/gilt/Cleanroom) from [Gilt Tech](http://tech.gilt.com).
 
 
+^q(###) Swift compatibility
+
+The [`master`]($repo:url:home) branch of this project is **Swift $branch[master][Swift] compliant** and therefore **requires Xcode $branch[master][Xcode] or higher** to compile.^if($[branches:nonmaster].count|
+
+^pluralize($[branches:nonmaster].count|One other branch is|$[branches:nonmaster].count other branches are) also available:
+
+^join(^list($branches:nonmaster| - The [`$item`]($repo:url:branch/$item) branch uses **Swift $branch[$item][Swift]**, requiring Xcode $branch[$item][Xcode])|\n))
+
+
+^q(####) Current status
+
+Branch|Build status
+--------|------------------------
+`master`|[![Build status: master branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=master)](https://travis-ci.org/${repo:owner}/${project:name})
+^join(^list($branches:nonmaster|`${item}`^q(|[)![Build status: $item branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=${item})](https://travis-ci.org/${repo:owner}/${project:name}))|\n)
 ^if($project:readme:preamble|$project:readme:preamble
 
 )
-^q(###) Swift $versions[minimum][Swift] compatibility
-
-The `master` branch of this project is **Swift $versions[minimum][Swift] compliant** and therefore **requires Xcode $versions[minimum][Xcode] or higher** to compile.^if($versions[current][Swift] != $versions[minimum][Swift]|
-
-It is also known to work with Swift $versions[current][Swift] in Xcode $versions[current][Xcode].)
 
 ^if($project:license|^q(###) License
 
