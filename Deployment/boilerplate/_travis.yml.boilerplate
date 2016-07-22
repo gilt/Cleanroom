@@ -1,0 +1,26 @@
+language: objective-c
+xcode_project: ${project:file}
+osx_image: xcode8
+
+install:
+  gem install xcpretty
+
+#
+# Note: Unit test scripts commented out due to a problem reliably launching the
+#       simulator from the command line. See:
+#
+#       https://github.com/travis-ci/travis-ci/issues/3040
+#
+# A possible work-around; not yet tested:
+#
+#       before_install: open -b com.apple.iphonesimulator
+#
+
+script:
+^if($project:isIOS|  - xcodebuild -project ${project:file} -scheme ${project:name}-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6' clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ^q(|) xcpretty
+#  - xcodebuild -project ${project:file} -scheme ${project:name}-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ^q(|) xcpretty)
+^if($project:isOSX|  - xcodebuild -project ${project:file} -scheme ${project:name}-OSX -destination 'platform=macOS' clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ^q(|) xcpretty
+#  - xcodebuild -project ${project:file} -scheme ${project:name}-OSX -destination 'platform=macOS' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ^q(|) xcpretty)
+^if($project:isTVOS|  - xcodebuild -project ${project:file} -scheme ${project:name}-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ^q(|) xcpretty
+#  - xcodebuild -project ${project:file} -scheme ${project:name}-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ^q(|) xcpretty)
+^if($project:isWATCHOS|  - xcodebuild -project ${project:file} -scheme ${project:name}-watchOS -destination 'platform=watchOS Simulator,OS=3.0,name=Apple Watch - 42mm' clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ^q(|) xcpretty)
