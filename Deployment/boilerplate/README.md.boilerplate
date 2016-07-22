@@ -20,8 +20,8 @@ The [`master`]($repo:url:home) branch of this project is **Swift $branch[master]
 
 Branch|Build status
 --------|------------------------
-`master`|[![Build status: master branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=master)](https://travis-ci.org/${repo:owner}/${project:name})
-^join(^list($branches:nonmaster|`${item}`^q(|[)![Build status: $item branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=${item})](https://travis-ci.org/${repo:owner}/${project:name}))|\n)
+[`master`]($repo:url:home)|[![Build status: master branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=master)](https://travis-ci.org/${repo:owner}/${project:name})
+^join(^list($branches:nonmaster|[`${item}`]($repo:url:branch/$item)^q(|[)![Build status: $item branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=${item})](https://travis-ci.org/${repo:owner}/${project:name}))|\n)
 ^if($project:readme:preamble|$project:readme:preamble
 
 )
