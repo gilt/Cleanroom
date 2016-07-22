@@ -167,22 +167,25 @@ done
 #
 for f in ${FILE_LIST[@]}; do
 	BOILERPLATE_FILE="boilerplate/$f.boilerplate"
+	OUTPUT_BASE=`dirname "$f"`
+	OUTPUT_NAME=`basename "$f" | sed s#^_#.#`
+	OUTPUT_FILE="$OUTPUT_BASE/$OUTPUT_NAME"
 
-	echo "Generating $f..."
+	echo "Generating $OUTPUT_FILE..."
 	for r in ${REPO_LIST[@]}; do
 		printf "    ...for the $r repo"
 		REPO_XML="repos/${r}.xml"
 		if [[ -r "$REPO_XML" ]]; then
-			./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$f"
+			./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$OUTPUT_FILE"
 			if [[ "$?" != 0 ]]; then
 				exit 3
 			fi
-			if [[ $(echo "$f" | grep -c "\.sh\$") > 0 ]]; then
-				chmod a+x "../../$r/$f"
+			if [[ $(echo "$OUTPUT_FILE" | grep -c "\.sh\$") > 0 ]]; then
+				chmod a+x "../../$r/$OUTPUT_FILE"
 			fi
 			printf " (done!)\n"
 		else
-			printf "\n        !!! ERROR: Required file $REPO_XML not found\n        !!! Couldn't generate $f for $r\n"
+			printf "\n        !!! ERROR: Required file $REPO_XML not found\n        !!! Couldn't generate $OUTPUT_FILE for $r\n"
 		fi
 	done
 done
