@@ -9,11 +9,12 @@
 
 ^q(###) Swift compatibility
 
-The [`master`]($repo:url:home) branch of this project is **Swift $branch[master][Swift] compliant** and therefore **requires Xcode $branch[master][Xcode] or higher** to compile.^if($[branches:nonmaster].count|
+**Important:** This is the `swift3` branch. It is **Swift 3.0 compliant** and therefore **requires Xcode 8.0** to compile.
 
-^pluralize($[branches:nonmaster].count|One other branch is|$[branches:nonmaster].count other branches are) also available:
+2 other branches are also available:
 
-^join(^list($branches:nonmaster| - The [`$item`]($repo:url:branch/$item) branch uses **Swift $branch[$item][Swift]**, requiring Xcode $branch[$item][Xcode])|\n))
+ - The [`master`]($repo:url:home) branch uses **Swift 2.2**, requiring Xcode 7.3
+ - The [`swift2.3`](${repo:url:home}/tree/swift2.3) branch uses **Swift 2.3**, requiring Xcode 8.0
 
 
 ^q(####) Current status
@@ -22,10 +23,11 @@ Branch|Build status
 --------|------------------------
 [`master`]($repo:url:home)|[![Build status: master branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=master)](https://travis-ci.org/${repo:owner}/${project:name})
 ^join(^list($branches:nonmaster|[`${item}`]($repo:url:branch/$item)^q(|[)![Build status: $item branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=${item})](https://travis-ci.org/${repo:owner}/${project:name}))|\n)
-^if($project:readme:preamble|$project:readme:preamble
+
+^if($project:readme:preamble|
+$project:readme:preamble
 
 )
-
 ^if($project:license|^q(###) License
 
 $project:name is distributed under [the $project:license license](/blob/master/LICENSE).
