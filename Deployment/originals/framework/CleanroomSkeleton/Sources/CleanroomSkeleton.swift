@@ -3,7 +3,7 @@
 //  Cleanroom Project
 //
 //  Created by ${project:creator:name} on ^formatDate(^currentTime()|M/d/yy).
-//  Copyright (c) ^formatDate(^currentTime()|yyyy) Gilt Groupe. All rights reserved.
+//  Copyright © ^formatDate(^currentTime()|yyyy) Gilt Groupe. All rights reserved.
 //
 
 public protocol CleanroomSkeleton
