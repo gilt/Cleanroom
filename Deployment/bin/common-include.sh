@@ -77,6 +77,15 @@ expectReposOnBranch()
 		BRANCH="$1"
 		shift
 	fi
+	
+	#
+	# make sure the Cleanroom repo is on a parallel branch
+	#
+	CLEANROOM_BRANCH=`git rev-parse --abbrev-ref HEAD`
+	if [[ $CLEANROOM_BRANCH != $BRANCH ]]; then
+		echo "error: Expected repo containing Cleanroom/Deployment to be on $BRANCH branch; is on $CLEANROOM_BRANCH instead"
+		exit 2
+	fi
 
 	#
 	# make sure all the repos are on the right branch
@@ -85,14 +94,14 @@ expectReposOnBranch()
 		REPO_DIR="../../$r"
 		if [[ ! -d "$REPO_DIR" ]]; then
 			echo "error: Didn't find expected git repo for $r at path $PWD/$REPO_DIR"
-			exit 2
+			exit 3
 		fi
 		pushd "$REPO_DIR" > /dev/null
 		CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 		popd > /dev/null
 		if [[ $CURRENT_BRANCH != $BRANCH ]]; then
 			echo "error: Expected $r to be on the \"$BRANCH\" branch; it is on \"$CURRENT_BRANCH\" instead."
-			exit 3
+			exit 4
 		fi
 	done
 }
