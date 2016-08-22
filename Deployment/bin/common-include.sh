@@ -71,6 +71,32 @@ expectRepo()
 	fi
 }
 
+expectReposOnBranch()
+{
+	if [[ $1 ]]; then
+		BRANCH="$1"
+		shift
+	fi
+
+	#
+	# make sure all the repos are on the right branch
+	#
+	for r in $@; do
+		REPO_DIR="../../$r"
+		if [[ ! -d "$REPO_DIR" ]]; then
+			echo "error: Didn't find expected git repo for $r at path $PWD/$REPO_DIR"
+			exit 2
+		fi
+		pushd "$REPO_DIR" > /dev/null
+		CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+		popd > /dev/null
+		if [[ $CURRENT_BRANCH != $BRANCH ]]; then
+			echo "error: Expected $r to be on the \"$BRANCH\" branch; it is on \"$CURRENT_BRANCH\" instead."
+			exit 3
+		fi
+	done
+}
+
 isInArray()
 {
 	for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 1; done

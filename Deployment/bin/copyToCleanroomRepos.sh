@@ -49,6 +49,7 @@ showHelp()
 #
 ARGS=()
 REPO_LIST=()
+BRANCH=master
 while [[ $1 ]]; do
 	case $1 in
 	--help|-h|-\?)
@@ -75,6 +76,13 @@ while [[ $1 ]]; do
  	--all|-a)
 		ALL_REPOS_FLAG=1
 		;;
+	
+	--branch|-b)
+		if [[ $2 ]]; then
+ 			BRANCH=$2
+ 			shift
+ 		fi
+ 		;;
 
 	--force|-f)
 		FORCE_MODE=1
@@ -131,6 +139,13 @@ expectRepo "$REPO_NAME"
 if [[ "$REPO_NAME" != "Cleanroom" ]]; then
 	confirmationPrompt "WARNING: This script is expected to run within a repo named Cleanroom.\n\nInstead, this script is being run from within $REPO_NAME."
 fi
+
+#
+# ensure all the repos are on the expected branch
+#
+pushd "$SCRIPT_DIR/.." > /dev/null
+expectReposOnBranch $BRANCH $REPO_LIST
+popd > /dev/null
 
 #
 # ensure that the arguments are all things that can be copied
