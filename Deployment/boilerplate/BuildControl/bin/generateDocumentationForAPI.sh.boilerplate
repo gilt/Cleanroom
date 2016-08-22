@@ -28,7 +28,7 @@ rm -rf Documentation/API	# clear out any old docs; they may have remnant files
 
 "$$JAZZY_EXECUTABLE" -o Documentation/API \
 	-m "$$MODULE_NAME" \
-	--swift-version $versions[current][Swift] \
+	--swift-version $versions[$repo:branch][Swift] \
 	--readme Sources/README.md \
 	--github_url "$$PUBLIC_GITHUB_URL" \
 	--author "$repo:ownersToNames[$repo:owner]^if($repo:owner != gilt|, Gilt Groupe)" \

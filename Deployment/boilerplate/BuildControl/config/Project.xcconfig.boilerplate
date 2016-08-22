@@ -1,0 +1,2 @@
+^if($versions[$repo:branch][Swift] -NE 2.2|SWIFT_VERSION = $versions[$repo:branch][Swift]
+)
