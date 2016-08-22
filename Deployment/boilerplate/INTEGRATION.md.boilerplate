@@ -8,16 +8,14 @@ This document describes how to integrate $project:name into your application.
 
 $project:name is built as a *Swift framework*, and as such, it has the following base platform requirements:
 
-Platform|Minimum OS version
---------|------------------------
-^if($project:isTVOS|Apple TV^q(|)tvOS $versions[minimum][tvOS])
-^if($project:isWATCHOS|Apple Watch^q(|)watchOS $versions[minimum][watchOS])
-^if($project:isIOS|iPhone/iPad^q(|)iOS $versions[minimum][iOS])
-^if($project:isOSX|Mac^q(|)OS X $versions[minimum][OSX])
+Platform|Latest supported OS|Oldest supported OS
+--------|-------------------|-------------------
+^if($project:isIOS|iPhone/iPad^q(|)iOS $versions[$repo:branch][current][iOS]^q(|)iOS $versions[$repo:branch][minimum][iOS])
+^if($project:isOSX|Macintosh^q(|)macOS $versions[$repo:branch][current][OSX]^q(|)macOS $versions[$repo:branch][minimum][OSX])
+^if($project:isTVOS|Apple TV^q(|)tvOS $versions[$repo:branch][current][tvOS]^q(|)tvOS $versions[$repo:branch][minimum][tvOS])
+^if($project:isWATCHOS|Apple Watch^q(|)watchOS $versions[$repo:branch][current][watchOS]^q(|)watchOS $versions[$repo:branch][minimum][watchOS])
 
-$project:name is **Swift $versions[minimum][Swift] compliant** and therefore **requires Xcode $versions[minimum][Xcode] or higher** to compile.^if($versions[current][Swift] != $versions[minimum][Swift]|
-
-It is also known to work with Swift $versions[current][Swift] in Xcode $versions[current][Xcode].)
+^if($repo:branch -NE master|**This is the `$repo:branch` branch of $project:name.** It|$project:name) uses **Swift $versions[$repo:branch][Swift]** and **requires Xcode $versions[$repo:branch][Xcode]** (or higher) to compile.
 
 ^q(###) Contents
 
@@ -29,7 +27,7 @@ It is also known to work with Swift $versions[current][Swift] in Xcode $versions
 
 Some familiarity with the Terminal application, the bash command line, and the `git` command is assumed.
 
-The steps below have been tested with **git $versions[current][git]**, although they should be compatible with a wide range of recent git versions.
+The steps below have been tested with **git $versions[$repo:branch][git]**, although they should be compatible with a wide range of recent git versions.
 
 ^if($project:isIOS -OR $project:isTVOS -OR $project:isWATCHOS|
 ^q(###) Of Frameworks and Simulators
@@ -56,7 +54,7 @@ Whether you choose one over the other largely depends on your preferences and—
 
 ^q(##) Carthage Integration
 
-Carthage is a third-party package dependency manager for iOS and Mac OS X. Carthage works by building frameworks for each of a project’s dependencies.
+Carthage is a third-party package dependency manager for Apple platforms. Carthage works by building frameworks for each of a project’s dependencies.
 
 ^q(###) Verifying Carthage availability
 
@@ -68,7 +66,7 @@ carthage version
 
 If Carthage is available, the version you have installed will be shown.
 
-> As of this writing, the current version of Carthage is $versions[current][Carthage].
+> As of this writing, the current version of Carthage is $versions[$repo:branch][Carthage].
 
 If Carthage is not present, you will see an error that looks like:
 
@@ -91,7 +89,7 @@ Carthage integration is a little simpler than manual integration:
 1. Update the `Cartfile` with an entry for $project:name
 2. Download and build $project:name
 3. Add $docs:frameworkAndList to your application target
-4. Create a build phase to strip the extra processor architectures from the Carthage $docs:targetFrameworksTerm ^if($project:isOSX|(not necessary for Mac OS X builds))
+4. Create a build phase to strip the extra processor architectures from the Carthage $docs:targetFrameworksTerm ^if($project:isOSX|(not necessary for macOS builds))
 
 ^q(###) Getting Started
 
@@ -115,10 +113,10 @@ To speed up the build process—and to avoid trying to build for a platform that
 
 To build for|Run the command
 --------|------------------------
+^if($project:isIOS|iPhone/iPad^q(|)`carthage update --platform ios`)
+^if($project:isOSX|Macintosh^q(|)`carthage update --platform mac`)
 ^if($project:isTVOS|Apple TV^q(|)`carthage update --platform tvos`)
 ^if($project:isWATCHOS|Apple Watch^q(|)`carthage update --platform watchos`)
-^if($project:isIOS|iPhone/iPad^q(|)`carthage update --platform ios`)
-^if($project:isOSX|Mac^q(|)`carthage update --platform mac`)
 
 ^q(####) Where Carthage stores files
 
@@ -132,7 +130,7 @@ Carthage puts its files within a top-level directory called `Carthage` at the ro
 open Carthage/Build/iOS
 ```
 
-^if($project:isOSX|The command above opens the directory containing the iOS framework $docs:targetBinariesTerm; to locate the Mac OS X $docs:targetBinariesTerm, execute:
+^if($project:isOSX|The command above opens the directory containing the iOS framework $docs:targetBinariesTerm; to locate the macOS $docs:targetBinariesTerm, execute:
 
 ```bash
 open Carthage/Build/Mac
@@ -155,7 +153,7 @@ If successful, you should see $docs:frameworkAndList listed under both the *Embe
 
 ^q(###) 4. Create a build phase to strip the Carthage $docs:targetFrameworksTerm
 
-^if($project:isOSX|> **Note:** You do *not* need to perform this step when building for Mac OS X. This step is only necessary when building for targets that can be run in a simulator.
+^if($project:isOSX|> **Note:** You do *not* need to perform this step when building for macOS. This step is only necessary when building for targets that can be run in a simulator.
 
 )In Xcode, select the *Build Phases* tab in the build settings for your application target.
 
