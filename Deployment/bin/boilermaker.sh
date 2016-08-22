@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o pipefail
+
 SCRIPT_NAME=$(basename "$0")
 SCRIPT_DIR=$(cd "$PWD" ; cd `dirname "$0"` ; echo "$PWD")
 
@@ -9,6 +11,7 @@ source "bin/common-include.sh"
 #
 # parse the command-line arguments
 #
+BRANCH=master
 FILE_LIST=()
 REPO_LIST=()
 while [[ $1 ]]; do
@@ -53,6 +56,13 @@ while [[ $1 ]]; do
 		ALL_REPOS_FLAG=1
 		;;
 		
+	--branch|-b)
+		if [[ $2 ]]; then
+ 			BRANCH=$2
+ 			shift
+ 		fi
+ 		;;
+	
  	--commit|-c)
  		if [[ $2 ]]; then
  			COMMIT_MESSAGE=$2
@@ -98,6 +108,13 @@ showHelp()
 	echo
 	echo "Optional:"
 	echo
+	printf "\t--branch <branch>\n"
+	echo
+	printf "\t\tSpecifies the expected git branch of the repos on which the\n"
+	printf "\t\toperation is to be performed. This script fails when a repo\n"
+	printf "\t\tis not on <branch> at the time of execution. If this argument\n"
+	printf "\t\tis omitted, the branch is assumed to be master.\n"
+	echo
 	printf "\t--commit \"<message>\"\n"
 	echo
 	printf "\t\tIf this argument is specified, the script will attempt to\n"
@@ -110,6 +127,7 @@ showHelp()
 	printf "\t\t-f = --file\n"
 	printf "\t\t-r = --repo\n"
 	printf "\t\t-a = --all\n"
+	printf "\t\t-b = --branch\n"
 	printf "\t\t-c = --commit\n"
 	echo
 	echo "Help"
@@ -152,13 +170,19 @@ if [[ ${#REPO_LIST[@]} < 1 ]]; then
 fi
 
 #
+# make sure all the repos are on the right branch
+#
+expectReposOnBranch $BRANCH $REPO_LIST
+export BRANCH
+
+#
 # make sure boilerplate exists for each file specified
 #
 for f in ${FILE_LIST[@]}; do
 	BOILERPLATE_FILE="boilerplate/$f.boilerplate"
 	if [[ ! -f "$BOILERPLATE_FILE" ]]; then
 		echo "error: Expected to find boilerplate file at $BOILERPLATE_FILE (within the directory $PWD)"
-		exit 1
+		exit 4
 	fi
 done
 
@@ -178,7 +202,7 @@ for f in ${FILE_LIST[@]}; do
 		if [[ -r "$REPO_XML" ]]; then
 			./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$OUTPUT_FILE"
 			if [[ "$?" != 0 ]]; then
-				exit 3
+				exit 5
 			fi
 			if [[ $(echo "$OUTPUT_FILE" | grep -c "\.sh\$") > 0 ]]; then
 				chmod a+x "../../$r/$OUTPUT_FILE"

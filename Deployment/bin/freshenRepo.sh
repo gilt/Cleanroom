@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o pipefail
+
 BOILERMAKER_ARGS="$@"
 
 SCRIPT_NAME=$(basename "$0")
@@ -9,6 +11,7 @@ cd "$SCRIPT_DIR"
 source common-include.sh
 
 REPO_LIST=()
+BRANCH=master
 while [[ $1 ]]; do
 	case $1 in
 	--repo|-r)
@@ -34,8 +37,15 @@ while [[ $1 ]]; do
 	--force|-f)
 		FORCE_MODE=1
 		;;
-		
-	--help|-h|-?)
+	
+	--branch|-b)
+		if [[ $2 ]]; then
+ 			BRANCH=$2
+ 			shift
+ 		fi
+ 		;;
+	
+	--help|-h|-\?)
 		SHOW_HELP=1
 		;;
 	esac
