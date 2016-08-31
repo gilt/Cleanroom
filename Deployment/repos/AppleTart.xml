@@ -13,4 +13,6 @@ Although developed primarily for iOS and tvOS, AppleTart can also be compiled fo
     </Var>
 
 	<Var name="repo:owner" literal="gilt"/>
+	
+	<Var name="travis:build-status-token" literal="xBQCS1qnFwhQd2sTxsyu"/>
 </MBML>

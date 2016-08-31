@@ -18,4 +18,6 @@
 	<Var name="project:settings" type="map">
 		<Var name="app-extension-only" boolean="T"/>
 	</Var>
+
+	<Var name="travis:build-status-token" literal="xBQCS1qnFwhQd2sTxsyu"/>
 </MBML>

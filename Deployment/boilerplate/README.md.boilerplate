@@ -20,8 +20,8 @@ $branches:other.count other branches are also available:
 
 Branch|Build status
 --------|------------------------
-[`master`]($repo:url:home)|[![Build status: master branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=master)](https://travis-ci.org/${repo:owner}/${project:name})
-^join(^list($branches:nonmaster|[`${item}`]($repo:url:branch/$item)^q(|[)![Build status: $item branch](https://travis-ci.org/${repo:owner}/${project:name}.svg?branch=${item})](https://travis-ci.org/${repo:owner}/${project:name}))|\n)
+[`master`]($repo:url:home)|[![Build status: master branch](${travis:url}.svg?branch=master^if(${travis:build-status-token}|&token=${travis:build-status-token}))](${travis:url})
+^join(^list($branches:nonmaster|[`${item}`]($repo:url:branch/$item)^q(|[)![Build status: $item branch](${travis:url}.svg?branch=${item}^if(${travis:build-status-token}|&token=${travis:build-status-token}))](${travis:url}))|\n)
 
 ^if($project:readme:preamble|
 $project:readme:preamble
