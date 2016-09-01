@@ -1,4 +1,4 @@
-![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/master/Assets/gilt-tech-logo.png)
+![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/${repo:branch}/Assets/gilt-tech-logo.png)
 
 ^q(#) $project:name
 
@@ -29,7 +29,7 @@ $project:readme:preamble
 )
 ^if($project:license|^q(###) License
 
-$project:name is distributed under [the $project:license license](/blob/master/LICENSE).
+$project:name is distributed under [the $project:license license](${repo:url:home}/blob/${repo:branch}/LICENSE).
 
 $project:name is provided for your use—free-of-charge—on an as-is basis. We make no guarantees, promises or apologies. *Caveat developer.*
 
@@ -40,8 +40,8 @@ $project:name is provided for your use—free-of-charge—on an as-is basis. We 
 
 You’ll need to [integrate $project:name into your project](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md) in order to use ^if($repo:isPrivate|the API|[the API]($docs:api:index)) it provides. You can choose:
 
-- [Manual integration](${repo:url:home}/blob/master/INTEGRATION.md#manual-integration), wherein you embed ${project:name}’s Xcode project within your own, **_or_**
-- [Using the Carthage dependency manager](${repo:url:home}/blob/master/INTEGRATION.md#carthage-integration) to build a framework that you then embed in your application.
+- [Manual integration](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md#manual-integration), wherein you embed ${project:name}’s Xcode project within your own, **_or_**
+- [Using the Carthage dependency manager](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md#carthage-integration) to build a framework that you then embed in your application.
 
 Once integrated, just add the following `import` statement to any Swift file where you want to use ${project:name}:
 
