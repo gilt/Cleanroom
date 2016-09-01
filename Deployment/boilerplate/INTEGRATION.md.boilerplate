@@ -1,4 +1,4 @@
-![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/master/Assets/gilt-tech-logo.png)
+![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/${repo:branch}/Assets/gilt-tech-logo.png)
 
 ^q(#) $project:name Integration Notes
 
@@ -292,6 +292,6 @@ Once $project:name has been successfully integrated, all you will need to do is 
 $project:import
 ```
 
-Want to learn more about ${project:name}? Check out [the README](${repo:url:home}/blob/master/README.md).
+Want to learn more about ${project:name}? Check out [the README](${repo:url:home}/blob/${repo:branch}/README.md).
 
 **_Happy coding!_**
