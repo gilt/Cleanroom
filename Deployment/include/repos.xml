@@ -121,6 +121,7 @@
 	<Var name="repo:ownersToNames" type="map">
 		<Var name="gilt" literal="Gilt Groupe"/>
 		<Var name="emaloney" literal="Evan Maloney"/>
+		<Var name="kyle-dorman" literal="Kyle Dorman"/>
+		<Var name="nkorchagin" literal="Nikita Korchagin"/>
 	</Var>
 </MBML>
-
