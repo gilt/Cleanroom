@@ -31,7 +31,7 @@ rm -rf Documentation/API	# clear out any old docs; they may have remnant files
 	--swift-version $versions[$repo:branch][Swift] \
 	--readme Sources/README.md \
 	--github_url "$$PUBLIC_GITHUB_URL" \
-	--author "$repo:ownersToNames[$repo:owner]^if($repo:owner != gilt|, Gilt Groupe)" \
+	--author "$project:creator:name^if($project:creator:name != ^q(Gilt Groupe)|, Gilt Groupe)" \
 	--author_url "$$AUTHOR_GITHUB_URL" \
 	--copyright "© $$COPYRIGHT_YEAR [Gilt Groupe](http://tech.gilt.com/)"
 

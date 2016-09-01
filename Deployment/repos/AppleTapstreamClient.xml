@@ -1,7 +1,8 @@
 <MBML>
-	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:name" literal="AppleTapstreamClient"/>
+	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Nikita Korchagin"/>
+	<Var name="repo:isPrivate" boolean="T"/>
 
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
