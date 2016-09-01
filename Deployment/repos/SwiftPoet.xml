@@ -1,6 +1,6 @@
 <MBML>
-	<Var name="repo:owner" literal="kyle-dorman"/>
 	<Var name="project:name" literal="SwiftPoet"/>
+	<Var name="repo:owner" literal="kyle-dorman"/>
 	<Var name="project:creator:name" literal="Kyle Dorman"/>
 	<Var name="project:license" literal="MIT"/>
 

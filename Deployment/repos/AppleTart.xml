@@ -1,5 +1,8 @@
 <MBML>
 	<Var name="project:name" literal="AppleTart"/>
+	<Var name="repo:owner" literal="gilt"/>
+	<Var name="project:creator:name" literal="Evan Maloney"/>
+	<Var name="repo:isPrivate" boolean="T"/>
 
 	<Var name="project:description">AppleTart is Gilt’s closed-source Swift code library for Apple platforms.
 
@@ -11,8 +14,6 @@ Although developed primarily for iOS and tvOS, AppleTart can also be compiled fo
         <Var literal="tvOS"/>
         <Var literal="watchOS"/>
     </Var>
-
-	<Var name="repo:owner" literal="gilt"/>
 	
 	<Var name="travis:build-status-token" literal="xBQCS1qnFwhQd2sTxsyu"/>
 </MBML>

@@ -1,5 +1,7 @@
 <MBML>
 	<Var name="project:name" literal="CleanroomBridging"/>
+	<Var name="repo:owner" literal="emaloney"/>
+	<Var name="project:creator:name" literal="Evan Maloney"/>
 	<Var name="project:license" literal="MIT"/>
 
 	<Var name="project:description">The CleanroomBridging framework contains utilities that help bridge the gap between Objective-C and Swift.</Var>
@@ -15,6 +17,4 @@
         <Var name="app-extension-only" boolean="T"/>
 		<Var name="bridging-header" literal="BuildControl/Bridging-Header.h"/>
     </Var>
-
-	<Var name="repo:owner" literal="emaloney"/>
 </MBML>
