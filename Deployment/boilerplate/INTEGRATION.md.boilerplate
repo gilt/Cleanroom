@@ -15,7 +15,7 @@ Platform|Latest supported OS|Oldest supported OS
 ^if($project:isTVOS|Apple TV^q(|)tvOS $versions[$repo:branch][current][tvOS]^q(|)tvOS $versions[$repo:branch][minimum][tvOS])
 ^if($project:isWATCHOS|Apple Watch^q(|)watchOS $versions[$repo:branch][current][watchOS]^q(|)watchOS $versions[$repo:branch][minimum][watchOS])
 
-^if($repo:branch -NE master|**This is the `$repo:branch` branch of $project:name.** It|$project:name) uses **Swift $versions[$repo:branch][Swift]** and **requires Xcode $versions[$repo:branch][Xcode]** (or higher) to compile.
+^if($repo:branch -NE master|**This is the `$repo:branch` branch of $project:name.** It|$project:name) uses **Swift $versions[$repo:branch][Swift]** and **requires Xcode $versions[$repo:branch][Xcode]** to compile.
 
 ^q(###) Contents
 
