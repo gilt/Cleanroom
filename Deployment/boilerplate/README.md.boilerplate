@@ -9,9 +9,11 @@
 
 ^q(###) Swift compatibility
 
-^if($repo:branch -NE master|**Important:** )This is the `$repo:branch` branch. It uses **Swift $versions[$repo:branch][Swift]** and **requires Xcode $versions[$repo:branch][Xcode]** to compile.
+^if($repo:branch -NE master|**Important:** )This is the `$repo:branch` branch. It uses **Swift $versions[$repo:branch][Swift]** and **requires Xcode $versions[$repo:branch][Xcode]** to compile.^if($versions[$repo:branch][note]|
 
-^pluralize($branches:other.count||If you need Swift $versions[$branches:other[0]][Swift] compatibility, a [`${branches:other[0]}`](^if($branches:other[0] -EQ master|${repo:url:home}|${repo:url:branch}/${branches:other[0]})) branch is also available. It requires Xcode $versions[$branches:other[0]][Xcode].|$branches:other.count other branches are also available:
+$versions[$repo:branch][note])
+
+^pluralize($branches:other.count||If you need Swift $versions[$branches:other[0]][Swift] compatibility, use the [`${branches:other[0]}`](^if($branches:other[0] -EQ master|${repo:url:home}|${repo:url:branch}/${branches:other[0]})) branch, which requires Xcode $versions[$branches:other[0]][Xcode].|$branches:other.count other branches are also available:
 
 ^join(^list($branches:other|- The [`${item}`](^if($item -EQ master|${repo:url:home}|${repo:url:branch}/${item})) branch uses **Swift $versions[$item][Swift]**, requiring Xcode $versions[$item][Xcode])|\n)
 )
