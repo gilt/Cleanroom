@@ -10,9 +10,7 @@ Although developed primarily for iOS and tvOS, AppleTart can also be compiled fo
 
     <Var name="project:platforms" type="list">
         <Var literal="iOS"/>
-        <Var literal="OSX"/>
         <Var literal="tvOS"/>
-        <Var literal="watchOS"/>
     </Var>
 	
 	<Var name="travis:build-status-token" literal="xBQCS1qnFwhQd2sTxsyu"/>
