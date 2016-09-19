@@ -565,7 +565,7 @@ if [[ -z $NO_COMMIT ]]; then
 	executeCommand "git commit -a -m '$COMMIT_COMMENT'"
 else
 	updateStatus "! Not committing changes; --no-commit or --ignore-dirty-files was specified"
-	printf "> To commit manually, use\n\n    git commit -a -m '$COMMIT_COMMENT'\n\n  and remember to 'git push' afterwards!"
+	printf "> To commit manually, use\n\n    git commit -a -m '$COMMIT_COMMENT'\n\n  and remember to 'git push' afterwards!\n"
 fi
 
 #
@@ -576,7 +576,7 @@ if [[ $TAG_WHEN_DONE && -z $NO_COMMIT && -z $NO_TAG ]]; then
 	executeCommand "git tag -a $VERSION -m 'Release $VERSION issued by $SCRIPT_NAME'"
 else
 	updateStatus "! Not tagging repo; --tag was not specified"
-	printf "> To tag manually, use\n\n    git tag -a $VERSION -m 'Release $VERSION issued by $SCRIPT_NAME'\n\n  and remember to 'git push --tags' afterwards!"
+	printf "> To tag manually, use\n\n    git tag -a $VERSION -m 'Release $VERSION issued by $SCRIPT_NAME'\n\n  and remember to 'git push --tags' afterwards!\n"
 fi
 
 #
