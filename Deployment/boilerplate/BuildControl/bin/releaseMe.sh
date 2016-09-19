@@ -420,6 +420,13 @@ if [[ -z "$REPO_NAME" ]]; then
 fi
 
 #
+# output a warning if there are conflicting tag flags
+#
+if [[ $TAG_WHEN_DONE && $NO_TAG ]]; then
+	exitWithErrorSuggestHelp "--tag can't be specified with --no-tag, --no-commit or --ignore-dirty-files"
+fi
+
+#
 # see if we've got uncommitted changes
 #
 git diff-index --quiet HEAD -- ; REPO_IS_DIRTY=$?
@@ -518,6 +525,9 @@ fi
 if [[ $TAG_WHEN_DONE && !$NO_COMMIT && !$NO_TAG ]]; then
 	updateStatus "Tagging repo for $VERSION release"
 	executeCommand "git tag -a $VERSION -m 'Release $VERSION issued by $SCRIPT_NAME'"
+else
+	updateStatus "! Not tagging repo because --tag was not specified"
+	printf "> To tag manually, use\n\n\tgit tag -a $VERSION -m 'Release $VERSION issued by $SCRIPT_NAME'\n\n\t\tand remember to git push --tags afterwards!"
 fi
 
 if [[ $PUSH_WHEN_DONE && !$NO_COMMIT ]]; then
