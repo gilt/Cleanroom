@@ -10,11 +10,11 @@ $project:name is built as a *Swift framework*, and as such, it has the following
 
 Platform|Latest supported OS|Oldest supported OS
 --------|-------------------|-------------------
-^if($project:isIOS|iPhone/iPad^q(|)iOS $versions[$repo:branch][current][iOS]^q(|)iOS $versions[$repo:branch][minimum][iOS])
-^if($project:isOSX|Macintosh^q(|)macOS $versions[$repo:branch][current][OSX]^q(|)macOS $versions[$repo:branch][minimum][OSX])
-^if($project:isTVOS|Apple TV^q(|)tvOS $versions[$repo:branch][current][tvOS]^q(|)tvOS $versions[$repo:branch][minimum][tvOS])
-^if($project:isWATCHOS|Apple Watch^q(|)watchOS $versions[$repo:branch][current][watchOS]^q(|)watchOS $versions[$repo:branch][minimum][watchOS])
-
+^if($project:isIOS|iPhone/iPad^q(|)iOS $versions[$repo:branch][current][iOS]^q(|)iOS $versions[$repo:branch][minimum][iOS]
+)^if($project:isOSX|Macintosh^q(|)macOS $versions[$repo:branch][current][OSX]^q(|)macOS $versions[$repo:branch][minimum][OSX]
+)^if($project:isTVOS|Apple TV^q(|)tvOS $versions[$repo:branch][current][tvOS]^q(|)tvOS $versions[$repo:branch][minimum][tvOS]
+)^if($project:isWATCHOS|Apple Watch^q(|)watchOS $versions[$repo:branch][current][watchOS]^q(|)watchOS $versions[$repo:branch][minimum][watchOS]
+)
 ^if($repo:branch -NE master|**This is the `$repo:branch` branch of $project:name.** It|$project:name) uses **Swift $versions[$repo:branch][Swift]** and **requires Xcode $versions[$repo:branch][Xcode]** to compile.
 
 ^q(###) Contents
@@ -113,11 +113,11 @@ To speed up the build process—and to avoid trying to build for a platform that
 
 To build for|Run the command
 --------|------------------------
-^if($project:isIOS|iPhone/iPad^q(|)`carthage update --platform ios`)
-^if($project:isOSX|Macintosh^q(|)`carthage update --platform mac`)
-^if($project:isTVOS|Apple TV^q(|)`carthage update --platform tvos`)
-^if($project:isWATCHOS|Apple Watch^q(|)`carthage update --platform watchos`)
-
+^if($project:isIOS|iPhone/iPad^q(|)`carthage update --platform ios`
+)^if($project:isOSX|Macintosh^q(|)`carthage update --platform mac`
+)^if($project:isTVOS|Apple TV^q(|)`carthage update --platform tvos`
+)^if($project:isWATCHOS|Apple Watch^q(|)`carthage update --platform watchos`
+)
 ^q(####) Where Carthage stores files
 
 Carthage puts its files within a top-level directory called `Carthage` at the root of your project’s directory structure (i.e., the `Carthage` directory is a sibling of the `Cartfile`). Within this directory are two more directories: `Build`, which contains any frameworks built by Carthage; and `Checkouts`, which contains fully populated directory structures for each repository specified in the `Cartfile`.
