@@ -13,11 +13,11 @@ install:
   - gem install xcpretty
 
 script:
-^if($project:isIOS    |- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 120 clean build ^q(|) xcpretty
-- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 120 test ^q(|) xcpretty
-)^if($project:isOSX    |- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-OSX -destination 'platform=macOS' -destination-timeout 120 clean build ^q(|) xcpretty
-- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-OSX -destination 'platform=macOS' -destination-timeout 120 test ^q(|) xcpretty
-)^if($project:isTVOS   |- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' -destination-timeout 120 clean build ^q(|) xcpretty
-- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' -destination-timeout 120 test ^q(|) xcpretty
-)^if($project:isWATCHOS|- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-watchOS -destination 'platform=watchOS Simulator,OS=3.0,name=Apple Watch - 42mm' -destination-timeout 120 clean build ^q(|) xcpretty
+^if($project:isIOS    |- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 300 clean build ^q(|) xcpretty
+- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 300 test ^q(|) xcpretty
+)^if($project:isOSX    |- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-OSX -destination 'platform=macOS' -destination-timeout 300 clean build ^q(|) xcpretty
+- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-OSX -destination 'platform=macOS' -destination-timeout 300 test ^q(|) xcpretty
+)^if($project:isTVOS   |- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' -destination-timeout 300 clean build ^q(|) xcpretty
+- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' -destination-timeout 300 test ^q(|) xcpretty
+)^if($project:isWATCHOS|- set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -scheme ${project:name}-watchOS -destination 'platform=watchOS Simulator,OS=3.0,name=Apple Watch - 42mm' -destination-timeout 300 clean build ^q(|) xcpretty
 )
