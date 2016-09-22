@@ -511,7 +511,7 @@ buildActionsForPlatform()
 SCHEME_PIPE="/tmp/${SCRIPT_NAME}-$$-${RANDOM}-scheme.pipe"
 SCHEME_ROOT="${REPO_NAME}-"
 mkfifo "$SCHEME_PIPE" # use named pipe to work around pipe subshell issue
-xcodebuild -list | grep "\s${REPO_NAME}" | grep -v Tests | sort | uniq | sed "s/^[ \t]*//" > "$SCHEME_PIPE" &
+xcodebuild -list | grep "\s${REPO_NAME}" | grep -v Tests | grep -v TestHarness | sort | uniq | sed "s/^[ \t]*//" > "$SCHEME_PIPE" &
 while read SCHEME
 do
 	THIS_PLATFORM="${SCHEME##$SCHEME_ROOT}"
