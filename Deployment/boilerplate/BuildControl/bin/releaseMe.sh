@@ -536,7 +536,7 @@ for PLATFORM in $COMPILE_PLATFORMS; do
 	updateStatus "Building: $SCHEME..."
 	DESTINATION=$(destinationForPlatform $PLATFORM)
 	ACTIONS=$(buildActionsForPlatform $PLATFORM $BUILD_ACTION)
-	executeCommand "$XCODEBUILD $PROJECT_SPECIFIER -scheme \"$SCHEME\" -configuration Release $DESTINATION $ACTIONS $XCODEBUILD_PIPETO"
+	executeCommand "$XCODEBUILD $PROJECT_SPECIFIER -scheme \"$SCHEME\" -configuration Release ONLY_ACTIVE_ARCH=YES $DESTINATION $ACTIONS $XCODEBUILD_PIPETO"
 done
 
 #
