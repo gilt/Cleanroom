@@ -121,7 +121,7 @@ So that just about covers a very quick introduction to BlueSteel. Please note th
 
     <Var name="project:platforms" type="list">
         <Var literal="iOS"/>
-        <Var literal="OSX"/>
+        <Var literal="macOS"/>
         <Var literal="tvOS"/>
         <Var literal="watchOS"/>
     </Var>

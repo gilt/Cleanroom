@@ -5,7 +5,7 @@
 	<Var name="project:license" literal="MIT"/>
 
 	<Var name="project:platforms" type="list">
-		<Var literal="OSX"/>
+		<Var literal="macOS"/>
 	</Var>
 
 	<Var name="project:description:formats" type="map">

@@ -21,8 +21,8 @@ destinationForPlatform()
 	iOS)
 		echo "$platforms[iOS][runDestination]";;
 
-	macOS|OSX)
-		echo "$platforms[OSX][runDestination]";;
+	macOS)
+		echo "$platforms[macOS][runDestination]";;
 
 	tvOS)
 		echo "$platforms[tvOS][runDestination]";;

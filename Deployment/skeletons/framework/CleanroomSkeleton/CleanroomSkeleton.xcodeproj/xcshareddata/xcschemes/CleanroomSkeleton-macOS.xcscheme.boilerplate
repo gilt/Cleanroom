@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3B00E57B1BA379830011486D"
-               BuildableName = "CleanroomSkeleton.framework"
-               BlueprintName = "CleanroomSkeleton-OSX"
-               ReferencedContainer = "container:CleanroomSkeleton.xcodeproj">
+               BuildableName = "${project:name}.framework"
+               BlueprintName = "${project:name}-macOS"
+               ReferencedContainer = "container:${project:name}.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3B00E5841BA379830011486D"
-               BuildableName = "CleanroomSkeletonUnitTests.xctest"
-               BlueprintName = "CleanroomSkeletonUnitTests-OSX"
-               ReferencedContainer = "container:CleanroomSkeleton.xcodeproj">
+               BuildableName = "${project:name}UnitTests.xctest"
+               BlueprintName = "${project:name}UnitTests-macOS"
+               ReferencedContainer = "container:${project:name}.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B00E57B1BA379830011486D"
-            BuildableName = "CleanroomSkeleton.framework"
-            BlueprintName = "CleanroomSkeleton-OSX"
-            ReferencedContainer = "container:CleanroomSkeleton.xcodeproj">
+            BuildableName = "${project:name}.framework"
+            BlueprintName = "${project:name}-macOS"
+            ReferencedContainer = "container:${project:name}.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B00E57B1BA379830011486D"
-            BuildableName = "CleanroomSkeleton.framework"
-            BlueprintName = "CleanroomSkeleton-OSX"
-            ReferencedContainer = "container:CleanroomSkeleton.xcodeproj">
+            BuildableName = "${project:name}.framework"
+            BlueprintName = "${project:name}-macOS"
+            ReferencedContainer = "container:${project:name}.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B00E57B1BA379830011486D"
-            BuildableName = "CleanroomSkeleton.framework"
-            BlueprintName = "CleanroomSkeleton-OSX"
-            ReferencedContainer = "container:CleanroomSkeleton.xcodeproj">
+            BuildableName = "${project:name}.framework"
+            BlueprintName = "${project:name}-macOS"
+            ReferencedContainer = "container:${project:name}.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

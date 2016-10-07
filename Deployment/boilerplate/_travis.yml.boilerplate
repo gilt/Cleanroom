@@ -13,23 +13,23 @@ install:
   - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 
 script:
-^if($project:isIOS    |  - ./BuildControl/bin/travisBuildHelper.sh build iOS
+^if($supports:iOS    |  - ./BuildControl/bin/travisBuildHelper.sh build iOS
   - ./BuildControl/bin/travisBuildHelper.sh test iOS
-)^if($project:isOSX    |  - ./BuildControl/bin/travisBuildHelper.sh build macOS
+)^if($supports:macOS    |  - ./BuildControl/bin/travisBuildHelper.sh build macOS
   - ./BuildControl/bin/travisBuildHelper.sh test macOS
-)^if($project:isTVOS   |  - ./BuildControl/bin/travisBuildHelper.sh build tvOS
+)^if($supports:tvOS   |  - ./BuildControl/bin/travisBuildHelper.sh build tvOS
   - ./BuildControl/bin/travisBuildHelper.sh test tvOS
-)^if($project:isWATCHOS|  - ./BuildControl/bin/travisBuildHelper.sh build watchOS
+)^if($supports:watchOS|  - ./BuildControl/bin/travisBuildHelper.sh build watchOS
 )
 after_failure:
-^if($project:isIOS    |  - test -f "${project:name}-iOS-build.log" && tail -n 2500 "${project:name}-iOS-build.log"
+^if($supports:iOS    |  - test -f "${project:name}-iOS-build.log" && tail -n 2500 "${project:name}-iOS-build.log"
   - test -f "${project:name}-iOS-test.log" && tail -n 2500 "${project:name}-iOS-test.log"
   - test -f "${project:name}-iOS-test.log" && LINE_BEFORE=`cat "${project:name}-iOS-test.log" ^q(|) grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." ^q(|) awk -F':' '{print ^q($)1}'` && LINE=`expr ^q($)LINE_BEFORE + 1` && LOG_FILE=`head -n ^q($)LINE "${project:name}-iOS-test.log" ^q(|) tail -n 1` && cat "^q($)LOG_FILE"
-)^if($project:isOSX    |  - test -f "${project:name}-macOS-build.log" && tail -n 2500 "${project:name}-macOS-build.log"
+)^if($supports:macOS    |  - test -f "${project:name}-macOS-build.log" && tail -n 2500 "${project:name}-macOS-build.log"
   - test -f "${project:name}-macOS-test.log" && tail -n 2500 "${project:name}-macOS-test.log"
   - test -f "${project:name}-macOS-test.log" && LINE_BEFORE=`cat "${project:name}-macOS-test.log" ^q(|) grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." ^q(|) awk -F':' '{print ^q($)1}'` && LINE=`expr ^q($)LINE_BEFORE + 1` && LOG_FILE=`head -n ^q($)LINE "${project:name}-macOS-test.log" ^q(|) tail -n 1` && cat "^q($)LOG_FILE"
-)^if($project:isTVOS   |  - test -f "${project:name}-tvOS-build.log" && tail -n 2500 "${project:name}-tvOS-build.log"
+)^if($supports:tvOS   |  - test -f "${project:name}-tvOS-build.log" && tail -n 2500 "${project:name}-tvOS-build.log"
   - test -f "${project:name}-tvOS-test.log" && tail -n 2500 "${project:name}-tvOS-test.log"
   - test -f "${project:name}-tvOS-test.log" && LINE_BEFORE=`cat "${project:name}-tvOS-test.log" ^q(|) grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." ^q(|) awk -F':' '{print ^q($)1}'` && LINE=`expr ^q($)LINE_BEFORE + 1` && LOG_FILE=`head -n ^q($)LINE "${project:name}-tvOS-test.log" ^q(|) tail -n 1` && cat "^q($)LOG_FILE"
-)^if($project:isWATCHOS|  - test -f "${project:name}-watchOS-build.log" && tail -n 2500 "${project:name}-watchOS-build.log"
+)^if($supports:watchOS|  - test -f "${project:name}-watchOS-build.log" && tail -n 2500 "${project:name}-watchOS-build.log"
 )

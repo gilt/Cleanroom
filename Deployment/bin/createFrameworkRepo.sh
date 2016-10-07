@@ -9,7 +9,7 @@ source common-include.sh
 PLATE_BIN="$SCRIPT_DIR/plate"
 DEST_ROOT="$SCRIPT_DIR/../../.."
 DEFAULT_DEST_ROOT=$( cd "$DEST_ROOT"; echo $PWD )
-POSSIBLE_PLATFORMS=( iOS OSX tvOS watchOS all )
+POSSIBLE_PLATFORMS=( iOS macOS tvOS watchOS all )
 REAL_PLATFORMS=${POSSIBLE_PLATFORMS[@]:0:${#POSSIBLE_PLATFORMS[@]}-1}
 POSSIBLE_PLATFORMS_STR=`echo -n "${POSSIBLE_PLATFORMS[@]}"`
 POSSIBLE_PLATFORMS_PARAM=`echo $POSSIBLE_PLATFORMS_STR | sed 's/ /|/g'`
@@ -189,7 +189,7 @@ if [[ ${#PLATFORMS[@]} == 0 ]]; then
 fi
 
 INCLUDE_IOS=0
-INCLUDE_OSX=0
+INCLUDE_MACOS=0
 INCLUDE_TVOS=0
 INCLUDE_WATCHOS=0
 for p in "${PLATFORMS[@]}"; do
@@ -204,9 +204,9 @@ for p in "${PLATFORMS[@]}"; do
 		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"iOS\"/>"
 		;;
 		
-	OSX)
-		INCLUDE_OSX=1
-		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"OSX\"/>"
+	macOS)
+		INCLUDE_MACOS=1
+		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"macOS\"/>"
 		;;
 		
 	tvOS)
@@ -226,8 +226,8 @@ EXCLUDE_FILE_PATTERNS=()
 if [[ $INCLUDE_IOS == 0 ]]; then
 	EXCLUDE_FILE_PATTERNS+=("iOS\.xcconfig\$" "\-iOS\.xcscheme\.boilerplate\$")
 fi
-if [[ $INCLUDE_OSX == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("OSX\.xcconfig\$" "\-OSX\.xcscheme\.boilerplate\$")
+if [[ $INCLUDE_MACOS == 0 ]]; then
+	EXCLUDE_FILE_PATTERNS+=("macOS\.xcconfig\$" "\-macOS\.xcscheme\.boilerplate\$")
 fi
 if [[ $INCLUDE_TVOS == 0 ]]; then
 	EXCLUDE_FILE_PATTERNS+=("tvOS\.xcconfig\$" "\-tvOS\.xcscheme\.boilerplate\$")

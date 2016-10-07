@@ -64,7 +64,7 @@ Peter Hosey’s *Idle Time* blog also has [a number of informative posts on ASL]
 
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
-		<Var literal="OSX"/>
+		<Var literal="macOS"/>
         <Var literal="tvOS"/>
         <Var literal="watchOS"/>
 	</Var>

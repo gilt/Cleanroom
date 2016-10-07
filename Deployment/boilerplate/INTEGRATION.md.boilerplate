@@ -10,10 +10,10 @@ $project:name is built as a *Swift framework*, and as such, it has the following
 
 Platform|Latest supported OS|Oldest supported OS
 --------|-------------------|-------------------
-^if($project:isIOS|iPhone/iPad^q(|)iOS $versions[$repo:branch][current][iOS]^q(|)iOS $versions[$repo:branch][minimum][iOS]
-)^if($project:isOSX|Macintosh^q(|)macOS $versions[$repo:branch][current][OSX]^q(|)macOS $versions[$repo:branch][minimum][OSX]
-)^if($project:isTVOS|Apple TV^q(|)tvOS $versions[$repo:branch][current][tvOS]^q(|)tvOS $versions[$repo:branch][minimum][tvOS]
-)^if($project:isWATCHOS|Apple Watch^q(|)watchOS $versions[$repo:branch][current][watchOS]^q(|)watchOS $versions[$repo:branch][minimum][watchOS]
+^if($supports:iOS|iPhone/iPad^q(|)iOS $versions[$repo:branch][current][iOS]^q(|)iOS $versions[$repo:branch][minimum][iOS]
+)^if($supports:macOS|Macintosh^q(|)macOS $versions[$repo:branch][current][macOS]^q(|)macOS $versions[$repo:branch][minimum][macOS]
+)^if($supports:tvOS|Apple TV^q(|)tvOS $versions[$repo:branch][current][tvOS]^q(|)tvOS $versions[$repo:branch][minimum][tvOS]
+)^if($supports:watchOS|Apple Watch^q(|)watchOS $versions[$repo:branch][current][watchOS]^q(|)watchOS $versions[$repo:branch][minimum][watchOS]
 )
 ^if($repo:branch -NE master|**This is the `$repo:branch` branch of $project:name.** It|$project:name) uses **Swift $versions[$repo:branch][Swift]** and **requires Xcode $versions[$repo:branch][Xcode]** to compile.
 
@@ -29,7 +29,7 @@ Some familiarity with the Terminal application, the bash command line, and the `
 
 The steps below have been tested with **git $versions[$repo:branch][git]**, although they should be compatible with a wide range of recent git versions.
 
-^if($project:isIOS -OR $project:isTVOS -OR $project:isWATCHOS|
+^if($supports:iOS -OR $supports:tvOS -OR $supports:watchOS|
 ^q(###) Of Frameworks and Simulators
 
 When developing for a platform with a simulator, there are some kinks in the process:
@@ -89,7 +89,7 @@ Carthage integration is a little simpler than manual integration:
 1. Update the `Cartfile` with an entry for $project:name
 2. Download and build $project:name
 3. Add $docs:frameworkAndList to your application target
-4. Create a build phase to strip the extra processor architectures from the Carthage $docs:targetFrameworksTerm ^if($project:isOSX|(not necessary for macOS builds))
+4. Create a build phase to strip the extra processor architectures from the Carthage $docs:targetFrameworksTerm ^if($supports:macOS|(not necessary for macOS builds))
 
 ^q(###) Getting Started
 
@@ -113,10 +113,10 @@ To speed up the build process—and to avoid trying to build for a platform that
 
 To build for|Run the command
 --------|------------------------
-^if($project:isIOS|iPhone/iPad^q(|)`carthage update --platform ios`
-)^if($project:isOSX|Macintosh^q(|)`carthage update --platform mac`
-)^if($project:isTVOS|Apple TV^q(|)`carthage update --platform tvos`
-)^if($project:isWATCHOS|Apple Watch^q(|)`carthage update --platform watchos`
+^if($supports:iOS|iPhone/iPad^q(|)`carthage update --platform ios`
+)^if($supports:macOS|Macintosh^q(|)`carthage update --platform mac`
+)^if($supports:tvOS|Apple TV^q(|)`carthage update --platform tvos`
+)^if($supports:watchOS|Apple Watch^q(|)`carthage update --platform watchos`
 )
 ^q(####) Where Carthage stores files
 
@@ -130,7 +130,7 @@ Carthage puts its files within a top-level directory called `Carthage` at the ro
 open Carthage/Build/iOS
 ```
 
-^if($project:isOSX|The command above opens the directory containing the iOS framework $docs:targetBinariesTerm; to locate the macOS $docs:targetBinariesTerm, execute:
+^if($supports:macOS|The command above opens the directory containing the iOS framework $docs:targetBinariesTerm; to locate the macOS $docs:targetBinariesTerm, execute:
 
 ```bash
 open Carthage/Build/Mac
@@ -153,7 +153,7 @@ If successful, you should see $docs:frameworkAndList listed under both the *Embe
 
 ^q(###) 4. Create a build phase to strip the Carthage $docs:targetFrameworksTerm
 
-^if($project:isOSX|> **Note:** You do *not* need to perform this step when building for macOS. This step is only necessary when building for targets that can be run in a simulator.
+^if($supports:macOS|> **Note:** You do *not* need to perform this step when building for macOS. This step is only necessary when building for targets that can be run in a simulator.
 
 )In Xcode, select the *Build Phases* tab in the build settings for your application target.
 
@@ -244,7 +244,7 @@ Then, open your application in Xcode, and drag `${project:file}` into the Xcode 
 
 Before we can add `${project:framework}` to your app, we have to build it, so Xcode has more information about the framework.
 
-**Important:** The next step will only work when the framework is built for a **device-based run destination**. That means that you must either select the ^if($project:isOSX|“My Mac” or )“iOS Device” run destination before building, or you must select an actual external device (an option that’s only available when such a device is connected to your development machine).
+**Important:** The next step will only work when the framework is built for a **device-based run destination**. That means that you must either select the ^if($supports:macOS|“My Mac” or )“iOS Device” run destination before building, or you must select an actual external device (an option that’s only available when such a device is connected to your development machine).
 
 Once a device-based run destination has been selected, select the ^if($project:platforms.count == 1|$docs:buildSchemeOrList build scheme|appropriate build scheme for the target platform: $docs:buildSchemeOrList).
 
