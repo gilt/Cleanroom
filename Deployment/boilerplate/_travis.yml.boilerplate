@@ -15,8 +15,8 @@ install:
 script:
 ^if($project:isIOS    |  - ./BuildControl/bin/travisBuildHelper.sh build iOS
   - ./BuildControl/bin/travisBuildHelper.sh test iOS
-)^if($project:isOSX    |  - ./BuildControl/bin/travisBuildHelper.sh build OSX
-  - ./BuildControl/bin/travisBuildHelper.sh test OSX
+)^if($project:isOSX    |  - ./BuildControl/bin/travisBuildHelper.sh build macOS
+  - ./BuildControl/bin/travisBuildHelper.sh test macOS
 )^if($project:isTVOS   |  - ./BuildControl/bin/travisBuildHelper.sh build tvOS
   - ./BuildControl/bin/travisBuildHelper.sh test tvOS
 )^if($project:isWATCHOS|  - ./BuildControl/bin/travisBuildHelper.sh build watchOS
