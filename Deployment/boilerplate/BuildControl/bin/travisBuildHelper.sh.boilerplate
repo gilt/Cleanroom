@@ -62,7 +62,7 @@ while [[ $$THIS_TRY < $$MAXIMUM_TRIES ]]; do
 		echo "Attempt $$THIS_TRY of $$MAXIMUM_TRIES..."
 	fi
 	
-	( set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -configuration Release ONLY_ACTIVE_ARCH=YES -scheme ${project:name}-$$PLATFORM -destination "$$DESTINATION" -destination-timeout 300 $$XCODE_ACTION 2>&1 ^q(|) tee "${project:name}-$$PLATFORM-$$OPERATION.log" ^q(|) xcpretty )
+	( set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -configuration Release ONLY_ACTIVE_ARCH=YES -scheme ${project:name}^if($project:platforms.count -GT 1|-$$PLATFORM) -destination "$$DESTINATION" -destination-timeout 300 $$XCODE_ACTION 2>&1 ^q(|) tee "${project:name}-$$PLATFORM-$$OPERATION.log" ^q(|) xcpretty )
 	XCODE_RESULT="$${PIPESTATUS[0]}"
 	if [[ "$$XCODE_RESULT" == "0" ]]; then
 		rm "${project:name}-$$PLATFORM-$$OPERATION.log"

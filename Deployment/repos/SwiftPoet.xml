@@ -9,4 +9,8 @@
 	</Var>
 
 	<Var name="project:description">SwiftPoet is a Swift framework for generating Swift code.</Var>
+	
+	<Var name="project:settings" type="map">
+		<Var name="app-extension-only" boolean="T"/>
+	</Var>
 </MBML>
