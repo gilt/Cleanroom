@@ -12,7 +12,7 @@ In the meantime, we’ll be tracking the latest releases of Swift & Xcode, and [
 
 ## Available Repositories
 
-The Cleanroom Project is spread across several repositories, and we expect the list to continue growing. This page will serve as the definitive index for the available ope-source Cleanroom Project repos.
+The Cleanroom Project is spread across several repositories, and we expect the list to continue growing. This page will serve as the definitive index for the available open-source Cleanroom Project repos.
 
 - [BlueSteel](http://github.com/gilt/BlueSteel) — An Avro encoding/decoding library for Swift
 - [CleanroomAppSettings](http://github.com/emaloney/CleanroomAppSettings) — A set of Swift interfaces and implementations to abstract away the app's NSUserDefaults singleton
