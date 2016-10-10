@@ -12,10 +12,9 @@ In the meantime, we’ll be tracking the latest releases of Swift & Xcode, and [
 
 ## Available Repositories
 
-The Cleanroom Project is spread across several repositories, and we expect the list to continue growing. This page will serve as the definitive index for the available Cleanroom Project repos.
+The Cleanroom Project is spread across several repositories, and we expect the list to continue growing. This page will serve as the definitive index for the available ope-source Cleanroom Project repos.
 
-### Open Source
-
+- [BlueSteel](http://github.com/gilt/BlueSteel) — An Avro encoding/decoding library for Swift
 - [CleanroomAppSettings](http://github.com/emaloney/CleanroomAppSettings) — A set of Swift interfaces and implementations to abstract away the app's NSUserDefaults singleton
 - [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility
 - [CleanroomBridging](http://github.com/emaloney/CleanroomBridging) — A set of tools to help bridge the gap between Objective-C and Swift
@@ -24,10 +23,7 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 - [CleanroomDateTime](http://github.com/emaloney/CleanroomDateTime) — Utilities for handling dates and times in Swift
 - [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based console logging API
 - [CleanroomText](http://github.com/emaloney/CleanroomText) — Swift tools for working with strings and text
-
-### Closed Source
-
-- [AppleTart](https://github.com/gilt/AppleTart) — AppleTart is Gilt’s proprietary, closed-source Swift code library for Apple platforms. Although developed primarily for iOS and tvOS, AppleTart can also be compiled for Mac OS X and watchOS; however, only a subset of functionality is available on those platforms.
+- [SwiftPoet](http://github.com/gilt/SwiftPoet) — A Swift framework for generating Swift code in Swift
 
 ## Open Source by Default
 
