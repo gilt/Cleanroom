@@ -3,6 +3,7 @@
 	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Matt Isaacs"/>
 	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundle-prefix" literal="com.gilt.cleanroom"/>
 
 	<Var name="project:description">An Avro encoding/decoding library for Swift.</Var>
 

@@ -2,39 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>CleanroomSkeleton.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3B00E55C1BA3782D0011486D</key>
+		<key>3B9059021DAECB5200B4EEC0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3B00E5661BA3782D0011486D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3B00E57B1BA379830011486D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3B00E5841BA379830011486D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3B00E5991BA37A420011486D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3B00E5A21BA37A420011486D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3B78C6CD1BA7634E00173EAC</key>
+		<key>3B90590B1DAECB5200B4EEC0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

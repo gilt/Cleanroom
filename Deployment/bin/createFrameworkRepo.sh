@@ -28,7 +28,23 @@ while [[ $1 ]]; do
 		FORCE_ARG="$1"
 		FORCE_MODE=1
 		;;
-		
+	
+	--branch|-b)
+		while [[ $2 ]]; do
+ 			case $2 in
+ 			-*)
+ 				break
+ 				;;
+ 				
+ 			*)
+				REPO_BRANCH_ARG="--branch $2"
+		 		shift
+				;;	
+ 			esac
+ 		done
+ 		;;
+
+	
 	--dest|-d)
  		while [[ $2 ]]; do
  			case $2 in
@@ -221,38 +237,10 @@ for p in "${PLATFORMS[@]}"; do
 	esac
 done
 
-# exclude unneeded platform-specific files
-EXCLUDE_FILE_PATTERNS=()
-if [[ $INCLUDE_IOS == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("iOS\.xcconfig\$" "\-iOS\.xcscheme\.boilerplate\$")
-fi
-if [[ $INCLUDE_MACOS == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("macOS\.xcconfig\$" "\-macOS\.xcscheme\.boilerplate\$")
-fi
-if [[ $INCLUDE_TVOS == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("tvOS\.xcconfig\$" "\-tvOS\.xcscheme\.boilerplate\$")
-fi
-if [[ $INCLUDE_WATCHOS == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("watchOS\.xcconfig\$" "\-watchOS\.xcscheme\.boilerplate\$")
-fi
-
 processDirectory()
 {
 	pushd "$1" > /dev/null
 	for f in *; do
-		if [[ ${#EXCLUDE_FILE_PATTERNS[@]} > 0 ]]; then
-			BYPASS=0
-			for x in "${EXCLUDE_FILE_PATTERNS[@]}"; do
-				if [[ $( echo "$f" | grep -c "$x" ) > 0 ]]; then
-					BYPASS=1
-					break
-				fi
-			done
-			if [[ $BYPASS == 1 ]]; then
-				continue
-			fi
-		fi
-	
 		DEST_NAME=$( echo "$f" | sed "s/CleanroomSkeleton/${NEW_REPO_NAME}/" )
 		if [[ $( echo "$f" | grep -c "^_" ) > 0 ]]; then
 			DEST_NAME=$( echo "$f" | sed "s/^_/./" )
@@ -307,7 +295,7 @@ processDirectory "framework"
 
 cd "$SCRIPT_DIR"
 echo "Generating boilerplate documentation"
-./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG
+./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG $REPO_BRANCH_ARG
 
 cd "$DEST_ROOT/$NEW_REPO_NAME"
 if [[ ! -d .git ]]; then

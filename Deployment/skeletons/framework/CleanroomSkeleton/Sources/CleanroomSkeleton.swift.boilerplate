@@ -1,6 +1,6 @@
 //
 //  ${project:name}.swift
-//  Cleanroom Project
+//  ${project:name}
 //
 //  Created by ${project:creator:name} on ^formatDate(^currentTime()|M/d/yy).
 //  Copyright © ^formatDate(^currentTime()|yyyy) Gilt Groupe. All rights reserved.

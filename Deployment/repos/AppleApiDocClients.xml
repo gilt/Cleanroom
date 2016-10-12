@@ -2,6 +2,7 @@
 	<Var name="project:name" literal="AppleApiDocClients"/>
 	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Kyle Dorman"/>
+	<Var name="project:bundle-prefix" literal="com.gilt.cleanroom"/>
 	<Var name="repo:isPrivate" boolean="T"/>
 
 	<Var name="project:platforms" type="list">

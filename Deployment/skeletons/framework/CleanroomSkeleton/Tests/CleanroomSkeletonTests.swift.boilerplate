@@ -1,6 +1,6 @@
 //
-//  ${project:name}UnitTests.swift
-//  Cleanroom Project
+//  ${project:name}Tests.swift
+//  ${project:name}
 //
 //  Created by ${project:creator:name} on ^formatDate(^currentTime()|M/d/yy).
 //  Copyright (c) ^formatDate(^currentTime()|yyyy) Gilt Groupe. All rights reserved.
@@ -28,7 +28,7 @@ class ${project:name}UnitTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }
