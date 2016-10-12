@@ -13,6 +13,7 @@ POSSIBLE_PLATFORMS=( iOS macOS tvOS watchOS all )
 REAL_PLATFORMS=${POSSIBLE_PLATFORMS[@]:0:${#POSSIBLE_PLATFORMS[@]}-1}
 POSSIBLE_PLATFORMS_STR=`echo -n "${POSSIBLE_PLATFORMS[@]}"`
 POSSIBLE_PLATFORMS_PARAM=`echo $POSSIBLE_PLATFORMS_STR | sed 's/ /|/g'`
+REPO_BRANCH=master
 
 #
 # parse the command-line arguments
@@ -37,7 +38,7 @@ while [[ $1 ]]; do
  				;;
  				
  			*)
-				REPO_BRANCH_ARG="--branch $2"
+				REPO_BRANCH="$2"
 		 		shift
 				;;	
  			esac
@@ -182,6 +183,8 @@ if [[ $SHOW_HELP ]]; then
 	exit 1
 fi
 
+REPO_BRANCH_ARG="--branch $REPO_BRANCH"
+
 if [[ -z "$NEW_REPO_NAME" ]]; then
 	exitWithErrorSuggestHelp "Must provide name of new repo/project"
 fi
@@ -293,14 +296,13 @@ cd "$SCRIPT_DIR/../skeletons"
 echo "Creating new Xcode framework project repo $NEW_REPO_NAME in $DEST_ROOT"
 processDirectory "framework"
 
-cd "$SCRIPT_DIR"
-echo "Generating boilerplate documentation"
-./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG $REPO_BRANCH_ARG
-
-cd "$DEST_ROOT/$NEW_REPO_NAME"
+# we need to create the repo first because the freshenRepo.sh script below
+# requires the git repo to already have been created & have at least 1 commit
+pushd "$DEST_ROOT/$NEW_REPO_NAME" > /dev/null
 if [[ ! -d .git ]]; then
 	echo "Creating git repo and performing initial commit"
 	git init
+	git checkout -b "$REPO_BRANCH"
 	git add .
 	git commit -F - <<COMMIT_MESSAGE
 Initial commit of $NEW_REPO_NAME
@@ -308,6 +310,24 @@ Initial commit of $NEW_REPO_NAME
 Automated by $SCRIPT_NAME
 COMMIT_MESSAGE
 else
-	echo "It looks like $PWD is already under git control; won't make any further changes"
+	echo "It looks like $PWD is already under git control"
 fi
+popd > /dev/null
+
+cd "$SCRIPT_DIR"/..
+expectReposOnBranch "$REPO_BRANCH" "$NEW_REPO_NAME"
+
+echo "Generating boilerplate files"
+echo ./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG $REPO_BRANCH_ARG
+./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG $REPO_BRANCH_ARG
+
+echo "Committing files to git"
+git add .
+git commit -F - <<COMMIT_MESSAGE
+Commit of $NEW_REPO_NAME
+
+Automated by $SCRIPT_NAME
+COMMIT_MESSAGE
+fi
+popd > /dev/null
 echo "Done!"
