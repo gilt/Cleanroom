@@ -328,6 +328,6 @@ Commit of $NEW_REPO_NAME
 
 Automated by $SCRIPT_NAME
 COMMIT_MESSAGE
-fi
+
 popd > /dev/null
 echo "Done!"
