@@ -318,10 +318,11 @@ cd "$SCRIPT_DIR"/..
 expectReposOnBranch "$REPO_BRANCH" "$NEW_REPO_NAME"
 
 echo "Generating boilerplate files"
-echo ./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG $REPO_BRANCH_ARG
-./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG $REPO_BRANCH_ARG
+./bin/freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG $REPO_BRANCH_ARG
 
-echo "Committing files to git"
+pushd "$DEST_ROOT/$NEW_REPO_NAME" > /dev/null
+
+echo "Committing final files to git"
 git add .
 git commit -F - <<COMMIT_MESSAGE
 Commit of $NEW_REPO_NAME

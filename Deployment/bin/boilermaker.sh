@@ -200,7 +200,7 @@ for f in ${FILE_LIST[@]}; do
 		printf "    ...for the $r repo"
 		REPO_XML="repos/${r}.xml"
 		if [[ -r "$REPO_XML" ]]; then
-			./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$OUTPUT_FILE"
+			mkdir -p "../../$r/$OUTPUT_BASE" && ./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$OUTPUT_FILE"
 			if [[ "$?" != 0 ]]; then
 				exit 5
 			fi

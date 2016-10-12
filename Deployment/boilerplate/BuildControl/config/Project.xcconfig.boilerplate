@@ -1,5 +1,6 @@
 SWIFT_VERSION = 3.0
 SUPPORTED_PLATFORMS =^if($supports:iOS| iphoneos iphonesimulator)^if($supports:macOS| macosx)^if($supports:tvOS| appletvos appletvsimulator)^if($supports:watchOS| watchos watchsimulator)
+TARGETED_DEVICE_FAMILY = ^if($supports:iOS|1,2)^if($supports:tvOS|^if($supports:iOS|,)3)^if($supports:watchOS|^if($supports:iOS -OR $supports:tvOS|,)4)
 
 ^if($supports:iOS|////////////////////////////////////////////////////////////////////////////////
 //
@@ -15,9 +16,6 @@ LD_RUNPATH_SEARCH_PATHS[sdk=iphonesimulator*] = $$(inherited) '@executable_path/
 
 ENABLE_BITCODE[sdk=iphonesimulator*] = YES
 ENABLE_BITCODE[sdk=iphone*] = YES
-
-TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*] = 1,2
-TARGETED_DEVICE_FAMILY[sdk=iphone*] = 1,2
 )
 ^if($supports:macOS|////////////////////////////////////////////////////////////////////////////////
 //
@@ -45,9 +43,6 @@ LD_RUNPATH_SEARCH_PATHS[sdk=appletvsimulator*] = $$(inherited) '@executable_path
 
 ENABLE_BITCODE[sdk=appletvsimulator*] = YES
 ENABLE_BITCODE[sdk=appletv*] = YES
-
-TARGETED_DEVICE_FAMILY[sdk=appletvsimulator*] = 3
-TARGETED_DEVICE_FAMILY[sdk=appletv*] = 3
 )
 ^if($supports:watchOS|////////////////////////////////////////////////////////////////////////////////
 //
@@ -63,7 +58,4 @@ LD_RUNPATH_SEARCH_PATHS[sdk=watchsimulator*] = $$(inherited) '@executable_path/F
 
 ENABLE_BITCODE[sdk=watchsimulator*] = YES
 ENABLE_BITCODE[sdk=watch*] = YES
-
-TARGETED_DEVICE_FAMILY[sdk=watchsimulator*] = 4
-TARGETED_DEVICE_FAMILY[sdk=watch*] = 4
 )
