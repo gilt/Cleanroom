@@ -15,20 +15,13 @@ PLATFORM="$$2"
 # and therefore a more sensible implementation using associative
 # arrays is not currently possible
 #
-destinationForPlatform()
+runDestinationForPlatform()
 {
 	case $$1 in
-	iOS)
-		echo "$platforms[iOS][runDestination]";;
-
-	macOS)
-		echo "$platforms[macOS][runDestination]";;
-
-	tvOS)
-		echo "$platforms[tvOS][runDestination]";;
-
-	watchOS)
-		echo "$platforms[watchOS][runDestination]";;
+	iOS) 		echo "$platforms[iOS][runDestination]";;
+	macOS) 		echo "$platforms[macOS][runDestination]";;	
+	tvOS) 		echo "$platforms[tvOS][runDestination]";;
+	watchOS)	echo "$platforms[watchOS][runDestination]";;
 	esac
 }
 
@@ -46,7 +39,7 @@ case $$OPERATION in
 		exit 1;;
 esac
 
-DESTINATION=$$(destinationForPlatform $$PLATFORM)
+DESTINATION=$$(runDestinationForPlatform $$PLATFORM)
 
 #
 # this retry loop is an unfortunate hack; Travis unit tests periodically fail
@@ -62,7 +55,7 @@ while [[ $$THIS_TRY < $$MAXIMUM_TRIES ]]; do
 		echo "Attempt $$THIS_TRY of $$MAXIMUM_TRIES..."
 	fi
 	
-	( set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -configuration Debug -scheme ${project:name}^if($project:platforms.count -GT 1|-^q($)PLATFORM) -destination "$$DESTINATION" -destination-timeout 300 $$XCODE_ACTION 2>&1 ^q(|) tee "${project:name}-$$PLATFORM-$$OPERATION.log" ^q(|) xcpretty )
+	( set -o pipefail && xcodebuild ^if($project:hasWorkspace|-workspace $project:workspace|-project $project:file) -configuration Debug -scheme "${project:name}" -destination "$$DESTINATION" -destination-timeout 300 $$XCODE_ACTION 2>&1 ^q(|) tee "${project:name}-$$PLATFORM-$$OPERATION.log" ^q(|) xcpretty )
 	XCODE_RESULT="$${PIPESTATUS[0]}"
 	if [[ "$$XCODE_RESULT" == "0" ]]; then
 		rm "${project:name}-$$PLATFORM-$$OPERATION.log"
