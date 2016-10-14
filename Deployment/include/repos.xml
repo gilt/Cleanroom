@@ -40,7 +40,6 @@
 			<Var name="Xcode" literal="8"/>
 			
 			<Var name="Carthage" literal="0.17.2"/>
-			<Var name="git" literal="2.7.4 (Apple Git-73)"/>
 			
 			<Var name="current" type="map">
 				<Var name="iOS" literal="10.0"/> 
