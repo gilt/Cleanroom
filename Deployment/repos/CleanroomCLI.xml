@@ -4,6 +4,7 @@
 	<Var name="project:creator:name" literal="Evan Maloney"/>
 	<Var name="project:license" literal="MIT"/>
 	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
+	<Var name="project:branch:settings" literal="swift3"/>
 	
 	<Var name="project:description">Tools for handling command line arguments in Swift.</Var>
 
