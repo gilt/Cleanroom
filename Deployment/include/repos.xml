@@ -109,12 +109,12 @@
 	<Var name="docs:api:index" type="dynamic" expression="${docs:api:root}/index.html"/>
 	<Var name="docs:images:root" type="dynamic" expression="${docs:root}/Images"/>
 
-	<Var name="docs:integrationFilesCount" type="dynamic" expression="#($project:dependencies.count + 1)"/>
+	<Var name="docs:integrationFilesCount" type="dynamic" expression="#(^count($project:dependencies) + 1)"/>
 
-	<Var name="docs:projectsDependenciesList" type="dynamic" expression="^if($project:dependencies|^if($project:dependencies.count -LT 2|`$project:dependencies[0]^q(.xcodeproj)`)^if($project:dependencies.count -EQ 2|`$project:dependencies[0]^q(.xcodeproj)` and $project:dependencies[1]^q(.xcodeproj)`)^if($project:dependencies.count -GT 2|^join(^list(^groupArrayElements($project:dependencies|#($project:dependencies.count - 1))[0]|`$(item).xcodeproj`)|, ) and `$project:dependencies[#($project:dependencies.count - 1)]^q(.xcodeproj)`))"/>
-	<Var name="docs:projectsAllList" type="dynamic" expression="`${project:file}`^if($project:dependencies|^if($project:dependencies.count == 1| and|,) $docs:projectsDependenciesList)"/>
-	<Var name="docs:frameworksDependenciesList" type="dynamic" expression="^if($project:dependencies|^if($project:dependencies.count -LT 2|`$project:dependencies[0]^q(.framework)`)^if($project:dependencies.count -EQ 2|`$project:dependencies[0]^q(.framework)` and $project:dependencies[1]^q(.framework)`)^if($project:dependencies.count -GT 2|^join(^list(^groupArrayElements($project:dependencies|#($project:dependencies.count - 1))[0]|`$(item).framework`)|, ) and `$project:dependencies[#($project:dependencies.count - 1)]^q(.framework)`))"/>
-	<Var name="docs:frameworksAllList" type="dynamic" expression="`${project:file}`^if($project:dependencies|^if($project:dependencies.count == 1| and|,) $docs:frameworksDependenciesList)"/>
+	<Var name="docs:projectsDependenciesList" type="dynamic" expression="^if($project:dependencies|^if(^count($project:dependencies) -LT 2|`$project:dependencies[0]^q(.xcodeproj)`)^if(^count($project:dependencies) -EQ 2|`$project:dependencies[0]^q(.xcodeproj)` and $project:dependencies[1]^q(.xcodeproj)`)^if(^count($project:dependencies) -GT 2|^join(^list(^groupArrayElements($project:dependencies|#(^count($project:dependencies) - 1))[0]|`$(item).xcodeproj`)|, ) and `$project:dependencies[#(^count($project:dependencies) - 1)]^q(.xcodeproj)`))"/>
+	<Var name="docs:projectsAllList" type="dynamic" expression="`${project:file}`^if($project:dependencies|^if(^count($project:dependencies) == 1| and|,) $docs:projectsDependenciesList)"/>
+	<Var name="docs:frameworksDependenciesList" type="dynamic" expression="^if($project:dependencies|^if(^count($project:dependencies) -LT 2|`$project:dependencies[0]^q(.framework)`)^if(^count($project:dependencies) -EQ 2|`$project:dependencies[0]^q(.framework)` and $project:dependencies[1]^q(.framework)`)^if(^count($project:dependencies) -GT 2|^join(^list(^groupArrayElements($project:dependencies|#(^count($project:dependencies) - 1))[0]|`$(item).framework`)|, ) and `$project:dependencies[#(^count($project:dependencies) - 1)]^q(.framework)`))"/>
+	<Var name="docs:frameworksAllList" type="dynamic" expression="`${project:file}`^if($project:dependencies|^if(^count($project:dependencies) == 1| and|,) $docs:frameworksDependenciesList)"/>
 
 	<Var name="docs:cloneCommand" type="dynamic" expression="git clone ^if($project:dependencies|--recursive )${repo:url:http}"/>
 	<Var name="docs:carthageSpec" type="dynamic" expression='$repo:host "${repo:owner}/${repo:name}" ~> ${project:version:public}.0'/>

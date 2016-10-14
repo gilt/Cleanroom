@@ -58,6 +58,8 @@ Once successfully integrated, just add the following `import` statement to any S
 $project:import
 ```
 
+See [the Integration document](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md) for additional details on integrating $project:name into your project.
+
 ^if($project:readme:examples|$project:readme:examples
 
 )

@@ -73,18 +73,18 @@ To build for|Supply the argument
 )^if($supports:watchOS|Apple Watch^q(|)`--platform watchos`
 )
 
-Even though $project:name is designed as a universal framework, during the build process, Carthage splits the framework^if($project:dependencies.count| (and its dependencies)) into separate binaries for each Apple platform.
+Even though $project:name is designed as a universal framework, during the build process, Carthage splits the framework^if(^count($project:dependencies)| (and its dependencies)) into separate binaries for each Apple platform.
 
 After a successful build, you will find platform-specific binaries for $docs:frameworksAllList in the appropriate Carthage build folder:
 
-The ^if($project:dependencies.count|binaries|binary) for|^if($project:dependencies.count|Are|Is) located in
+The ^if(^count($project:dependencies)|binaries|binary) for|^if(^count($project:dependencies)|Are|Is) located in
 --------------|-------------
 ^if($supports:iOS|iPhone/iPad^q(|)`Carthage/Build/iOS`
 )^if($supports:macOS|Macintosh^q(|)`Carthage/Build/Mac`
 )^if($supports:tvOS|Apple TV^q(|)`Carthage/Build/tvOS`
 )^if($supports:watchOS|Apple Watch^q(|)`Carthage/Build/watchOS`
 )
-^if($project:dependencies.count|You will need to be sure to integrate not only the `${project:framework}` itself, but its ^if($project:dependencies.count -EQ 1|$docs:frameworksDependenciesList dependency as well|$project:dependencies.count dependencies as well: $docs:frameworksDependenciesList).
+^if(^count($project:dependencies)|You will need to be sure to integrate not only the `${project:framework}` itself, but its ^if(^count($project:dependencies) -EQ 1|$docs:frameworksDependenciesList dependency as well|^count($project:dependencies) dependencies as well: $docs:frameworksDependenciesList).
 )
 For further information on integrating Carthage-built frameworks, see the section on "[Adding frameworks to an application](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)" in the [Carthage documentation](https://github.com/Carthage/Carthage#carthage--).
 
@@ -94,19 +94,19 @@ Open your project window in Xcode, and press `⌘-1` to display the Project Navi
 
 In the lefthand pane, select the icon for your project. It will be the top item in the Project Navigator list.
 
-Next, select the Build Target to which you want to add ${project:name}, and then select the General tab.
+Next, select the Build Target to which you want to add ^if($docs:integrationFilesCount -GT 1|${project:name}|`${project:framework}`), and then select the General tab.
 
 Where you add the framework^if($docs:integrationFilesCount -GT 1|s) depends on the type of target you're building. If you're building an application, you'll need to add the framework^if($docs:integrationFilesCount -GT 1|s) to the **Embedded Binaries** section.
 
 Otherwise, ^if($docs:integrationFilesCount == 1|it|they) should go into **Linked Frameworks and Libraries**.
 
-^if($docs:integrationFilesCount -GT 1|Be sure to add ^if($docs:integrationFilesCount == 2|both|all $docs:integrationFilesCount)) of the necessary frameworks:
+^if($docs:integrationFilesCount -GT 1|Be sure to add ^if($docs:integrationFilesCount == 2|both|all $docs:integrationFilesCount) of the necessary frameworks:
 
 ```
-• $project:framework^if($project:dependencies.count|
+• $project:framework^if(^count($project:dependencies)|
 ^join(^list($project:dependencies|• ${item}.framework)|\n))
 ```
-
+)
 ^q(###) 5. Attempt to build
 
 Select the appropriate Build Scheme for your Target, and press `⌘-B` to try to build. If all goes well, your integration was successful!
@@ -121,7 +121,7 @@ $project:import
 
 ^q(##) Manual Integration
 
-Manual integration involves embedding the Xcode project file for ${project:name}^pluralize($project:dependencies.count|| (as well as that of its $project:dependencies[0] dependency)| (as well as those of its $project:dependencies.count dependencies)) directly within your own Xcode workspace.
+Manual integration involves embedding the Xcode project file for ${project:name}^pluralize(^count($project:dependencies)|| (as well as that of its $project:dependencies[0] dependency)| (as well as those of its ^count($project:dependencies) dependencies)) directly within your own Xcode workspace.
 
 Successful manual integration depends on the particulars of your project structure and development workflow.
 
@@ -129,16 +129,16 @@ Successful manual integration depends on the particulars of your project structu
 
 ^q(###) Integration using Carthage and --no-build
 
-If you use the `--no-build` flag with Carthage to only downloading dependencies—and not build them—you will want to integrate the project file^if($project:dependencies.count|s) found at:
+If you use the `--no-build` flag with Carthage to only downloading dependencies—and not build them—you will want to integrate the project file^if(^count($project:dependencies)|s) found at:
 
 ```
-Carthage/Checkouts/${project:name}/${project:file}^if($project:dependencies.count|
+Carthage/Checkouts/${project:name}/${project:file}^if(^count($project:dependencies)|
 ^join(^list($project:dependencies|Carthage/Checkouts/${item}/${item}.xcodeproj)|\n))
 ```
 
 ^q(###) Other Integrations
 
-If you acquired the ${project:name}’s source code through some other means, you will need to locate the `${project:file}` project file^if($project:dependencies.count| as well as ^if($project:dependencies.count == 1|that|those) of its ^if($project:dependencies.count == 1|dependency|dependencies)): ${docs:projectsDependenciesList}.
+If you acquired the ${project:name}’s source code through some other means, you will need to locate the `${project:file}` project file^if(^count($project:dependencies)| as well as ^if(^count($project:dependencies) == 1|that|those) of its ^if(^count($project:dependencies) == 1|dependency|dependencies)): ${docs:projectsDependenciesList}.
 
 ^q(###) 1. Adding the project files
 
@@ -147,7 +147,7 @@ Open your project window in Xcode, and press `⌘-1` to display the Project Navi
 Then, using Finder, drag each of the following project files into the *top level* of the Project Navigator, below your project (and any pre-existing dependencies):
 
 ```
-• $project:file^if($project:dependencies.count|
+• $project:file^if(^count($project:dependencies)|
 ^join(^list($project:dependencies|• ${item}.xcodeproj)|\n))
 ```
 
@@ -157,19 +157,19 @@ Ensure that, as you add each project file, it is placed at the top level of the 
 
 In the lefthand pane of Xcode's Project Navigator, select the icon for your project. It will be the top item in the list.
 
-Next, select the Build Target to which you want to add ${project:name}, and then select the General tab.
+Next, select the Build Target to which you want to add ^if($docs:integrationFilesCount -GT 1|${project:name}|`${project:framework}`), and then select the General tab.
 
 Where you add the framework^if($docs:integrationFilesCount -GT 1|s) depends on the type of target you're building. If you're building an application, you'll need to add the framework^if($docs:integrationFilesCount -GT 1|s) to the **Embedded Binaries** section.
 
 Otherwise, ^if($docs:integrationFilesCount == 1|it|they) should go into **Linked Frameworks and Libraries**.
 
-^if($docs:integrationFilesCount -GT 1|Be sure to add ^if($docs:integrationFilesCount == 2|both|all $docs:integrationFilesCount)) of the necessary frameworks:
+^if($docs:integrationFilesCount -GT 1|Be sure to add ^if($docs:integrationFilesCount == 2|both|all $docs:integrationFilesCount) of the necessary frameworks:
 
 ```
-• $project:framework^if($project:dependencies.count|
+• $project:framework^if(^count($project:dependencies)|
 ^join(^list($project:dependencies|• ${item}.framework)|\n))
 ```
-
+)
 ^q(###) 3. Attempt to build
 
 Select the appropriate Build Scheme for your Target, and press `⌘-B` to try to build. If all goes well, your integration was successful!
