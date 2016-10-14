@@ -51,9 +51,11 @@ while [[ $1 ]]; do
  		done
  		;;
  		
- 		
- 	--all|-a)
-		ALL_REPOS_FLAG=1
+ 	--version|-v)
+		if [[ $2 ]]; then
+ 			VERSION=$2
+ 			shift
+ 		fi
 		;;
 		
 	--branch|-b)
@@ -207,6 +209,12 @@ for f in ${FILE_LIST[@]}; do
 		printf "    ...for the $r repo"
 		FRAMEWORK_VERSION=`"$PLIST_BUDDY" "../../$r/BuildControl/Info-Framework.plist" -c "Print :CFBundleShortVersionString"`
 		export FRAMEWORK_VERSION
+		if [[ "$VERSION" ]]; then
+			FRAMEWORK_VERSION_PUBLIC="$VERSION"
+		else
+			FRAMEWORK_VERSION_PUBLIC=`echo $FRAMEWORK_VERSION | sed "sq\.[0-9]*\\$qq"`
+		fi
+		export FRAMEWORK_VERSION_PUBLIC
 		REPO_XML="repos/${r}.xml"
 		if [[ -r "$REPO_XML" ]]; then
 			mkdir -p "../../$r/$OUTPUT_BASE" && ./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$OUTPUT_FILE"
