@@ -3,7 +3,7 @@
 	<Var name="repo:owner" literal="emaloney"/>
 	<Var name="project:creator:name" literal="Evan Maloney"/>
 	<Var name="project:license" literal="MIT"/>
-	<Var name="project:bundle-prefix" literal="com.gilt.cleanroom"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
 
 	<Var name="project:description:formats" type="map">
 		<Var name="text">CleanroomAppSettings provides a set of interfaces and implementations to abstract away code dependence on a singleton NSUserDefaults instance.</Var>

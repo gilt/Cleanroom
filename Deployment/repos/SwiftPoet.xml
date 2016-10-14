@@ -3,7 +3,7 @@
 	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Kyle Dorman"/>
 	<Var name="project:license" literal="MIT"/>
-	<Var name="project:bundle-prefix" literal="com.gilt.cleanroom"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
 
 	<Var name="project:platforms" type="list">
 		<Var literal="macOS"/>
