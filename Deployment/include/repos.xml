@@ -91,6 +91,7 @@
 	<Var name="supports:tvOS" type="dynamic" expression="^containsValue($project:platforms|tvOS)"/>
 	<Var name="supports:watchOS" type="dynamic" expression="^containsValue($project:platforms|watchOS)"/>
 
+	<Var name="project:version" value="$ENV[FRAMEWORK_VERSION]"/> <!-- expect calling script to set this environment variable -->
 	<Var name="project:file" type="dynamic" expression="${project:name}.xcodeproj"/>
 	<Var name="project:workspace" type="dynamic" expression="${project:name}.xcworkspace"/>
 	<Var name="project:hasWorkspace" type="dynamic" expression="^fileExists(${repo:dir}/${project:workspace})"/>
