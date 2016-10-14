@@ -36,8 +36,12 @@ Within to your project’s root directory, Carthage-based projects will store a 
 To integrate $project:name in your workspace, you would start by adding the following line to the `Cartfile`:
 
 ```
-$docs:carthageSpec ~> $project:version
+$docs:carthageSpec
 ```
+
+This specifies that Carthage use the latest version of $project:name that is API-compatible with ${project:version:public}, i.e. any ${project:version:public}.*x* version.
+
+**Note:** Be sure to check the [latest releases](${repo:url:http}/releases); there may be a newer version than ${project:version:public} that is no longer API-compatible.
 
 ^q(###) 2. Download $project:name using Carthage
 
@@ -69,19 +73,45 @@ To build for|Supply the argument
 )^if($supports:watchOS|Apple Watch^q(|)`--platform watchos`
 )
 
-Even though $project:name is designed as a universal framework, during the build process, Carthage splits the framework into separate binaries for each Apple platform.
+Even though $project:name is designed as a universal framework, during the build process, Carthage splits the framework^if($project:dependencies.count| (and its dependencies)) into separate binaries for each Apple platform.
 
-The binary for|Is located at
+After a successful build, you will find platform-specific binaries for $docs:frameworksAllList in the appropriate Carthage build folder:
+
+The ^if($project:dependencies.count|binaries|binary) for|^if($project:dependencies.count|Are|Is) located in
 --------------|-------------
-^if($supports:iOS|iPhone/iPad^q(|)`Carthage/Build/iOS/${project:framework}`
-)^if($supports:macOS|Macintosh^q(|)`Carthage/Build/Mac/${project:framework}`
-)^if($supports:tvOS|Apple TV^q(|)`Carthage/Build/tvOS/${project:framework}`
-)^if($supports:watchOS|Apple Watch^q(|)`Carthage/Build/watchOS/${project:framework}`
+^if($supports:iOS|iPhone/iPad^q(|)`Carthage/Build/iOS`
+)^if($supports:macOS|Macintosh^q(|)`Carthage/Build/Mac`
+)^if($supports:tvOS|Apple TV^q(|)`Carthage/Build/tvOS`
+)^if($supports:watchOS|Apple Watch^q(|)`Carthage/Build/watchOS`
 )
-
+^if($project:dependencies.count|You will need to be sure to integrate not only the `${project:framework}` itself, but its ^if($project:dependencies.count -EQ 1|$docs:frameworksDependenciesList dependency as well|$project:dependencies.count dependencies as well: $docs:frameworksDependenciesList).
+)
 For further information on integrating Carthage-built frameworks, see the section on "[Adding frameworks to an application](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)" in the [Carthage documentation](https://github.com/Carthage/Carthage#carthage--).
 
-^q(###) 4. Add the import statement
+^q(###) 4. Add the necessary framework^if($docs:integrationFilesCount -GT 1|s) to your target
+
+Open your project window in Xcode, and press `⌘-1` to display the Project Navigator.
+
+In the lefthand pane, select the icon for your project. It will be the top item in the Project Navigator list.
+
+Next, select the Build Target to which you want to add ${project:name}, and then select the General tab.
+
+Where you add the framework^if($docs:integrationFilesCount -GT 1|s) depends on the type of target you're building. If you're building an application, you'll need to add the framework^if($docs:integrationFilesCount -GT 1|s) to the **Embedded Binaries** section.
+
+Otherwise, ^if($docs:integrationFilesCount == 1|it|they) should go into **Linked Frameworks and Libraries**.
+
+^if($docs:integrationFilesCount -GT 1|Be sure to add ^if($docs:integrationFilesCount == 2|both|all $docs:integrationFilesCount)) of the necessary frameworks:
+
+```
+• $project:framework^if($project:dependencies.count|
+^join(^list($project:dependencies|• ${item}.framework)|\n))
+```
+
+^q(###) 5. Attempt to build
+
+Select the appropriate Build Scheme for your Target, and press `⌘-B` to try to build. If all goes well, your integration was successful!
+
+^q(###) You're done!
 
 Once properly integrated, you can make use of ^if($repo:isPrivate|the API|[the API]($docs:api:index)) provided by $project:name using the statement:
 
@@ -91,63 +121,62 @@ $project:import
 
 ^q(##) Manual Integration
 
-Manual integration involves embedding `${project:file}` directly in your own Xcode workspace.
+Manual integration involves embedding the Xcode project file for ${project:name}^pluralize($project:dependencies.count|| (as well as that of its $project:dependencies[0] dependency)| (as well as those of its $project:dependencies.count dependencies)) directly within your own Xcode workspace.
 
-> **Note:** You *must* use an Xcode workspace specifically—and not just a project file—in order to integrate $project:name manually.
+Successful manual integration depends on the particulars of your project structure and development workflow.
 
-^q(###) Integration possibilities
+> **Note:** These instructions assume that you are using an Xcode workspace specifically—and not just a project file—in order to integrate ${project:name}.
 
-There are several possibilities for manually integrating $project:name with your workspace.
+^q(###) Integration using Carthage and --no-build
 
-^q(####) Carthage
-
-If you use Carthage only for downloading dependencies—and not for building them—you will want to integrate the project file found at:
+If you use the `--no-build` flag with Carthage to only downloading dependencies—and not build them—you will want to integrate the project file^if($project:dependencies.count|s) found at:
 
 ```
-Carthage/Checkouts/${project:name}/${project:file}
+Carthage/Checkouts/${project:name}/${project:file}^if($project:dependencies.count|
+^join(^list($project:dependencies|Carthage/Checkouts/${item}/${item}.xcodeproj)|\n))
 ```
 
-^q(####) Git Submodules
+^q(###) Other Integrations
 
-If you’re not using Carthage, the recommended integration mechanism is to add $project:name to your git repo as a submodule. (This, of course, assumes that your project is stored in a git repo.)
+If you acquired the ${project:name}’s source code through some other means, you will need to locate the `${project:file}` project file^if($project:dependencies.count| as well as ^if($project:dependencies.count == 1|that|those) of its ^if($project:dependencies.count == 1|dependency|dependencies)): ${docs:projectsDependenciesList}.
 
-For example, to install $project:name at `Libraries/${project:name}`, you could issue the command:
+^q(###) 1. Adding the project files
 
-```bash
-git submodule add $repo:url:http Libraries/${project:name}
-```
+Open your project window in Xcode, and press `⌘-1` to display the Project Navigator.
 
-Upon successful completion, the project file would be found at:
+Then, using Finder, drag each of the following project files into the *top level* of the Project Navigator, below your project (and any pre-existing dependencies):
 
 ```
-Libraries/${project:name}/${project:file}
+• $project:file^if($project:dependencies.count|
+^join(^list($project:dependencies|• ${item}.xcodeproj)|\n))
 ```
 
-^q(####) Other
+Ensure that, as you add each project file, it is placed at the top level of the workspace. It must be parallel to (a sibling of) your own project, and not embedded in another project or folder.
 
-If you acquired the ${project:name}’s source code through some other means, locate the `${project:file}` file.
+^q(###) 2. Add the necessary framework^if($docs:integrationFilesCount -GT 1|s) to your target
 
-^q(###) 1. Embed $project:file in your workspace
+In the lefthand pane of Xcode's Project Navigator, select the icon for your project. It will be the top item in the list.
 
-In Finder, located the `${project:file}` file that you’ll be integrating. Then, drag it into *the top level* of Xcode’s Project Navigator pane for your workspace, being careful not to drag the file *into* any other projects listed there.
+Next, select the Build Target to which you want to add ${project:name}, and then select the General tab.
 
-^q(###) 2. Perform a test build
+Where you add the framework^if($docs:integrationFilesCount -GT 1|s) depends on the type of target you're building. If you're building an application, you'll need to add the framework^if($docs:integrationFilesCount -GT 1|s) to the **Embedded Binaries** section.
 
-Select the "${project:name}" build scheme, and then invoke *Build* (⌘B) from the *Product* menu.
+Otherwise, ^if($docs:integrationFilesCount == 1|it|they) should go into **Linked Frameworks and Libraries**.
 
-If there are no buld errors, `${project:file}` was correctly added to the workspace.
+^if($docs:integrationFilesCount -GT 1|Be sure to add ^if($docs:integrationFilesCount == 2|both|all $docs:integrationFilesCount)) of the necessary frameworks:
 
-^q(###) 3. Add the necessary dependencies to your target
+```
+• $project:framework^if($project:dependencies.count|
+^join(^list($project:dependencies|• ${item}.framework)|\n))
+```
 
-In Xcode, select the *General* tab in the build settings for your application target. Scroll to the bottom of the screen to reveal the section entitled *Embedded Binaries* (the second-to-last section).
+^q(###) 3. Attempt to build
 
-Go back to Finder, select the file^if($project:dependencies|s) $docs:frameworkAndList, and then drag ^if($project:dependencies|them|it) into the list area directly below *Embedded Binaries*.
+Select the appropriate Build Scheme for your Target, and press `⌘-B` to try to build. If all goes well, your integration was successful!
 
-If successful, you should see $docs:frameworkAndList listed under both the *Embedded Binaries* and *Linked Frameworks and Libraries* sections.
+^q(###) You're done!
 
-^q(###) 4. Add the import statement
-
-You can then make use of ^if($repo:isPrivate|the API|[the API]($docs:api:index)) provided by $project:name using the statement:
+Once properly integrated, you can make use of ^if($repo:isPrivate|the API|[the API]($docs:api:index)) provided by $project:name using the statement:
 
 ```swift
 $project:import
@@ -155,6 +184,6 @@ $project:import
 
 ^q(##) Further Reading
 
-Want to learn more about ${project:name}? Check out [the README](${repo:url:home}/blob/${repo:branch}/README.md).
+Want to learn more about ${project:name}? Check out [the README](${repo:url:home}/blob/${repo:branch}/README.md)^if(!$repo:isPrivate| or [the API documentation]($docs:api:index)).
 
 **_Happy coding!_**
