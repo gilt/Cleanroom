@@ -3,10 +3,14 @@
 	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Kyle Dorman"/>
 	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
 
-	<Var name="project:platforms" type="list">
-		<Var literal="OSX"/>
-	</Var>
+    <Var name="project:platforms" type="list">
+        <Var literal="iOS"/>
+        <Var literal="macOS"/>
+        <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+    </Var>
 
 	<Var name="project:description">SwiftPoet is a Swift framework for generating Swift code.</Var>
 	

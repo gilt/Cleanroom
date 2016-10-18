@@ -1,19 +1,20 @@
 <MBML>
 	<Var name="project:name" literal="ApidocSwiftGenerator"/>
-	<Var name="repo:owner" literal="kyle-dorman"/>
+	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Kyle Dorman"/>
 	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
 
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
-		<Var literal="OSX"/>
+		<Var literal="macOS"/>
 		<Var literal="tvOS"/>
 		<Var literal="watchOS"/>
 	</Var>
 
 	<Var name="project:description:formats" type="map">
-		<Var name="text">ApidocSwiftGenerator generates Swift models, enums, and api calls for you based on an apidoc.json file.</Var>
-		<Var name="markdown">ApidocSwiftGenerator generates Swift models, enums, and api calls for you based on an `apidoc.json` file.</Var>
+		<Var name="text">ApidocSwiftGenerator generates Swift models, enums, and API calls for you based on an apidoc.json file.</Var>
+		<Var name="markdown">ApidocSwiftGenerator generates Swift models, enums, and API calls for you based on an `apidoc.json` file.</Var>
 	</Var>
 
 	<Var name="project:settings" type="map">
@@ -22,9 +23,11 @@
 
 	<Var name="project:readme:preamble">^q(####) Why Code Generation?
 
-ApiDoc makes it easy for an api owner to define thier models and api endpoints in a JSON format. Because this JSON is in a repeatable format, its reasonable to off load the mundane task of creating models and api endpoints to a code generator. Leaving app builders to focus on app middleware and presentation.</Var>
+ApiDoc makes it easy for an API owner to define thier models and API endpoints in a JSON format. Because this JSON is in a repeatable format, its reasonable to off load the mundane task of creating models and API endpoints to a code generator. Leaving app builders to focus on app middleware and presentation.</Var>
 
 	<Var name="project:dependencies" type="list">
+        <Var literal="CleanroomASL"/>
+        <Var literal="CleanroomDataTransactions"/>
         <Var literal="CleanroomLogger"/>
         <Var literal="SwiftPoet"/>
     </Var>

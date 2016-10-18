@@ -51,9 +51,11 @@ while [[ $1 ]]; do
  		done
  		;;
  		
- 		
- 	--all|-a)
-		ALL_REPOS_FLAG=1
+ 	--version|-v)
+		if [[ $2 ]]; then
+ 			VERSION=$2
+ 			shift
+ 		fi
 		;;
 		
 	--branch|-b)
@@ -176,6 +178,14 @@ expectReposOnBranch $BRANCH $REPO_LIST
 export BRANCH
 
 #
+# find my PlistBuddy
+#
+PLIST_BUDDY=/usr/libexec/PlistBuddy
+if [[ ! -x "$PLIST_BUDDY" ]]; then
+	exitWithErrorSuggestHelp "Expected to find PlistBuddy at path $PLIST_BUDDY"
+fi
+
+#
 # make sure boilerplate exists for each file specified
 #
 for f in ${FILE_LIST[@]}; do
@@ -194,13 +204,20 @@ for f in ${FILE_LIST[@]}; do
 	OUTPUT_BASE=`dirname "$f"`
 	OUTPUT_NAME=`basename "$f" | sed s#^_#.#`
 	OUTPUT_FILE="$OUTPUT_BASE/$OUTPUT_NAME"
-
 	echo "Generating $OUTPUT_FILE..."
 	for r in ${REPO_LIST[@]}; do
 		printf "    ...for the $r repo"
+		FRAMEWORK_VERSION=`"$PLIST_BUDDY" "../../$r/BuildControl/Info-Framework.plist" -c "Print :CFBundleShortVersionString"`
+		export FRAMEWORK_VERSION
+		if [[ "$VERSION" ]]; then
+			FRAMEWORK_VERSION_PUBLIC="$VERSION"
+		else
+			FRAMEWORK_VERSION_PUBLIC=`echo $FRAMEWORK_VERSION | sed "sq\.[0-9]*\\$qq"`
+		fi
+		export FRAMEWORK_VERSION_PUBLIC
 		REPO_XML="repos/${r}.xml"
 		if [[ -r "$REPO_XML" ]]; then
-			./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$OUTPUT_FILE"
+			mkdir -p "../../$r/$OUTPUT_BASE" && ./bin/plate -t "$BOILERPLATE_FILE" -d "$REPO_XML" -m include/repos.xml -o "../../$r/$OUTPUT_FILE"
 			if [[ "$?" != 0 ]]; then
 				exit 5
 			fi

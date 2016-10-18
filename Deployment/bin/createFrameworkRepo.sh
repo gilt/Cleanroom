@@ -9,10 +9,11 @@ source common-include.sh
 PLATE_BIN="$SCRIPT_DIR/plate"
 DEST_ROOT="$SCRIPT_DIR/../../.."
 DEFAULT_DEST_ROOT=$( cd "$DEST_ROOT"; echo $PWD )
-POSSIBLE_PLATFORMS=( iOS OSX tvOS watchOS all )
+POSSIBLE_PLATFORMS=( iOS macOS tvOS watchOS all )
 REAL_PLATFORMS=${POSSIBLE_PLATFORMS[@]:0:${#POSSIBLE_PLATFORMS[@]}-1}
 POSSIBLE_PLATFORMS_STR=`echo -n "${POSSIBLE_PLATFORMS[@]}"`
 POSSIBLE_PLATFORMS_PARAM=`echo $POSSIBLE_PLATFORMS_STR | sed 's/ /|/g'`
+REPO_BRANCH=master
 
 #
 # parse the command-line arguments
@@ -28,7 +29,23 @@ while [[ $1 ]]; do
 		FORCE_ARG="$1"
 		FORCE_MODE=1
 		;;
-		
+	
+	--branch|-b)
+		while [[ $2 ]]; do
+ 			case $2 in
+ 			-*)
+ 				break
+ 				;;
+ 				
+ 			*)
+				REPO_BRANCH="$2"
+		 		shift
+				;;	
+ 			esac
+ 		done
+ 		;;
+
+	
 	--dest|-d)
  		while [[ $2 ]]; do
  			case $2 in
@@ -166,6 +183,8 @@ if [[ $SHOW_HELP ]]; then
 	exit 1
 fi
 
+REPO_BRANCH_ARG="--branch $REPO_BRANCH"
+
 if [[ -z "$NEW_REPO_NAME" ]]; then
 	exitWithErrorSuggestHelp "Must provide name of new repo/project"
 fi
@@ -189,7 +208,7 @@ if [[ ${#PLATFORMS[@]} == 0 ]]; then
 fi
 
 INCLUDE_IOS=0
-INCLUDE_OSX=0
+INCLUDE_MACOS=0
 INCLUDE_TVOS=0
 INCLUDE_WATCHOS=0
 for p in "${PLATFORMS[@]}"; do
@@ -204,9 +223,9 @@ for p in "${PLATFORMS[@]}"; do
 		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"iOS\"/>"
 		;;
 		
-	OSX)
-		INCLUDE_OSX=1
-		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"OSX\"/>"
+	macOS)
+		INCLUDE_MACOS=1
+		PLATFORM_MBML="$PLATFORM_MBML<Var literal=\"macOS\"/>"
 		;;
 		
 	tvOS)
@@ -221,38 +240,10 @@ for p in "${PLATFORMS[@]}"; do
 	esac
 done
 
-# exclude unneeded platform-specific files
-EXCLUDE_FILE_PATTERNS=()
-if [[ $INCLUDE_IOS == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("iOS\.xcconfig\$" "\-iOS\.xcscheme\.boilerplate\$")
-fi
-if [[ $INCLUDE_OSX == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("OSX\.xcconfig\$" "\-OSX\.xcscheme\.boilerplate\$")
-fi
-if [[ $INCLUDE_TVOS == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("tvOS\.xcconfig\$" "\-tvOS\.xcscheme\.boilerplate\$")
-fi
-if [[ $INCLUDE_WATCHOS == 0 ]]; then
-	EXCLUDE_FILE_PATTERNS+=("watchOS\.xcconfig\$" "\-watchOS\.xcscheme\.boilerplate\$")
-fi
-
 processDirectory()
 {
 	pushd "$1" > /dev/null
 	for f in *; do
-		if [[ ${#EXCLUDE_FILE_PATTERNS[@]} > 0 ]]; then
-			BYPASS=0
-			for x in "${EXCLUDE_FILE_PATTERNS[@]}"; do
-				if [[ $( echo "$f" | grep -c "$x" ) > 0 ]]; then
-					BYPASS=1
-					break
-				fi
-			done
-			if [[ $BYPASS == 1 ]]; then
-				continue
-			fi
-		fi
-	
 		DEST_NAME=$( echo "$f" | sed "s/CleanroomSkeleton/${NEW_REPO_NAME}/" )
 		if [[ $( echo "$f" | grep -c "^_" ) > 0 ]]; then
 			DEST_NAME=$( echo "$f" | sed "s/^_/./" )
@@ -305,14 +296,13 @@ cd "$SCRIPT_DIR/../skeletons"
 echo "Creating new Xcode framework project repo $NEW_REPO_NAME in $DEST_ROOT"
 processDirectory "framework"
 
-cd "$SCRIPT_DIR"
-echo "Generating boilerplate documentation"
-./freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG
-
-cd "$DEST_ROOT/$NEW_REPO_NAME"
+# we need to create the repo first because the freshenRepo.sh script below
+# requires the git repo to already have been created & have at least 1 commit
+pushd "$DEST_ROOT/$NEW_REPO_NAME" > /dev/null
 if [[ ! -d .git ]]; then
 	echo "Creating git repo and performing initial commit"
 	git init
+	git checkout -b "$REPO_BRANCH"
 	git add .
 	git commit -F - <<COMMIT_MESSAGE
 Initial commit of $NEW_REPO_NAME
@@ -320,6 +310,25 @@ Initial commit of $NEW_REPO_NAME
 Automated by $SCRIPT_NAME
 COMMIT_MESSAGE
 else
-	echo "It looks like $PWD is already under git control; won't make any further changes"
+	echo "It looks like $PWD is already under git control"
 fi
+popd > /dev/null
+
+cd "$SCRIPT_DIR"/..
+expectReposOnBranch "$REPO_BRANCH" "$NEW_REPO_NAME"
+
+echo "Generating boilerplate files"
+./bin/freshenRepo.sh --repo "$NEW_REPO_NAME" $FORCE_ARG $REPO_BRANCH_ARG
+
+pushd "$DEST_ROOT/$NEW_REPO_NAME" > /dev/null
+
+echo "Committing final files to git"
+git add .
+git commit -F - <<COMMIT_MESSAGE
+Commit of $NEW_REPO_NAME
+
+Automated by $SCRIPT_NAME
+COMMIT_MESSAGE
+
+popd > /dev/null
 echo "Done!"

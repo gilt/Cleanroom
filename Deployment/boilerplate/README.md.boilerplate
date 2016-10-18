@@ -9,9 +9,9 @@
 
 ^q(###) Swift compatibility
 
-^if($repo:branch -NE master|**Important:** )This is the `$repo:branch` branch. It uses **Swift $versions[$repo:branch][Swift]** and **requires Xcode $versions[$repo:branch][Xcode]** to compile.^if($versions[$repo:branch][note]|
+^if($repo:branch -NE master|**Important:** )This is the `$repo:branch` branch. It uses **Swift $versions[$repo:branch:settings][Swift]** and **requires Xcode $versions[$repo:branch:settings][Xcode]** to compile.^if($versions[$repo:branch:settings][note]|
 
-$versions[$repo:branch][note])
+$versions[$repo:branch:settings][note])
 
 ^pluralize($branches:other.count||If you need Swift $versions[$branches:other[0]][Swift] compatibility, use the [`${branches:other[0]}`](^if($branches:other[0] -EQ master|${repo:url:home}|${repo:url:branch}/${branches:other[0]})) branch, which requires Xcode $versions[$branches:other[0]][Xcode].|$branches:other.count other branches are also available:
 
@@ -40,16 +40,25 @@ $project:name is provided for your use—free-of-charge—on an as-is basis. We 
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-You’ll need to [integrate $project:name into your project](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md) in order to use ^if($repo:isPrivate|the API|[the API]($docs:api:index)) it provides. You can choose:
+The simplest way to integrate $project:name is with the [Carthage](https://github.com/Carthage/Carthage) dependency manager.
 
-- [Manual integration](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md#manual-integration), wherein you embed ${project:name}’s Xcode project within your own, **_or_**
-- [Using the Carthage dependency manager](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md#carthage-integration) to build a framework that you then embed in your application.
+First, add this line to your [`Cartfile`](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
 
-Once integrated, just add the following `import` statement to any Swift file where you want to use ${project:name}:
+```
+$docs:carthageSpec
+```
+
+Then, use the `carthage` command to [update your dependencies](https://github.com/Carthage/Carthage#upgrading-frameworks).
+
+Finally, you’ll need to [integrate $project:name into your project](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md) in order to use ^if($repo:isPrivate|the API|[the API]($docs:api:index)) it provides.
+
+Once successfully integrated, just add the following `import` statement to any Swift file where you want to use ${project:name}:
 
 ```swift
 $project:import
 ```
+
+See [the Integration document](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md) for additional details on integrating $project:name into your project.
 
 ^if($project:readme:examples|$project:readme:examples
 

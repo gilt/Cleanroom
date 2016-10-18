@@ -108,11 +108,22 @@ processBoilerplateFile()
 	popd > /dev/null
 }
 
+COPY_ARGS=""
+if [[ $FORCE_MODE ]]; then
+	COPY_ARGS="--force $COPY_ARGS"
+fi
+if [[ ${#REPO_LIST[@]} ]]; then
+	COPY_ARGS="--repo ${REPO_LIST[@]} $COPY_ARGS"
+fi
+if [[ $BRANCH ]]; then
+	COPY_ARGS="--branch $BRANCH $COPY_ARGS"
+fi
+
 processStandardFile()
 {
 	pushd "$SCRIPT_DIR" > /dev/null
-
-	executeCommand "./copyToCleanroomRepos.sh \"$1\" $BOILERMAKER_ARGS"
+	
+	executeCommand "./copyToCleanroomRepos.sh \"$1\" $COPY_ARGS"
 
 	popd > /dev/null
 }

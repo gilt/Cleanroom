@@ -2,11 +2,12 @@
 	<Var name="project:name" literal="AppleTapstreamClient"/>
 	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Nikita Korchagin"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
 	<Var name="repo:isPrivate" boolean="T"/>
 
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
-		<Var literal="OSX"/>
+		<Var literal="macOS"/>
 		<Var literal="tvOS"/>
 		<Var literal="watchOS"/>
 	</Var>

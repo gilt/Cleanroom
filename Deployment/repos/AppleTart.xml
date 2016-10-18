@@ -2,6 +2,7 @@
 	<Var name="project:name" literal="AppleTart"/>
 	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Evan Maloney"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
 	<Var name="repo:isPrivate" boolean="T"/>
 
 	<Var name="project:description">AppleTart is Gilt’s closed-source Swift code library for Apple platforms.

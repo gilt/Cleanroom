@@ -3,6 +3,7 @@
 	<Var name="repo:owner" literal="emaloney"/>
 	<Var name="project:creator:name" literal="Evan Maloney"/>
 	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
 
 	<Var name="project:description:formats" type="map">
 		<Var name="text">CleanroomLogger provides an extensible Swift-based logging API that is simple, lightweight and performant.
@@ -15,7 +16,7 @@ The API provided by CleanroomLogger is designed to be readily understood by anyo
 
 	<Var name="project:platforms" type="list">
 		<Var literal="iOS"/>
-		<Var literal="OSX"/>
+		<Var literal="macOS"/>
         <Var literal="tvOS"/>
         <Var literal="watchOS"/>
 	</Var>
