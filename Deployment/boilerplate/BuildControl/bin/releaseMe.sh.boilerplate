@@ -470,20 +470,20 @@ PROJECT_NAME="${project:name}"
 testActionForPlatform()
 {
 	case $$1 in
-	iOS) 		echo "^if($platforms[iOS][supportsUnitTests]|test|build)";;
-	macOS) 		echo "^if($platforms[macOS][supportsUnitTests]|test|build)";;	
-	tvOS) 		echo "^if($platforms[tvOS][supportsUnitTests]|test|build)";;
-	watchOS)	echo "^if($platforms[watchOS][supportsUnitTests]|test|build)";;
+	iOS) 		echo "^if($platforms:build[iOS][supportsUnitTests]|test|build)";;
+	macOS) 		echo "^if($platforms:build[macOS][supportsUnitTests]|test|build)";;	
+	tvOS) 		echo "^if($platforms:build[tvOS][supportsUnitTests]|test|build)";;
+	watchOS)	echo "^if($platforms:build[watchOS][supportsUnitTests]|test|build)";;
 	esac
 }
 
 runDestinationForPlatform()
 {
 	case $$1 in
-	iOS) 		echo "$platforms[iOS][runDestination]";;
-	macOS) 		echo "$platforms[macOS][runDestination]";;	
-	tvOS) 		echo "$platforms[tvOS][runDestination]";;
-	watchOS)	echo "$platforms[watchOS][runDestination]";;
+	iOS) 		echo "$platforms:build[iOS][runDestination]";;
+	macOS) 		echo "$platforms:build[macOS][runDestination]";;	
+	tvOS) 		echo "$platforms:build[tvOS][runDestination]";;
+	watchOS)	echo "$platforms:build[watchOS][runDestination]";;
 	esac
 }
 

@@ -18,10 +18,10 @@ PLATFORM="$$2"
 runDestinationForPlatform()
 {
 	case $$1 in
-	iOS) 		echo "$platforms[iOS][runDestination]";;
-	macOS) 		echo "$platforms[macOS][runDestination]";;	
-	tvOS) 		echo "$platforms[tvOS][runDestination]";;
-	watchOS)	echo "$platforms[watchOS][runDestination]";;
+	iOS) 		echo "$platforms:ci[iOS][runDestination]";;
+	macOS) 		echo "$platforms:ci[macOS][runDestination]";;	
+	tvOS) 		echo "$platforms:ci[tvOS][runDestination]";;
+	watchOS)	echo "$platforms:ci[watchOS][runDestination]";;
 	esac
 }
 
