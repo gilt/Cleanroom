@@ -498,7 +498,7 @@ for PLATFORM in $$COMPILE_PLATFORMS; do
 		BUILD_ACTION="clean $$(testActionForPlatform $$PLATFORM)"
 	fi
 	RUN_DESTINATION="$$(runDestinationForPlatform $$PLATFORM)"
-	executeCommand "$$XCODEBUILD $$PROJECT_SPECIFIER -scheme \"$$REPO_NAME\" -configuration Debug -destination \"$$RUN_DESTINATION\" $$BUILD_ACTION $$XCODEBUILD_PIPETO"
+	executeCommand "$$XCODEBUILD $$PROJECT_SPECIFIER -scheme \"$${REPO_NAME}^if($project:usesPlatformSpecificSchemes|-^q($){PLATFORM})\" -configuration Debug -destination \"$$RUN_DESTINATION\" $$BUILD_ACTION $$XCODEBUILD_PIPETO"
 done
 
 #
