@@ -1,6 +1,6 @@
 language: objective-c
 ^if($project:hasWorkspace|xcode_workspace: $project:workspace|xcode_project: $project:file)
-osx_image: xcode8
+osx_image: $project:travisImage
 
 git:
   depth: 1
