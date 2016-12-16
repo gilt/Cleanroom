@@ -50,6 +50,10 @@ while [[ $1 ]]; do
  			esac
  		done
  		;;
+ 	
+ 	--all|-a)
+		ALL_REPOS_FLAG=1
+ 		;;
  		
  	--version|-v)
 		if [[ $2 ]]; then
