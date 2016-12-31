@@ -10,13 +10,12 @@ Cleanroom Project code serves as the foundation of Gilt on TV, our tvOS app [fea
 
 In the meantime, we’ll be tracking the latest releases of Swift & Xcode, and [open-sourcing major portions of our codebase](https://github.com/gilt/Cleanroom#open-source-by-default) along the way.
 
-## Available Repositories
+## Active Repositories
 
 The Cleanroom Project is spread across several repositories, and we expect the list to continue growing. This page will serve as the definitive index for the available open-source Cleanroom Project repos.
 
 - [BlueSteel](http://github.com/gilt/BlueSteel) — An Avro encoding/decoding library for Swift
 - [CleanroomAppSettings](http://github.com/emaloney/CleanroomAppSettings) — A set of Swift interfaces and implementations to abstract away the app's NSUserDefaults singleton
-- [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility
 - [CleanroomBridging](http://github.com/emaloney/CleanroomBridging) — A set of tools to help bridge the gap between Objective-C and Swift
 - [CleanroomCLI](http://github.com/emaloney/CleanroomCLI) — Tools for handling command line arguments in Swift
 - [CleanroomConcurrency](http://github.com/emaloney/CleanroomConcurrency) — Swift utilities for simplifying asynchronous code execution & coordinating concurrent access to shared resources
@@ -25,6 +24,10 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 - [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based console logging API
 - [CleanroomText](http://github.com/emaloney/CleanroomText) — Swift tools for working with strings and text
 - [SwiftPoet](http://github.com/gilt/SwiftPoet) — A Swift framework for generating Swift code in Swift
+
+## Deprecated Repositories
+
+- [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility. This project is deprecated as a result of Apple’s deprecation of the ASL itself.
 
 ## Open Source by Default
 
