@@ -1,5 +1,9 @@
 ![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/${repo:branch}/Assets/gilt-tech-logo.png)
+^if($project:deprecationNotice|
+^q(#) Notice: $project:name is deprecated
 
+$project:deprecationNotice
+)
 ^q(#) $project:name
 
 ^if($project:readme:description|$project:readme:description
