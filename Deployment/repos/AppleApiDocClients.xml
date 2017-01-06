@@ -14,7 +14,7 @@
 	
 	<Var name="project:description:formats" type="map">
 		<Var name="text">Uses ApidocSwiftGenerator to generate Swift models, enums, and APIs for Gilt Mobile's apidoc APIs.</Var>
-		<Var name="markdown">Uses [ApidocSwiftGenerator](https://github.com/kyle-dorman/ApidocSwiftGenerator) to generate Swift models, enums, and APIs for Gilt Mobile's [apidoc](http://apidoc.me) APIs.</Var>
+		<Var name="markdown">Uses [ApidocSwiftGenerator](https://github.com/gilt/ApidocSwiftGenerator) to generate Swift models, enums, and APIs for Gilt Mobile's [apidoc](http://apidoc.me) APIs.</Var>
 	</Var>
 
 	<Var name="project:settings" type="map">
