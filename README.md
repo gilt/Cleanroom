@@ -27,7 +27,7 @@ The Cleanroom Project is spread across several repositories, and we expect the l
 
 ## Deprecated Repositories
 
-- [CleanroomASL](http://github.com/emaloney/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility. This project is deprecated as a result of Apple’s deprecation of the ASL itself.
+- [CleanroomASL](http://github.com/gilt/CleanroomASL) — A Swift-based API for reading from & writing to the Apple System Log facility. This project is deprecated as a result of Apple’s deprecation of the ASL itself.
 
 ## Open Source by Default
 
