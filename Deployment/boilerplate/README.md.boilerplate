@@ -1,11 +1,15 @@
+![HBC Digital logo](https://raw.githubusercontent.com/gilt/Cleanroom/master/Assets/hbc-digital-logo.png)     
 ![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/master/Assets/gilt-tech-logo.png)
-^if($project:deprecationNotice|
-^q(#) Notice: $project:name is deprecated
+
+^q(#) $project:name
+^if($project:deprecationNotice|![Deprecation notice](https://raw.githubusercontent.com/gilt/Cleanroom/master/Assets/deprecated-banner.png)
+
+^q(###) Notice: $project:name is no longer supported
 
 $project:deprecationNotice
-)
-^q(#) $project:name
 
+---
+)
 ^if($project:readme:description|$project:readme:description
 
 )$project:name is part of [the Cleanroom Project](https://github.com/gilt/Cleanroom) from [Gilt Tech](http://tech.gilt.com).
@@ -22,6 +26,7 @@ $versions[$repo:branch:settings][note])
 ^join(^list($branches:other|- The [`${item}`](^if($item -EQ master|${repo:url:home}|${repo:url:branch}/${item})) branch uses **Swift $versions[$item][Swift]**, requiring Xcode $versions[$item][Xcode])|\n)
 )
 )
+
 ^q(####) Current status
 
 Branch|Build status
