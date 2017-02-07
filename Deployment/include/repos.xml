@@ -49,7 +49,7 @@
 	</Var>
 
 	<Var name="buildPlatform:default" literal="xcode-8.2"/>
-	<Var name="buildPlatform:active" type="dynamic" expression="^if(^matchesRegex($repo:branch|^^xcode-([0-9]+){1}(\.[0-9]+){1,2}^q($))|$repo:branch|$buildPlatform:default)"/>
+	<Var name="buildPlatform:active" type="dynamic" expression="^if(^matchesRegex($repo:branch|^^xcode-([0-9]+){1}(\.[0-9]+){1,2}(-.*?)*^q($))|$repo:branch|$buildPlatform:default)"/>
 	<Var name="buildPlatform:supportsCI" type="dynamic" expression="^if($versions[$repo:branch][Travis]|1|0)"/>
 	<Var name="platforms:build" type="dynamic" expression="$platforms[$buildPlatform:active]"/>
 	<Var name="platforms:ci" type="dynamic" expression="$platforms[$buildPlatform:active]"/>
