@@ -28,6 +28,24 @@
 				<Var name="supportsUnitTests" boolean="F"/> 
 			</Var>
 		</Var>
+		<Var name="xcode-8.3" type="map">
+			<Var name="iOS" type="map">
+				<Var name="runDestination" literal="platform=iOS Simulator,OS=10.3,name=iPad Pro (9.7 inch)"/> 
+				<Var name="supportsUnitTests" boolean="T"/> 
+			</Var>
+			<Var name="macOS" type="map">
+				<Var name="runDestination" literal="platform=macOS"/> 
+				<Var name="supportsUnitTests" boolean="T"/> 
+			</Var>
+			<Var name="tvOS" type="map">
+				<Var name="runDestination" literal="platform=tvOS Simulator,OS=10.2,name=Apple TV 1080p"/> 
+				<Var name="supportsUnitTests" boolean="T"/> 
+			</Var>
+			<Var name="watchOS" type="map">
+				<Var name="runDestination" literal="platform=watchOS Simulator,OS=3.2,name=Apple Watch Series 2 - 42mm"/> 
+				<Var name="supportsUnitTests" boolean="F"/> 
+			</Var>
+		</Var>
 	</Var>
 
 	<Var name="buildPlatform:default" literal="xcode-8.2"/>
@@ -58,6 +76,30 @@
 				<Var name="macOS" literal="10.12"/> 
 				<Var name="tvOS" literal="10.1"/> 
 				<Var name="watchOS" literal="3.1"/> 
+			</Var>
+			
+			<Var name="minimum" type="map">
+				<Var name="iOS" literal="8.0"/> 
+				<Var name="macOS" literal="10.10"/> 
+				<Var name="tvOS" literal="9.0"/> 
+				<Var name="watchOS" literal="2.0"/> 
+			</Var>
+		</Var>
+		<!-- master branch declarations -->
+		<Var name="xcode-8.3" type="map">
+			<Var name="Swift" literal="3.1"/> 
+			<Var name="Xcode" literal="8.3 beta 2"/>
+			<!-- Travis doesn't support the Xcode 8.3 betas yet
+			<Var name="Travis" literal="xcode8.3"/>
+			-->
+
+			<Var name="Carthage" literal="0.18.1"/>
+			
+			<Var name="current" type="map">
+				<Var name="iOS" literal="10.3"/> 
+				<Var name="macOS" literal="10.12"/> 
+				<Var name="tvOS" literal="10.2"/> 
+				<Var name="watchOS" literal="3.2"/> 
 			</Var>
 			
 			<Var name="minimum" type="map">
