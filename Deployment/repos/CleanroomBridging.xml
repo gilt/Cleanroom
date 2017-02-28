@@ -16,6 +16,5 @@
 
     <Var name="project:settings" type="map">
         <Var name="app-extension-only" boolean="T"/>
-		<Var name="bridging-header" literal="BuildControl/Bridging-Header.h"/>
     </Var>
 </MBML>
