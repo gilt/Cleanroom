@@ -5,7 +5,7 @@ TARGETED_DEVICE_FAMILY = ^if($supports:iOS|1,2)^if($supports:tvOS|^if($supports:
 //
 // iOS-specific settings
 //
-IPHONEOS_DEPLOYMENT_TARGET = 8.0
+IPHONEOS_DEPLOYMENT_TARGET = $iOS:version:minimum
 
 VALID_ARCHS[sdk=iphoneos*] = arm64 armv7 armv7s
 VALID_ARCHS[sdk=iphonesimulator*] = i386 x86_64
@@ -13,14 +13,13 @@ VALID_ARCHS[sdk=iphonesimulator*] = i386 x86_64
 LD_RUNPATH_SEARCH_PATHS[sdk=iphoneos*] = $$(inherited) @executable_path/Frameworks @loader_path/Frameworks
 LD_RUNPATH_SEARCH_PATHS[sdk=iphonesimulator*] = $$(inherited) @executable_path/Frameworks @loader_path/Frameworks
 
-ENABLE_BITCODE[sdk=iphonesimulator*] = YES
 ENABLE_BITCODE[sdk=iphone*] = YES
 )
 ^if($supports:macOS|////////////////////////////////////////////////////////////////////////////////
 //
 // macOS-specific settings
 //
-MACOSX_DEPLOYMENT_TARGET = 10.10
+MACOSX_DEPLOYMENT_TARGET = $macOS:version:minimum
 
 VALID_ARCHS[sdk=macosx*] = i386 x86_64
 
@@ -32,7 +31,7 @@ ENABLE_BITCODE[sdk=macosx*] = NO
 //
 // tvOS-specific settings
 //
-TVOS_DEPLOYMENT_TARGET = 9.0
+TVOS_DEPLOYMENT_TARGET = $tvOS:version:minimum
 
 VALID_ARCHS[sdk=appletvos*] = arm64
 VALID_ARCHS[sdk=appletvsimulator*] = x86_64
@@ -40,14 +39,13 @@ VALID_ARCHS[sdk=appletvsimulator*] = x86_64
 LD_RUNPATH_SEARCH_PATHS[sdk=appletvos*] = $$(inherited) @executable_path/Frameworks @loader_path/Frameworks
 LD_RUNPATH_SEARCH_PATHS[sdk=appletvsimulator*] = $$(inherited) @executable_path/Frameworks @loader_path/Frameworks
 
-ENABLE_BITCODE[sdk=appletvsimulator*] = YES
 ENABLE_BITCODE[sdk=appletv*] = YES
 )
 ^if($supports:watchOS|////////////////////////////////////////////////////////////////////////////////
 //
 // watchOS-specific settings
 //
-WATCHOS_DEPLOYMENT_TARGET = 2.0
+WATCHOS_DEPLOYMENT_TARGET = $watchOS:version:minimum
 
 VALID_ARCHS[sdk=watchos*] = armv7k
 VALID_ARCHS[sdk=watchsimulator*] = i386
@@ -55,6 +53,5 @@ VALID_ARCHS[sdk=watchsimulator*] = i386
 LD_RUNPATH_SEARCH_PATHS[sdk=watchos*] = $$(inherited) @executable_path/Frameworks @loader_path/Frameworks
 LD_RUNPATH_SEARCH_PATHS[sdk=watchsimulator*] = $$(inherited) @executable_path/Frameworks @loader_path/Frameworks
 
-ENABLE_BITCODE[sdk=watchsimulator*] = YES
 ENABLE_BITCODE[sdk=watch*] = YES
 )
