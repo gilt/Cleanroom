@@ -109,8 +109,8 @@
 			</Var>
 			
 			<Var name="minimum" type="map">
-				<Var name="iOS" literal="8.0"/> 
-				<Var name="macOS" literal="10.10"/> 
+				<Var name="iOS" literal="9.0"/> 
+				<Var name="macOS" literal="10.11"/> 
 				<Var name="tvOS" literal="9.0"/> 
 				<Var name="watchOS" literal="2.0"/> 
 			</Var>
