@@ -12,7 +12,7 @@
 	<Var name="platforms" type="map">
 		<Var name="xcode-8.3" type="map">
 			<Var name="iOS" type="map">
-				<Var name="runDestination" literal="platform=iOS Simulator,OS=10.3,name=iPad Pro (9.7 inch)"/> 
+				<Var name="runDestination" literal="platform=iOS Simulator,OS=10.3,name=iPad Air 2"/> 
 				<Var name="supportsUnitTests" boolean="T"/> 
 			</Var>
 			<Var name="macOS" type="map">
