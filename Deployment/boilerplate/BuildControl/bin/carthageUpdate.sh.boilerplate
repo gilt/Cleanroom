@@ -1,1 +1,1 @@
-carthage update ^if($repo:isPrivate|--use-ssh )--use-submodules --no-build
+carthage update $$@ ^if($repo:isPrivate|--use-ssh )--use-submodules --no-build
