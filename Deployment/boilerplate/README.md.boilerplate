@@ -12,12 +12,12 @@ $project:deprecationNotice
 )
 ^if($project:readme:description|$project:readme:description
 
-)$project:name is part of [the Cleanroom Project](https://github.com/gilt/Cleanroom) from [Gilt Tech](http://tech.gilt.com).
+)^if($project:meta[$project:grouping][title]|$project:name is part of ^if($project:meta[$project:grouping][project:url]|[the $project:meta[$project:grouping][title]]($project:meta[$project:grouping][project:url])|the $project:meta[$project:grouping][title]) from [$project:meta[$project:grouping][owner:name]]($project:meta[$project:grouping][owner:url])).
 
 
-^q(###) Swift compatibility
+^q(###) ^if($project:language == Swift|Swift|Xcode) compatibility
 
-^if($repo:branch -NE master|**Important:** )This is the `$repo:branch` branch. It uses **Swift $versions[$repo:branch:settings][Swift]** and **requires Xcode $versions[$repo:branch:settings][Xcode]** to compile.^if($versions[$repo:branch:settings][note]|
+^if($repo:branch -NE master|**Important:** )This is the `$repo:branch` branch. It ^if($project:language == Swift|uses **Swift $versions[$repo:branch:settings][Swift]** and )**requires Xcode $versions[$repo:branch:settings][Xcode]** to compile.^if($versions[$repo:branch:settings][note]|
 
 $versions[$repo:branch:settings][note])
 ^if($branches:other.count -AND $versions[$branches:other[0]][Swift] != $versions[$repo:branch:settings][Swift]|
@@ -71,8 +71,7 @@ See [the Integration document](${repo:url:home}/blob/${repo:branch}/INTEGRATION.
 
 ^if($project:readme:examples|$project:readme:examples
 
-)
-^q(###) API documentation
+)^q(###) API documentation
 
 ^if($repo:isPrivate|Open the `Documentation/API/index.html` file locally to view API documentation in your browser.|For detailed information on using $project:name, [API documentation](${docs:api:index}) is available.)
 
@@ -82,23 +81,16 @@ See [the Integration document](${repo:url:home}/blob/${repo:branch}/INTEGRATION.
 
 )^q(##) About
 
-The Cleanroom Project began as an experiment to re-imagine Gilt’s iOS codebase in a legacy-free, Swift-based incarnation.
+$project:meta[$project:grouping][about]
 
-Since then, we’ve expanded the Cleanroom Project to include multi-platform support. Much of our codebase now supports tvOS in addition to iOS, and our lower-level code is usable on macOS and watchOS as well.
-
-Cleanroom Project code serves as the foundation of Gilt on TV, our tvOS app [featured by Apple during the launch of the new Apple TV](http://www.apple.com/apple-events/september-2015/). And as time goes on, we'll be replacing more and more of our existing Objective-C codebase with Cleanroom implementations.
-
-In the meantime, we’ll be tracking the latest releases of Swift & Xcode, and [open-sourcing major portions of our codebase](https://github.com/gilt/Cleanroom#open-source-by-default) along the way.
-
-
+^if($project:meta[$project:grouping][contributing]|
 ^q(###) Contributing
 
 $project:name is in active development, and we welcome your contributions.
 
-If you’d like to contribute to this or any other Cleanroom Project repo, please read [the contribution guidelines](https://github.com/gilt/Cleanroom#contributing-to-the-cleanroom-project).
-^if(!$repo:isPrivate|
+$project:meta[$project:grouping][contributing]
 
+)^if($project:meta[$project:grouping][acknowledgements]|
 ^q(###) Acknowledgements
 
-[API documentation for $project:name](${docs:api:index}) is generated using [Realm](http://realm.io)’s [jazzy](https://github.com/realm/jazzy/) project, maintained by [JP Simard](https://github.com/jpsim) and [Samuel E. Giddins](https://github.com/segiddins).
-)
+$project:meta[$project:grouping][acknowledgements])
