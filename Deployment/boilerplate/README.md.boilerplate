@@ -61,11 +61,9 @@ Then, use the `carthage` command to [update your dependencies](https://github.co
 
 Finally, you’ll need to [integrate $project:name into your project](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md) in order to use ^if($repo:isPrivate|the API|[the API]($docs:api:index)) it provides.
 
-Once successfully integrated, just add the following `import` statement to any Swift file where you want to use ${project:name}:
+Once successfully integrated, just add the following statement to any $project:language:name file where you want to use ${project:name}:
 
-```swift
-$project:import
-```
+$project:import:block
 
 See [the Integration document](${repo:url:home}/blob/${repo:branch}/INTEGRATION.md) for additional details on integrating $project:name into your project.
 

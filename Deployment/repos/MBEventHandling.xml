@@ -1,0 +1,22 @@
+<MBML>
+	<Var name="project:name" literal="MBEventHandling"/>
+	<Var name="project:publisher" literal="Gilt Groupe"/>
+	<Var name="repo:owner" literal="emaloney"/>
+	<Var name="project:creator:name" literal="Evan Maloney"/>
+	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.mockingbird"/>
+	<Var name="project:language" literal="ObjC"/>
+	<Var name="project:grouping" literal="Mockingbird"/>
+
+	<Var name="project:description:formats" type="map">
+		<Var name="text">The Mockingbird Event Handling Module adds to the Mockingbird Data Environment the ability to create listeners for NSNotification events and perform actions in response to specific events.</Var>
+		<Var name="markdown">The Mockingbird Event Handling Module adds to [the Mockingbird Data Environment](https://github.com/emaloney/MBDataEnvironment) the ability to create *listeners* for `NSNotification` events and perform  *actions* in response to specific events.</Var>
+	</Var>
+
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="macOS"/>
+        <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+	</Var>
+</MBML>

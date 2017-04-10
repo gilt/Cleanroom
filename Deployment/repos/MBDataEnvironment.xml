@@ -1,0 +1,113 @@
+<MBML>
+	<Var name="project:name" literal="MBDataEnvironment"/>
+	<Var name="project:publisher" literal="Gilt Groupe"/>
+	<Var name="repo:owner" literal="emaloney"/>
+	<Var name="project:creator:name" literal="Evan Maloney"/>
+	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.mockingbird"/>
+	<Var name="project:language" literal="ObjC"/>
+	<Var name="project:grouping" literal="Mockingbird"/>
+
+	<Var name="project:description:formats" type="map">
+		<Var name="text">The Mockingbird Data Environment builds upon the Mockingbird Toolbox to provide a dynamic data processing engine for iOS, macOS, tvOS and watchOS applications.
+
+The Mockingbird Data Environment allows arbitrary data models and object graphs to be assigned names and stored in a variable space from which values can be extracted using expressions.
+
+The Mockingbird Data Environment is particularly suited for building applications that can adapt to changes in server-side data models.</Var>
+		<Var name="markdown">The Mockingbird Data Environment builds upon [the Mockingbird Toolbox](https://github.com/emaloney/MBToolbox) to provide a dynamic data processing engine for iOS, macOS, tvOS and watchOS applications.
+
+The Mockingbird Data Environment allows arbitrary data models and object graphs to be assigned *names* and stored in a *variable space* from which values can be extracted using *expressions*.
+
+The Mockingbird Data Environment is particularly suited for building applications that can adapt to changes in server-side data models.</Var>
+	</Var>
+
+	<Var name="project:readme:preamble">^q(###) Why Mockingbird Data Environment?
+
+It is a common scenario for app publishers to have a population of users running old versions. Sometimes, users are stuck on old versions because the latest requires an operating system newer than their hardware will support. Such users won't be running your latest app until they buy a new machine, if they ever do.
+
+For some types of apps, this isn't a big problem. But for apps that must communicate with network-based services, having a wide variety of old versions out in the wild makes it difficult to evolve and maintain your services.
+
+Eventually, you will be faced with accepting one of these tradeoffs:
+
+* Do you drop support for old versions, knowing that there's a risk of severing valuable relationships with some of your users?
+
+* Do you take on the expense and difficulty of maintaining and operating a growing number of legacy backend services over time?
+
+* Or do you resign yourself to never evolving your backend systems—or doing it much more slowly than you'd like?
+
+The purpose of the Mockingbird Data Environment is to free you from having to make these compromises.
+
+^q(####) The Root of the Problem
+
+The way applications are typically architected, the client application and the server must both agree in advance on the data schema that will be used to communicate. On the client side, native code is written that implements the logic of extracting meaningful information from the data sent by the server.
+
+The problem with this architecture is that *both* the client *and* the server require intimate knowledge of the data schema.
+
+Some have attempted to address this with solutions that automatically generate client code from data schemas. While this is undoubtedly convenient and time-saving, the original problem remains: the knowledge of the data format must be *compiled in* to the client application and therefore can't be changed once the app has been released. You're still going to end up with some users running very old app versions that will want to communicate with your services.
+
+Ideally, there would be only *one* place where knowledge of a data model would need to live. The long tail of legacy applications gives us a compelling reason to avoid having that knowledge hard-coded into the client, so we should look to a server-driven solution.
+
+If you think about what a client application really needs to know, it's not the details of the data structure sent by the server, it's specific bits of information embedded within that data structure. The data structure is merely a byproduct of the application's need to communicate with the server.
+
+An app might be interested in a product list, for example, but the fact that the product list is assembled from data three levels down in a particular JSON structure is incidental.
+
+^q(####) The Solution
+
+The Mockingbird Data Environment allows you to build apps where the server can host the logic required to navigate the data structures it returns. Services can return a data model and also a set of *expressions* used to extract meaningful information from that data model.
+
+Essentially, the server's response tells the client application two things: "*Here's a data structure containing the information you need, and here's how you pick out the parts that are relevant to you.*"
+
+Because everything is hosted on the server—both the data model and the knowledge of how to interpret that data model—every installed copy of your app can automatically adapt to new data models whenever you choose to deploy them.
+
+You won't need to resubmit your app for review every time you change how your services communicate, and you won't need to run multiple versions of your backend to support legacy versions of your app.
+
+Let the Mockingbird Data Environment decouple your native code from the details of your server-side data, and you can evolve your services on your own schedule while long-forgotten versions of your app will just keep on working.
+
+> This technique was discussed in more detail at the [iOSoho Developer's Symposium](http://www.meetup.com/iOSoho/events/181963632/) meetup on August 11th, 2014. ([Slides available at the Gilt Tech blog](http://tech.gilt.com/post/94663143169/handling-changes-to-your-server-side-data-model).)
+
+^q(##) Contents
+
+1. [Initializing the Mockingbird Data Environment](#initializing-the-mockingbird-data-environment)
+2. [An Introduction to Mockingbird Expressions](#an-introduction-to-mockingbird-expressions)
+  1. [Evaluating Expressions](#evaluating-expressions)
+    1. [String Expressions](#string-expressions)
+    2. [Object Expressions](#object-expressions)
+    3. [Numeric Expressions](#numeric-expressions)
+    4. [Boolean Expressions](#boolean-expressions)
+    5. [Expression Contexts](#expression-contexts)
+      1. [Forcing a Numeric Context](#forcing-a-numeric-context)
+      2. [Forcing a Boolean Context](#forcing-a-boolean-context)
+      3. [Quoting](#quoting)
+      4. [Escape Sequences](#escape-sequences)
+    6. [Additional Variable Reference Notations](#additional-variable-reference-notations)
+      1. [Curly-Brace Notation](#curly-brace-notation)
+      2. [Bracket Notation](#bracket-notation)
+      3. [Parentheses Notation](#parentheses-notation)
+    7. [Variable Notation Summary](#variable-notation-summary)
+  2. [MBML Functions](#mbml-functions)
+  3. [Debugging Expressions](#debugging-expressions)
+    1. [MBML Functions for Debugging](#mbml-functions-for-debugging)
+    2. [Evaluating Expressions in the Xcode Debugger](#evaluating-expressions-in-the-xcode-debugger)
+3. [An Introduction to MBML Files](#an-introduction-to-mbml-files)
+  1. [The Manifest File](#the-manifest-file)
+  2. [The Structure of an MBML File](#the-structure-of-an-mbml-file)
+  3. [Types of MBML declarations](#types-of-mbml-declarations)
+    1. [Includes](#includes)
+    2. [Variables](#variables)
+      1. [Concrete Variables](#concrete-variables)
+      2. [Singleton Variables](#singleton-variables)
+      3. [Dynamic Variables](#dynamic-variables)
+    3. [Functions](#functions)
+4. [Further Reading](#further-reading)
+5. [Additional Resources](#additional-resources)
+
+^q(##) Initializing the Mockingbird Data Environment
+	</Var>
+	
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="macOS"/>
+        <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+	</Var>
+</MBML>

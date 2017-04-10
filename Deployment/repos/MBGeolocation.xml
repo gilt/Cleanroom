@@ -1,0 +1,22 @@
+<MBML>
+	<Var name="project:name" literal="MBGeolocation"/>
+	<Var name="project:publisher" literal="Gilt Groupe"/>
+	<Var name="repo:owner" literal="emaloney"/>
+	<Var name="project:creator:name" literal="Evan Maloney"/>
+	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.mockingbird"/>
+	<Var name="project:language" literal="ObjC"/>
+	<Var name="project:grouping" literal="Mockingbird"/>
+
+	<Var name="project:description:formats" type="map">
+		<Var name="text">The Mockingbird Geolocation Module adds geolocation functionality to the Mockingbird Data Environment.</Var>
+		<Var name="markdown">The Mockingbird Geolocation Module adds geolocation functionality to [the Mockingbird Data Environment](https://github.com/emaloney/MBDataEnvironment).</Var>
+	</Var>
+
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="macOS"/>
+        <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+	</Var>
+</MBML>

@@ -5,16 +5,16 @@
 
 This document describes how to integrate $project:name into your application.
 
-$project:name is designed as a *universal Swift framework* with support for the following platform^if($project:platforms.count -GT 1|s within a single binary):
+$project:name is designed as a *universal ^if($project:language == Swift|Swift )framework* with support for the following platform^if($project:platforms.count -GT 1|s within a single binary):
 
 Platform|Latest supported OS|Oldest supported OS
 --------|-------------------|-------------------
-^if($supports:iOS|iPhone/iPad^q(|)iOS $versions[$repo:branch:settings][current][iOS]^q(|)iOS $versions[$repo:branch:settings][minimum][iOS]
-)^if($supports:macOS|Macintosh^q(|)macOS $versions[$repo:branch:settings][current][macOS]^q(|)macOS $versions[$repo:branch:settings][minimum][macOS]
-)^if($supports:tvOS|Apple TV^q(|)tvOS $versions[$repo:branch:settings][current][tvOS]^q(|)tvOS $versions[$repo:branch:settings][minimum][tvOS]
-)^if($supports:watchOS|Apple Watch^q(|)watchOS $versions[$repo:branch:settings][current][watchOS]^q(|)watchOS $versions[$repo:branch:settings][minimum][watchOS]
+^if($supports:iOS|iPhone/iPad^q(|)iOS $platform:current:iOS^q(|)iOS $platform:minimum:iOS
+)^if($supports:macOS|Macintosh^q(|)macOS $platform:current:macOS^q(|)macOS $platform:minimum:macOS
+)^if($supports:tvOS|Apple TV^q(|)tvOS $platform:current:tvOS^q(|)tvOS $platform:minimum:tvOS
+)^if($supports:watchOS|Apple Watch^q(|)watchOS $platform:current:watchOS^q(|)watchOS $platform:minimum:watchOS
 )
-^if($repo:branch -NE master|**This is the `$repo:branch` branch of $project:name.** It|$project:name) uses **Swift $versions[$repo:branch:settings][Swift]** and **requires Xcode $versions[$repo:branch:settings][Xcode]** to compile.
+^if($repo:branch -NE master|**This is the `$repo:branch` branch of $project:name.** It|$project:name)^if($project:language == Swift| uses **Swift $versions[$repo:branch:settings][Swift]** and) **requires Xcode $versions[$repo:branch:settings][Xcode]** to compile.
 
 ^q(###) Options for integration
 
@@ -23,6 +23,15 @@ There are two supported options for integration:
 - **[Carthage integration](#carthage-integration)** uses the [Carthage](https://github.com/Carthage/Carthage) dependency manager to add $project:name to your project.
 
 - **[Manual integration](#manual-integration)** involves embedding the `${project:file}` file within your project’s Xcode workspace.
+
+Once properly integrated, you can make use of ^if($repo:isPrivate|the API|[the API]($docs:api:index)) provided by $project:name in any $project:language:name file using the statement:
+
+$project:import:block
+^if($project:language == ObjC|
+You can import the project from Swift with the statement:
+
+$project:import:swift:block
+)
 
 ^q(##) Carthage Integration
 
@@ -112,13 +121,6 @@ Otherwise, ^if($docs:integrationFilesCount == 1|it|they) should go into **Linked
 
 Select the appropriate Build Scheme for your Target, and press `⌘-B` to try to build. If all goes well, your integration was successful!
 
-^q(###) You're done!
-
-Once properly integrated, you can make use of ^if($repo:isPrivate|the API|[the API]($docs:api:index)) provided by $project:name using the statement:
-
-```swift
-$project:import
-```
 
 ^q(##) Manual Integration
 
@@ -175,13 +177,6 @@ Otherwise, ^if($docs:integrationFilesCount == 1|it|they) should go into **Linked
 
 Select the appropriate Build Scheme for your Target, and press `⌘-B` to try to build. If all goes well, your integration was successful!
 
-^q(###) You're done!
-
-Once properly integrated, you can make use of ^if($repo:isPrivate|the API|[the API]($docs:api:index)) provided by $project:name using the statement:
-
-```swift
-$project:import
-```
 
 ^q(##) Further Reading
 
