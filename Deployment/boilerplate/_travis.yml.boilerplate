@@ -16,9 +16,10 @@ install:
   - sudo killall -9 com.apple.CoreSimulator.CoreSimulatorService	# same simulator: https://github.com/travis-ci/travis-ci/issues/7580#issuecomment-292974395
 
 script:
-^join(^list($project:platforms|  - ./BuildControl/bin/travisBuildHelper.sh build $item\n^if($platforms:ci[$item][supportsUnitTests]|  - ./BuildControl/bin/travisBuildHelper.sh test $item))|\n)
+^join(^list($project:platforms|  - ./BuildControl/bin/travisBuildHelper.sh build $item^if(!$project:skipUnitTests -AND $platforms:ci[$item][supportsUnitTests]|\n  - ./BuildControl/bin/travisBuildHelper.sh test $item))|\n)
+
 after_failure:
-^join(^list($project:platforms|  - test -f "${project:name}-${item}-build.log" && tail -n 2500 "${project:name}-${item}-build.log"\n^if($platforms:ci[$item][supportsUnitTests]|  - test -f "${project:name}-${item}-test.log" && tail -n 2500 "${project:name}-${item}-test.log"\n  - test -f "${project:name}-${item}-test.log" && LINE_BEFORE=`cat "${project:name}-${item}-test.log" ^q(|) grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." ^q(|) awk -F':' '{print ^q($)1}'` && LINE=`expr ^q($)LINE_BEFORE + 1` && LOG_FILE=`head -n ^q($)LINE "${project:name}-${item}-test.log" ^q(|) tail -n 1` && cat "^q($)LOG_FILE"))|\n)
+^join(^list($project:platforms|  - test -f "${project:name}-${item}-build.log" && tail -n 2500 "${project:name}-${item}-build.log"^if(!$project:skipUnitTests -AND $platforms:ci[$item][supportsUnitTests]|\n  - test -f "${project:name}-${item}-test.log" && tail -n 2500 "${project:name}-${item}-test.log"\n  - test -f "${project:name}-${item}-test.log" && LINE_BEFORE=`cat "${project:name}-${item}-test.log" ^q(|) grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." ^q(|) awk -F':' '{print ^q($)1}'` && LINE=`expr ^q($)LINE_BEFORE + 1` && LOG_FILE=`head -n ^q($)LINE "${project:name}-${item}-test.log" ^q(|) tail -n 1` && cat "^q($)LOG_FILE"))|\n)
 |branches:
   except:
     $repo:branch

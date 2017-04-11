@@ -470,10 +470,10 @@ PROJECT_NAME="${project:name}"
 testActionForPlatform()
 {
 	case $$1 in
-	iOS) 		echo "^if($platforms:build[iOS][supportsUnitTests]|test|build)";;
-	macOS) 		echo "^if($platforms:build[macOS][supportsUnitTests]|test|build)";;	
-	tvOS) 		echo "^if($platforms:build[tvOS][supportsUnitTests]|test|build)";;
-	watchOS)	echo "^if($platforms:build[watchOS][supportsUnitTests]|test|build)";;
+	iOS) 		echo "^if(!$project:skipUnitTests -AND $platforms:build[iOS][supportsUnitTests]|test|build)";;
+	macOS) 		echo "^if(!$project:skipUnitTests -AND $platforms:build[macOS][supportsUnitTests]|test|build)";;	
+	tvOS) 		echo "^if(!$project:skipUnitTests -AND $platforms:build[tvOS][supportsUnitTests]|test|build)";;
+	watchOS)	echo "^if(!$project:skipUnitTests -AND $platforms:build[watchOS][supportsUnitTests]|test|build)";;
 	esac
 }
 
