@@ -211,7 +211,7 @@ for f in ${FILE_LIST[@]}; do
 	echo "Generating $OUTPUT_FILE..."
 	for r in ${REPO_LIST[@]}; do
 		printf "    ...for the $r repo"
-		FRAMEWORK_VERSION=`"$PLIST_BUDDY" "../../$r/BuildControl/Info-Framework.plist" -c "Print :CFBundleShortVersionString"`
+		FRAMEWORK_VERSION=`"$PLIST_BUDDY" "../../$r/BuildControl/Info-Target.plist" -c "Print :CFBundleShortVersionString"`
 		export FRAMEWORK_VERSION
 		if [[ "$VERSION" ]]; then
 			FRAMEWORK_VERSION_PUBLIC="$VERSION"

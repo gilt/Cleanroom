@@ -376,7 +376,7 @@ PLIST_BUDDY=/usr/libexec/PlistBuddy
 if [[ ! -x "$PLIST_BUDDY" ]]; then
 	exitWithErrorSuggestHelp "Expected to find PlistBuddy at path $PLIST_BUDDY"
 fi
-FRAMEWORK_PLIST_FILE="Info-Framework.plist"
+FRAMEWORK_PLIST_FILE="Info-Target.plist"
 FRAMEWORK_PLIST_PATH="$SCRIPT_DIR/../$FRAMEWORK_PLIST_FILE"
 CURRENT_VERSION=`$PLIST_BUDDY "$FRAMEWORK_PLIST_PATH" -c "Print :CFBundleShortVersionString"`
 validateVersion "$CURRENT_VERSION" "the CFBundleShortVersionString value in the $FRAMEWORK_PLIST_FILE file"
