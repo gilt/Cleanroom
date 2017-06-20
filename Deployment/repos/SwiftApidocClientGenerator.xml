@@ -1,0 +1,30 @@
+<MBML>
+	<Var name="project:name" literal="SwiftApidocClientGenerator"/>
+	<Var name="project:publisher" literal="Gilt Groupe"/>
+	<Var name="repo:owner" literal="gilt"/>
+	<Var name="project:creator:name" literal="Kyle Dorman"/>
+	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
+	<Var name="project:language" literal="Swift"/>
+	<Var name="project:grouping" literal="Cleanroom"/>
+
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="macOS"/>
+		<Var literal="tvOS"/>
+		<Var literal="watchOS"/>
+	</Var>
+
+	<Var name="project:description:formats" type="map">
+		<Var name="text">SwiftApidocClientGenerator creates Xcode projects hosting a Framework target with an apidoc.me client implementation in Swift.</Var>
+		<Var name="markdown">SwiftApidocClientGenerator creates Xcode projects hosting a Framework target with an [`apidoc`](https://apidoc.me) client implementation in Swift.</Var>
+	</Var>
+
+	<Var name="project:dependencies" type="list">
+        <Var literal="ApidocSwiftWriter"/>
+        <Var literal="CleanroomCLI"/>
+        <Var literal="CleanroomDataTransactions"/>
+        <Var literal="CleanroomLogger"/>
+        <Var literal="SwiftPoet"/>
+    </Var>
+</MBML>

@@ -1,5 +1,5 @@
 <MBML>
-	<Var name="project:name" literal="ApidocSwiftGenerator"/>
+	<Var name="project:name" literal="ApidocSwiftWriter"/>
 	<Var name="project:publisher" literal="Gilt Groupe"/>
 	<Var name="repo:owner" literal="gilt"/>
 	<Var name="project:creator:name" literal="Kyle Dorman"/>
@@ -16,8 +16,8 @@
 	</Var>
 
 	<Var name="project:description:formats" type="map">
-		<Var name="text">ApidocSwiftGenerator generates Swift models, enums, and API calls for you based on an apidoc.json file.</Var>
-		<Var name="markdown">ApidocSwiftGenerator generates Swift models, enums, and API calls for you based on an `apidoc.json` file.</Var>
+		<Var name="text">ApidocSwiftWriter creates Swift source files for models, enums, and API calls for an apidoc.me application.</Var>
+		<Var name="markdown">ApidocSwiftWriter creates Swift source files for models, enums, and API calls for an [`apidoc`](https://apidoc.me) application.</Var>
 	</Var>
 
 	<Var name="project:settings" type="map">
@@ -26,10 +26,10 @@
 
 	<Var name="project:readme:preamble">^q(####) Why Code Generation?
 
-ApiDoc makes it easy for an API owner to define thier models and API endpoints in a JSON format. Because this JSON is in a repeatable format, its reasonable to off load the mundane task of creating models and API endpoints to a code generator. Leaving app builders to focus on app middleware and presentation.</Var>
+[`apidoc`](https://apidoc.me) makes it easy for an API owner to define thier models and API endpoints in a JSON format. Because this JSON is in a repeatable format, its reasonable to off load the mundane task of creating models and API endpoints to a code generator, letting app builders focus on app middleware and presentation.</Var>
 
 	<Var name="project:dependencies" type="list">
-        <Var literal="CleanroomASL"/>
+        <Var literal="CleanroomCLI"/>
         <Var literal="CleanroomDataTransactions"/>
         <Var literal="CleanroomLogger"/>
         <Var literal="SwiftPoet"/>
