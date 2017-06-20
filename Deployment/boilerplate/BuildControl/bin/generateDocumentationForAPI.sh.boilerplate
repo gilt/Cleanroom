@@ -1,1 +1,0 @@
-^eval(^fileContents(include/plumbing/generate${project:language}Documentation.sh.boilerplate))
