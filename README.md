@@ -15,16 +15,18 @@ In the meantime, we’ll be tracking the latest releases of Swift & Xcode, and [
 
 The Cleanroom Project is spread across several repositories, and we expect the list to continue growing. This page will serve as the definitive index for the available open-source Cleanroom Project repos.
 
-- [BlueSteel](http://github.com/gilt/BlueSteel) — An Avro encoding/decoding library for Swift
-- [CleanroomAppSettings](http://github.com/emaloney/CleanroomAppSettings) — A set of Swift interfaces and implementations to abstract away the app's NSUserDefaults singleton
-- [CleanroomBridging](http://github.com/emaloney/CleanroomBridging) — A set of tools to help bridge the gap between Objective-C and Swift
-- [CleanroomCLI](http://github.com/emaloney/CleanroomCLI) — Tools for handling command line arguments in Swift
-- [CleanroomConcurrency](http://github.com/emaloney/CleanroomConcurrency) — Swift utilities for simplifying asynchronous code execution & coordinating concurrent access to shared resources
-- [CleanroomDataTransactions](http://github.com/emaloney/CleanroomDataTransactions) — A protocol-independent and format-agnostic Swift library for performing one-way and two-way data transactions; we use this as the basis of communicating with our back-end services
-- [CleanroomDateTime](http://github.com/emaloney/CleanroomDateTime) — Utilities for handling dates and times in Swift
-- [CleanroomLogger](http://github.com/emaloney/CleanroomLogger) — A simple Swift-based console logging API
-- [CleanroomText](http://github.com/emaloney/CleanroomText) — Swift tools for working with strings and text
-- [SwiftPoet](http://github.com/gilt/SwiftPoet) — A Swift framework for generating Swift code in Swift
+- [ApidocSwiftWriter](https://github.com/gilt/ApidocSwiftWriter) — Uses [SwiftPoet](https://github.com/gilt/SwiftPoet) to generate Swift source code files for implementing [apidoc](https://apidoc.me/) clients
+- [BlueSteel](https://github.com/gilt/BlueSteel) — An Avro encoding/decoding library for Swift
+- [CleanroomAppSettings](https://github.com/emaloney/CleanroomAppSettings) — A set of Swift interfaces and implementations to abstract away the app's NSUserDefaults singleton
+- [CleanroomBridging](https://github.com/emaloney/CleanroomBridging) — A set of tools to help bridge the gap between Objective-C and Swift
+- [CleanroomCLI](https://github.com/emaloney/CleanroomCLI) — Tools for handling command line arguments in Swift
+- [CleanroomConcurrency](https://github.com/emaloney/CleanroomConcurrency) — Swift utilities for simplifying asynchronous code execution & coordinating concurrent access to shared resources
+- [CleanroomDataTransactions](https://github.com/emaloney/CleanroomDataTransactions) — A protocol-independent and format-agnostic Swift library for performing one-way and two-way data transactions; we use this as the basis of communicating with our back-end services
+- [CleanroomDateTime](https://github.com/emaloney/CleanroomDateTime) — Utilities for handling dates and times in Swift
+- [CleanroomLogger](https://github.com/emaloney/CleanroomLogger) — A simple Swift-based console logging API
+- [CleanroomRepoTools](https://github.com/emaloney/CleanroomRepoTools) — Tools for automating the management of Cleanroom-style git repos; handles generating boilerplate files and deploying both generated and static files across multiple repos
+- [CleanroomText](https://github.com/emaloney/CleanroomText) — Swift tools for working with strings and text
+- [SwiftPoet](https://github.com/gilt/SwiftPoet) — A Swift framework for generating Swift code in Swift
 
 ## Deprecated Repositories
 
